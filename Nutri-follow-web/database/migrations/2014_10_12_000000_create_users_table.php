@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('cpf')->unique()->nullable();
             $table->string('telefone_1')->nullable();
             $table->string('telefone_2')->nullable();
-            $table->tinyInteger('tipo');
+            $table->tinyInteger('tipo_usuario');
             $table->boolean('cadastro_aprovado')->default(false);
             $table->softDeletes();
             $table->rememberToken();
