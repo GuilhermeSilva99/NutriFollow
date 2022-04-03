@@ -5,5 +5,11 @@
         </h2>
     </x-slot>
 
+    <table>
+        @foreach ($nutricionistas as $nutricionista)
+            <li> {{ $nutricionista->user->nome }}</li>
+        @endforeach
+
+    </table>
     
 </x-app-layout>

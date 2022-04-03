@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,4 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/admin/home', function () {
-    return view('admin.home');
-});
+Route::get('/admin/home', [HomeController::class, 'index']);

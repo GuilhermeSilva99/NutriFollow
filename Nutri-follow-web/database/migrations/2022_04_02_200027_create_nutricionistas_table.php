@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string("crn", 45)->unique();
             $table->string("uf", 2);
 
-            $table->unsignedBigInteger("users_id")->nullable();
-            $table->foreign("users_id")->references("id")->on("users");
+            $table->foreignId('user_id')->constrained('users');
 
             $table->timestamps();
         });
