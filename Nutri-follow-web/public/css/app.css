@@ -300,6 +300,8 @@ svg {
 table {
   caption-side: bottom;
   border-collapse: collapse;
+  border-color: #000;
+  border-width:6px;
 }
 
 caption {
@@ -11438,4 +11440,21 @@ textarea.form-control-lg {
 
 .rodape-login {
   margin-top: 2rem;
+}
+
+.button-aprova{
+  background-color: #69B29F;
+  border: none;
+  border-radius: 10px;
+}
+
+.button-reprova{
+  background-color: red;
+  border: none;
+  border-radius: 10px;
+}
+
+.alinhar-esquerda{
+  display: inline-block;
+  box-align:left;
 }
