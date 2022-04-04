@@ -6,7 +6,7 @@
 
         <div class="card-body">
             <div class="mb-3 small text-muted">
-                {{ __('Obrigado por confirmar a sua conta! A partir de agora os seus dados serão validados para o seu cadastro ser validado ou não.') }}
+                {{ __('Obrigado por confirmar a sua conta! A partir de agora os seus dados serão validados para o seu cadastro ser aceito ou não.') }}
             </div>
 
             <div class="mt-4 d-flex justify-content-between">
