@@ -14,9 +14,9 @@ class LoginNutricionistaTestLoginNutricionistaTest extends DuskTestCase
         $usuarioInfo = [
             'nome' => "Usuario teste",
             'email' => "usuario2@email.com",
-            'cpf' => "21111111111",
-            'telefone_1' => "00000000000",
-            'telefone_2' => "00000000000",
+            'cpf' => "198.375.820-57",
+            'telefone_1' => "(00)00000-0000",
+            'telefone_2' => "(00)00000-0000",
             'tipo_usuario' => 2,
             'password' => Hash::make("123456789"),
             'tipo_usuario' => 2
