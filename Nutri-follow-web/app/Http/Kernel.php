@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\CheckCadastroAprovado;
+use App\Http\Middleware\CheckCadastroAprovadoNutricionista;
 use App\Http\Middleware\CheckUserAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'CheckCadastroAprovado' => CheckCadastroAprovado::class,
+        'CheckCadastroAprovadoNutricionista' => CheckCadastroAprovadoNutricionista::class,
         'CheckUserAdmin' => CheckUserAdmin::class,
     ];
 }
