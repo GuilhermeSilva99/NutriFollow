@@ -30,7 +30,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
 
     Route::middleware('CheckUserAdmin')->group(function () {
-        Route::redirect('/dashboard', '/admin/home');
+        //Route::redirect('/dashboard', '/admin/home');
         Route::get('/admin/home', [HomeController::class, 'index'])->name('admin.home');
         Route::put('/ativar/{id}', [HomeController::class, 'ativar_cadastro'])->name('cadastro.ativar');
         Route::delete('/deletar/{id}', [HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
