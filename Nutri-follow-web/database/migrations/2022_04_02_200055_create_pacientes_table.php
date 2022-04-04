@@ -19,8 +19,11 @@ return new class extends Migration
             $table->string("observacoes", 100);
 
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('nutricionista_id')->constrained('nutricionistas');
-
+            $table->foreignId('nutricionista_id')
+                    ->constrained('nutricionistas')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+            
             $table->timestamps();
         });
     }
