@@ -10,10 +10,19 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function index($nutricionistas =null)
+    public function index($nutricionistas = null)
     {
         if(!$nutricionistas)
-            $nutricionistas = Nutricionista::all();      
+            $nutricionistas = Nutricionista::all();  
+
+        $i = 0;
+        foreach ($nutricionistas as $nutricionista) 
+        {
+            if($nutricionista->user->cadastro_aprovado == 1)
+                unset($nutricionistas[$i]);
+            $i++;
+        }
+
         return view('admin.home', ['nutricionistas' => $nutricionistas]);
     }
 
