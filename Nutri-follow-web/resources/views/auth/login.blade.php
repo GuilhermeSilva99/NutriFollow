@@ -63,7 +63,7 @@
                         <div class="mb-0">
                             <div class="d-flex justify-content-end rodape-login">
                                 <a class="text-muted me-3" href="{{ route('register') }}">
-                                    {{ __('Possui uma conta? ENTRAR') }}
+                                    {{ __('Não possui uma conta? CADASTRE-SE') }}
                                 </a>
                             </div>
                         </div>

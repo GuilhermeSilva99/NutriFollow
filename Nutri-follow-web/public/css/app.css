@@ -11403,11 +11403,25 @@ textarea.form-control-lg {
   padding-bottom: 5em;
 }
 
+.texto-topo-card-registo {
+  text-align: center;
+  padding-bottom: 1em;
+}
+
 .rodape-form {
-  padding-top: 10em;
+  padding-top: 5em;
+}
+
+.rodape-form-registo {
+  padding-top: 3em;
 }
 
 .rodape-form .button {
+  background-color: #69B29F;
+  border: none;
+}
+
+.rodape-form-registo .button {
   background-color: #69B29F;
   border: none;
 }
