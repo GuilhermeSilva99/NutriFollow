@@ -11387,3 +11387,41 @@ textarea.form-control-lg {
 .small {
   font-size: 0.875rem !important;
 }
+
+.cards-login { 
+  height: 100vh;
+  width: 100%;
+}
+
+.cards-login-background {
+    background-image: url('../images/background.jpg');
+    height: 100vh;
+}
+
+.texto-topo-card {
+  text-align: center;
+  padding-bottom: 5em;
+}
+
+.rodape-form {
+  padding-top: 10em;
+}
+
+.rodape-form .button {
+  background-color: #69B29F;
+  border: none;
+}
+
+.card-posicao {
+  margin-top: none;
+  margin-top:  10.5rem;
+}
+
+.card-registro-posicao {
+  margin-top: none;
+  margin-top:  3.5rem;
+}
+
+.rodape-login {
+  margin-top: 2rem;
+}
