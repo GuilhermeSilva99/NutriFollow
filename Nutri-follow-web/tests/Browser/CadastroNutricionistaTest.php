@@ -13,9 +13,9 @@ class CadastroNutricionistaTest extends DuskTestCase
         $usuarioInfo = [
             'nome' => "Usuario teste",
             'email' => "usuario@email.com",
-            'cpf' => "11111111111",
-            'telefone_1' => "00000000000",
-            'telefone_2' => "00000000000",
+            'cpf' => "056.994.820-75",
+            'telefone_1' => "(00)00000-0000",
+            'telefone_2' => "(00)00000-0000",
             'tipo_usuario' => 2,
             'password' => "123456789",
         ];
