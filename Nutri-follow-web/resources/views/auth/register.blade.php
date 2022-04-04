@@ -133,8 +133,8 @@
                             {{ __('Já é cadastrado?') }}
                         </a>
 
-                        <x-jet-button>
-                            {{ __('Cadastra-se') }}
+                        <x-jet-button name="Cadastro">
+                            {{ __('Cadastrar-se') }}
                         </x-jet-button>
                     </div>
                 </div>

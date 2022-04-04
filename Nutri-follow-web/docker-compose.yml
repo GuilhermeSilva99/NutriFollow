@@ -3,7 +3,7 @@ version: '3'
 services:
     laravel.test:
         build:
-            context: ./vendor/laravel/sail/runtimes/8.1
+            context: ./docker/8.1
             dockerfile: Dockerfile
             args:
                 WWWGROUP: '${WWWGROUP}'
@@ -80,6 +80,8 @@ services:
         image: 'selenium/standalone-chrome'
         volumes:
             - '/dev/shm:/dev/shm'
+        ports:
+            - '${FORWARD_SELENIUM_HEADFUL_PORT:-7900}:7900'
         networks:
             - sail
 networks:
@@ -87,6 +89,8 @@ networks:
         driver: bridge
 volumes:
     sail-mysql:
+        driver: local
+    sail-mysql-dusk:
         driver: local
     sail-redis:
         driver: local
