@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CheckCadastroAprovado
+class CheckCadastroAprovadoNutricionista
 {
     /**
      * Handle an incoming request.
@@ -20,7 +20,7 @@ class CheckCadastroAprovado
         if (Auth::user()->cadastro_aprovado == 1) {
             return $next($request);
         } else {
-            return redirect('/');
+            return redirect()->route('nutricionista.cadastroNaoConfirmado');
         }
     }
 }
