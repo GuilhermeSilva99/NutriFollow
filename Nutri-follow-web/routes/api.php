@@ -30,8 +30,8 @@ Route::post('/sanctum/token', function (Request $request) {
     $usuario = User::where('email', $request->email)->first();
 
     if (!$usuario || !Hash::check($request->password, $usuario->password)) {
-        return response()->json("Credências invalidas", 400);
+        return response()->json(["erro" => "Credências invalidas"], 400);
     }
 
-    return $usuario->createToken($usuario->nome)->plainTextToken;
+    return ["token" => $usuario->createToken($usuario->nome)->plainTextToken];
 });
