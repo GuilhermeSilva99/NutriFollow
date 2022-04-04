@@ -46,7 +46,7 @@ class CreateNewUser implements CreatesNewUsers
         Nutricionista::create([
             'crn' => $input['crn'],
             'uf' => $input['uf'],
-            'users_id' => $usuario->id,
+            'user_id' => $usuario->id,
         ]);
 
         return $usuario;

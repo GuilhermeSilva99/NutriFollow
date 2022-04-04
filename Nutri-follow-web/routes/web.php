@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,13 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+
+    Route::middleware('CheckUserAdmin')->group(function(){
+        Route::redirect('/dashboard', '/admin/home');
+        Route::get('/admin/home', [HomeController::class, 'index'])->name('admin.home');
+        Route::put('/ativar/{id}',[HomeController::class, 'ativar_cadastro'])->name('cadastro.ativar');
+        Route::delete('/deletar/{id}',[HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
+    });
 });
+

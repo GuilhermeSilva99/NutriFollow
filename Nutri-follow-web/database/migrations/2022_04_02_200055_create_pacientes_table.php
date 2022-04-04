@@ -18,12 +18,12 @@ return new class extends Migration
             $table->tinyInteger("sexo");
             $table->string("observacoes", 100);
 
-            $table->unsignedBigInteger("users_id")->nullable();
-            $table->foreign("users_id")->references("id")->on("users");
-
-            $table->unsignedBigInteger("nutricionistas_id")->nullable();
-            $table->foreign("nutricionistas_id")->references("id")->on("nutricionistas");
-
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('nutricionista_id')
+                    ->constrained('nutricionistas')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+            
             $table->timestamps();
         });
     }

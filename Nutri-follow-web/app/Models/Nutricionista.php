@@ -9,10 +9,14 @@ class Nutricionista extends Model
 {
     use HasFactory;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     protected $fillable = [
         'crn',
         'uf',
-        'users_id'
+        'user_id'
     ];
 }

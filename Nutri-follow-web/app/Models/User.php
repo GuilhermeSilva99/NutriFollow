@@ -18,6 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,7 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'cpf',
         'telefone_1',
         'telefone_2',
-        'tipo_usuario'
+        'tipo_usuario',
+        'cadastro_aprovado'
     ];
 
     /**
@@ -62,4 +64,14 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function nutricionista()
+    {
+        return $this->hasOne(Nutricionista::class);
+    }
+
+    public function paciente()
+    {
+        return $this->hasOne(Paciente::class);
+    }
 }
