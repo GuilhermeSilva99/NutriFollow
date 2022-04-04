@@ -27,8 +27,10 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/admin/home', [HomeController::class, 'index'])->name('admin.home')
+    ->middleware('CheckUserAdmin');
+    Route::put('/ativar/{id}',[HomeController::class, 'ativar_cadastro'])->name('cadastro.ativar');
+    Route::delete('/deletar/{id}',[HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
 });
 
-Route::get('/admin/home', [HomeController::class, 'index'])->name('admin.home');
-Route::put('/ativar/{id}',[HomeController::class, 'ativar_cadastro'])->name('cadastro.ativar');
-Route::delete('/deletar/{id}',[HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
