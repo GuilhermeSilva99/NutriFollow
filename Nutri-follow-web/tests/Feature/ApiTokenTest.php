@@ -13,9 +13,9 @@ class ApiTokenTest extends TestCase
      *
      * @return void
      */
-    public function testApiToken()
+    public function testCriarTokenApi()
     {
-        $response = $this->postJson('/api/sanctum/token', ['email' => 'email@email.com', 'password' => 'password']);
+        $response = $this->postJson('/api/criar-token', ['email' => 'email@email.com', 'password' => 'password']);
 
         $response->assertStatus(200)
             ->assertJson([
