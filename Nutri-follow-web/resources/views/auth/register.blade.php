@@ -52,7 +52,7 @@
                             <x-jet-label value="{{ __('Telefone 2') }}" />
 
                             <x-jet-input class="{{ $errors->has('telefone2') ? 'is-invalid' : '' }}" type="text" name="telefone2"
-                                        :value="old('telefone2')" required />
+                                        :value="old('telefone2')" />
                             <x-jet-input-error for="telefone2"></x-jet-input-error>
                         </div>
 

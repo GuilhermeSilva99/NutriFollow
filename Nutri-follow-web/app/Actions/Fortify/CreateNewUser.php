@@ -26,7 +26,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'cpf' => ['required', 'string', 'cpf', 'unique:users'],
             'telefone1' => ['required', 'string', 'celular_com_ddd'],
-            'telefone2' => ['required', 'string', 'celular_com_ddd'],
+            'telefone2' => ['string', 'celular_com_ddd'],
             'crn' => ['required', 'string', 'min:8', 'max:45', 'unique:nutricionistas'],
             'uf' => ['required', 'string', 'uf'],
             'password' => $this->passwordRules(),
@@ -38,7 +38,7 @@ class CreateNewUser implements CreatesNewUsers
             'email' => $input['email'],
             'cpf' => $input['cpf'],
             'telefone_1' => $input['telefone1'],
-            'telefone_2' => $input['telefone2'],
+            'telefone_2' => $input['telefone2'] ?? null,
             'tipo_usuario' => 2,
             'password' => Hash::make($input['password']),
         ]);
