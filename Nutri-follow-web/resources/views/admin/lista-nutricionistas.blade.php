@@ -17,17 +17,10 @@
                 <tr>
                     <td>{{ $nutricionista->user->nome }}</td>
                     <td class="alinhar-esquerda">
-                        <form action="{{ route('cadastro.ativar', $nutricionista->user->id) }}" method="POST">
-                            @method('PUT')
-                            @csrf
-                            <button class="button-aprova" type="submit">Aprovar</button>
-                        </form>
-                    </td>
-                    <td class="alinhar-esquerda">
-                        <form action="{{ route('cadastro.recusar', $nutricionista->user->id) }}" method="post">
+                        <form action="{{ route('nutricionista.inativar', $nutricionista->user->id) }}" method="post">
                             @method('DELETE')
                             @csrf
-                            <button class="button-reprova" type="submit">Reprovar</button>
+                            <button class="button-reprova" type="submit">Desativar</button>
                         </form>
                     </td>
                 </tr>
