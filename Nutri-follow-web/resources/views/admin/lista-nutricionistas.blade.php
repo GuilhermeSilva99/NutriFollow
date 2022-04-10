@@ -1,11 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 font-weight-bold">
-            {{ __('Dashboard Admin') }}
+            {{ __('Dashboard Admin - Lista de Nutricionistas') }}
         </h2>
-        <a href="{{ route('nutricionistas.listar') }}">Nutricionistas cadastrados</a>
     </x-slot>
-
+    <h1>Lista de Nutricionistas</h1>
     <table class="table">
         <thead>
             <tr>
