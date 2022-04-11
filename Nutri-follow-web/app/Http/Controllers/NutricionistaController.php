@@ -36,9 +36,10 @@ class NutricionistaController extends Controller
         $paciente->sexo = $data['sexo-select'] ?? $data['sexo-input'];
         $paciente->observacoes = $data['obs'];
         $paciente->user_id = $usuario->id;
-        $paciente->nutricionista_id = Auth::user()->nutricionista->id;
+        $paciente->nutricionista_id = Auth::user()->id;
         $paciente->save();
 
-        return redirect()->back()->with('success', 'Paciente cadastrado com sucesso!');
+        // return redirect('/')->back()->with('success', 'Paciente cadastrado com sucesso!');
+        return redirect('/');
     }
 }

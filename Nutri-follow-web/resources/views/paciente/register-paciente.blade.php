@@ -56,7 +56,31 @@
                             <x-jet-input-error for="telefone2"></x-jet-input-error>
                         </div>
 
-                       
+                        <div class="mb-3">
+                            <x-jet-label value="{{ __('Sexo') }}" />
+        
+                            <div class="flex justify-center">
+                                <div class="mb-3 xl:w-96">
+                                    <select id="seleciona-sexo" class="{{ $errors->has('sexo-select') ? 'is-invalid' : '' }} form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
+                                        border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="sexo-select" required>
+                                        <option selected value="masculino">Masculino</option>
+                                        <option value="mulher">Feminino</option>
+                                        <option value="outro">Outro</option>
+                                    </select>
+                                </div>
+                                <x-jet-input id="input-sexo" placeholder="Digite o sexo do paciente" class="{{ $errors->has('sexo-input') ? 'is-invalid' : '' }}" style="display: none" type="text" name="sexo-input" :value="old('sexo-input')" />
+                            </div>
+        
+                            <x-jet-input-error for="sexo"></x-jet-input-error>
+                        </div>
+        
+                        <div class="mb-3">
+                            <x-jet-label value="{{ __('Observações') }}" />
+        
+                            <x-jet-input class="{{ $errors->has('obs') ? 'is-invalid' : '' }}" type="text" name="obs"
+                                         :value="old('obs')" required />
+                            <x-jet-input-error for="obs"></x-jet-input-error>
+                        </div>
 
                         <div class="mb-3">
                             <x-jet-label value="{{ __('Senha') }}" />
@@ -103,3 +127,16 @@
         </div>
     </div>
 </x-guest-layout>
+
+<script>
+    document.getElementById("seleciona-sexo").addEventListener("change", (event) => {
+        let valorSelectSexo = document.getElementById("seleciona-sexo").value;
+        if(valorSelectSexo == "outro"){
+            document.getElementById("input-sexo").required = true;
+            document.getElementById("input-sexo").style.display = "";
+        } else {
+            document.getElementById("input-sexo").required = false;
+            document.getElementById("input-sexo").style.display = "none";
+        }
+    });
+</script>

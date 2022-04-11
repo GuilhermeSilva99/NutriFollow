@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger("sexo");
+            $table->string("sexo");
             $table->string("observacoes", 100);
 
             $table->foreignId('user_id')->constrained('users');
