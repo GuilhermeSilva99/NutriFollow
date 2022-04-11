@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PacienteController;
+use App\Models\Paciente;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +33,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::put('/ativar/{id}', [HomeController::class, 'ativar_cadastro'])->name('cadastro.ativar');
         Route::delete('/deletar/{id}', [HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
     });
+    Route::get('/paciente/register-paciente', [PacienteController::class, 'index']);
+    Route::post('/paciente/create', [PacienteController::class, 'create'])->name('paciente.create');
+    
 });

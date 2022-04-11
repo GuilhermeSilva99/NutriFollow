@@ -4,7 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Paciente;
 use App\Http\Requests\StorePacienteRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UpdatePacienteRequest;
+use Laravel\Jetstream\Jetstream;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
@@ -15,7 +22,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        //
+        return view('paciente.register-paciente');
     }
 
     /**
@@ -23,9 +30,36 @@ class PacienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request  $input)
     {
-        //
+        dd($input['']);
+        // Validator::make($input, [
+        //     'nome' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'cpf' => ['required', 'string', 'cpf', 'unique:users'],
+        //     'telefone1' => ['required', 'string', 'celular_com_ddd'],
+        //     'telefone2' => ['required', 'string', 'celular_com_ddd'],
+        //     // 'password' => PasswordValidationRules(),
+        //     'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+        // ])->validate();
+
+        // $usuario = User::create([
+        //     'nome' => $input['nome'],
+        //     'email' => $input['email'],
+        //     'cpf' => $input['cpf'],
+        //     'telefone_1' => $input['telefone1'],
+        //     'telefone_2' => $input['telefone2'],
+        //     'tipo_usuario' => 3,
+        //     'cadastro_aprovado' => 1,
+        //     'password' => Hash::make($input['password']),
+        // ]);
+
+        // Paciente::create([
+        //     'sexo' => $input['sexo'],
+        //     'observacao' => $input['observacao'],
+        //     'user_id' => $usuario->id,
+        //     'nutricionista_id' => Auth::User()->id,
+        // ]); 
     }
 
     /**
