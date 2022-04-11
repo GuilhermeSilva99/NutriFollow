@@ -26,7 +26,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified', 'CheckCadastroAprovadoNutricionista'])->group(function () {
     Route::get('/dashboard', [LoginController::class, 'redirect'])->name('dashboard');
-
+    Route::get('/cadastrar-paciente', [NutricionistaController::class, 'cadastrarPacienteView'])->name('nutricionista.cadastrar.paciente');
+    Route::post('/cadastrar-paciente', [NutricionistaController::class, 'storePaciente'])->name('nutricionista.store.paciente');
 
     Route::middleware('CheckUserAdmin')->group(function () {
         Route::get('/admin/home', [HomeController::class, 'index'])->name('admin.home');
