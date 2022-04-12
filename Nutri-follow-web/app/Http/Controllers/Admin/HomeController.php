@@ -12,17 +12,7 @@ class HomeController extends Controller
 {
     public function index($nutricionistas = null)
     {
-        if(!$nutricionistas)
-            $nutricionistas = Nutricionista::all();  
-
-        $i = 0;
-        foreach ($nutricionistas as $nutricionista) 
-        {
-            if($nutricionista->user->cadastro_aprovado == 1)
-                unset($nutricionistas[$i]);
-            $i++;
-        }
-
+        $nutricionistas = Nutricionista::whereRelation('user', 'cadastro_aprovado', false)->get();
         return view('admin.home', ['nutricionistas' => $nutricionistas]);
     }
 
