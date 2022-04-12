@@ -37,4 +37,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/paciente/register-paciente', [PacienteController::class, 'index']);
     Route::post('/paciente/create', [NutricionistaController::class, 'storePaciente'])->name('paciente.create');
     
+    Route::get('/list/paciente', [NutricionistaController::class, 'list'])->name('paciente.list');
+
 });

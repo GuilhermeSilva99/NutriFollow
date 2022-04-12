@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class NutricionistaController extends Controller
 {
@@ -24,7 +25,7 @@ class NutricionistaController extends Controller
     public function storePaciente(StorePacienteRequest $request)
     {
         $data = $request->validated();
-
+        // dd($data);
         $usuario = new User();
         $usuario->fill($data);
         $usuario->password = Hash::make($data['password']);
@@ -42,4 +43,16 @@ class NutricionistaController extends Controller
         // return redirect('/')->back()->with('success', 'Paciente cadastrado com sucesso!');
         return redirect('/');
     }
+
+    public function list()
+  {
+    // $list_paciente  = Paciente::get(1);
+    $list_paciente = DB::table('pacientes')->where('nutricionista_id', Auth::user()->id)->get();
+
+    $list_user = array();
+    foreach($list_paciente as $paciente):
+      $list_user[] = User::find($paciente->user_id);
+    endforeach;
+    return view('paciente.list-paciente', ['list_paciente' => $list_paciente, 'list_user'=>$list_user]);
+  }
 }

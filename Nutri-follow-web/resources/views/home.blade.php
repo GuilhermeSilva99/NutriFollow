@@ -133,11 +133,10 @@
                             <button class="dropdown-btn">Paciente                                <i class="fa fa-caret-down"></i>
                             </button>
                             <div class="dropdown-container">
-                                <!-- @can('create', \App\Models\Militar::class) -->
                                 <a href="/paciente/register-paciente">Cadastrar Pasciente</a>
-                                @endcan
-
+                                <a href="/list/paciente">Listar Pasciente</a>
                             </div>
+                            
                         </div>                    
 
                 <div id="pagectr" class="container">
