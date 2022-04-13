@@ -19,7 +19,6 @@
         <h1>Pacientes</h1>
         <ul>
             @foreach ($list_user as $user)
-            {{-- {{dd($user->nome)}} --}}
             <div class = "bd-example bd-example-row">
                 <div class="container">
                     <div class = "row">
@@ -28,10 +27,15 @@
                             {{$user->nome}}  {{$user->email}} {{$user->telefone_1}} {{$user->telefone_2}}
                         </div>
                         <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/editar/paciente/{{$user->id}}'">Editar</button>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$user->id}}'">Editar</button>
                         </div>
+                        
                         <div class = "col-2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/remover/paciente/{{$user->id}}'">Excluir</button>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$user->id}}'">Visualiza</button>
+                        </div>
+                        
+                        <div class = "col-2">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/remover/paciente/{{$user->id}}'">Excluir</button>
                         </div>
                         
                     </div>

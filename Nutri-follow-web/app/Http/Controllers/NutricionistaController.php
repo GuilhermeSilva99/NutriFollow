@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePacienteRequest;
+use App\Http\Requests\UpdatePacienteRequest;
 use App\Models\Paciente;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -56,17 +57,41 @@ class NutricionistaController extends Controller
     return view('paciente.list-paciente', ['list_paciente' => $list_paciente, 'list_user'=>$list_user]);
   }
 
-  public function getEditar($id)
+  public function view($id)
   {
     $user[] =  User::find($id);
-    return view('paciente.edit-paciente', ['paciente' => $user]);
+    $paciente = DB::table('pacientes')->where('user_id', $id)->get();
+    return view('paciente.view-paciente', ['user' => $user[0], 'paciente' => $paciente[0]]);
 
   }
 
-  public function editar($id)
+  public function getEditar($id)
   {
-    // $paciente =  Paciente::find($id);
-    // return view('paciente.edite/paciente', ['paciente' => $paciente]);
+    $user[] =  User::find($id);
+    $paciente = DB::table('pacientes')->where('user_id', $id)->get();
+  //  dd($paciente);
+    return view('paciente.edit-paciente', ['user' => $user[0], 'paciente' => $paciente[0]]);
 
+  }
+
+  public function editar(UpdatePacienteRequest $r)
+  {
+    // $data = $r->validated();
+    // dd($r->nome);
+      try{
+        $user =  User::find($r->id);
+        $user->nome = $r->nome;
+        $user->email = $r->email;
+        $user->cpf = $r->cpf;
+        $user->telefone_1 = $r->telefone_1;
+        $user->telefone_2 = $r->telefone_2;
+        $user->update(); 
+       
+        return redirect('/list/paciente');
+      }
+    catch (\Illuminate\Database\QueryException $th) {
+      //Está aqui por redundância, mas já está sendo tratada na validação.
+      echo "Email ou matricula já existe no sistema.";
+    }
   }
 }
