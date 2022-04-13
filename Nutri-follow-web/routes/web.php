@@ -39,4 +39,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     
     Route::get('/list/paciente', [NutricionistaController::class, 'list'])->name('paciente.list');
 
+    Route::get('/editar/paciente/{id}', [NutricionistaController::class, 'getEditar'])->name('paciente.get.edit');
+    Route::post('/editar/paciente', [NutricionistaController::class, 'editar'])->name('paciente.edit');
+
 });

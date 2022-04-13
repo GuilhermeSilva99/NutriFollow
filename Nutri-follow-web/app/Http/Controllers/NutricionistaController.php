@@ -55,4 +55,18 @@ class NutricionistaController extends Controller
     endforeach;
     return view('paciente.list-paciente', ['list_paciente' => $list_paciente, 'list_user'=>$list_user]);
   }
+
+  public function getEditar($id)
+  {
+    $user[] =  User::find($id);
+    return view('paciente.edit-paciente', ['paciente' => $user]);
+
+  }
+
+  public function editar($id)
+  {
+    // $paciente =  Paciente::find($id);
+    // return view('paciente.edite/paciente', ['paciente' => $paciente]);
+
+  }
 }

@@ -18,8 +18,8 @@
         <br><br>
         <h1>Pacientes</h1>
         <ul>
-            @foreach ($list_user as $user)
-            {{-- {{dd($user->nome)}} --}}
+            @foreach ($paciente as $user)
+            {{-- {{dd($user)}} --}}
             <div class = "bd-example bd-example-row">
                 <div class="container">
                     <div class = "row">

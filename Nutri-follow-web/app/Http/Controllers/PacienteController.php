@@ -22,7 +22,7 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        return view('paciente.register-paciente');
+        return view('paciente.create-paciente');
     }
 
     /**

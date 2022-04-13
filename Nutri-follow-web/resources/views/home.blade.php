@@ -101,7 +101,7 @@
         <div id="app2">       
             <nav class="navbar navbar-expand-md navbar-dark bg-dark shaddow-sm">
                 <div class="container">
-                    <a class="navbar-brand" href="/index">Nutri Folow</a>
+                    <a class="navbar-brand" href="/">Nutri Folow</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
@@ -135,6 +135,7 @@
                             <div class="dropdown-container">
                                 <a href="/paciente/register-paciente">Cadastrar Pasciente</a>
                                 <a href="/list/paciente">Listar Pasciente</a>
+                                {{-- <a href="/editar/paciente/{{1}}">Editar Pasciente</a> --}}
                             </div>
                             
                         </div>                    
