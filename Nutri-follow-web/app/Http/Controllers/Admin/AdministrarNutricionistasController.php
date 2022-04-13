@@ -21,8 +21,7 @@ class AdministrarNutricionistasController extends Controller
         $user->save();
         $user = User::find($id);
         User::destroy($id);
-        $nutricionistas = Nutricionista::whereRelation('user', 'cadastro_aprovado', true)->get();
-        return view('admin.lista-nutricionistas', ['nutricionistas' => $nutricionistas]);
+        return redirect()->route('nutricionistas.listar');
     }
 
     public function listar_nutricionistas_inativos()
