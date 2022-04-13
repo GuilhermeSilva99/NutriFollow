@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 font-weight-bold">
-            {{ __('Dashboard Admin - Lista de Nutricionistas') }}
+            {{ __('Dashboard Admin - Lista de Nutricionistas Inativos') }}
         </h2>
         <a href="{{ route('admin.home') }}">Solicitações de cadastro </a>
-        <a href="{{ route('nutricionistas.inativos.listar') }}">Nutricionistas inativos</a>
+        <a href="{{ route('nutricionistas.listar') }}">Nutricionistas cadastrados</a>
     </x-slot>
-    <h1>Lista de Nutricionistas</h1>
+    <h1>Lista de Nutricionistas Inativos</h1>
     <table class="table">
         <thead>
             <tr>
@@ -14,15 +14,15 @@
                 <th scope="col" >Ação</th>
             </tr>
         </thead>
-        @foreach ($nutricionistas as $nutricionista)
+        @foreach ($users as $user)
             <tbody>
                 <tr>
-                    <td>{{ $nutricionista->user->nome }}</td>
+                    <td>{{ $user->nome }}</td>
                     <td class="alinhar-esquerda">
-                        <form action="{{ route('nutricionista.inativar', $nutricionista->user->id) }}" method="post">
-                            @method('DELETE')
+                        <form action="{{ route('nutricionista.reativar', $user->id) }}" method="post">
+                            @method('PUT')
                             @csrf
-                            <button class="button-reprova" type="submit">Desativar</button>
+                            <button class="success" type="submit">Reativar</button>
                         </form>
                     </td>
                 </tr>

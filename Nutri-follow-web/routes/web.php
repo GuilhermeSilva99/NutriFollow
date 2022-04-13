@@ -32,5 +32,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::delete('/deletar/{id}', [HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
         Route::get('/admin/lista-nutricionistas', [AdministrarNutricionistasController::class, 'index'])->name('nutricionistas.listar');
         Route::delete('/inativar/{id}', [AdministrarNutricionistasController::class, 'inativar'])->name('nutricionista.inativar');
+        Route::get('/admin/lista-nutricionistas-inativos', [AdministrarNutricionistasController::class, 'listar_nutricionistas_inativos'])->name('nutricionistas.inativos.listar');
+        Route::put('/reativar/{id}', [AdministrarNutricionistasController::class, 'reativar'])->name('nutricionista.reativar');
     });
 });
