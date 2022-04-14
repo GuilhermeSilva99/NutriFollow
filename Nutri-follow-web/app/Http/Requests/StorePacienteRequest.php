@@ -32,7 +32,7 @@ class StorePacienteRequest extends FormRequest
             'telefone_2' => ['nullable', 'celular_com_ddd'],
             'sexo-select' => ['string', 'min:3', 'max:100'],
             'sexo-input' => ['nullable', 'string', 'min:3', 'max:100'],
-            'obs' => ['nullable', 'string', 'min:1', 'max:255'],
+            'obs' => ['nullable', 'string', 'max:255'],
             'password' => ['required', 'string', 'confirmed', 'min:8', 'max:255']
         ];
     }
@@ -46,7 +46,6 @@ class StorePacienteRequest extends FormRequest
             'telefone_1.required'        => 'O campo Telefone/Celular 1 é obrigatório',
             'telefone_1.celular_com_ddd' => 'O campo Telefone/Celular 1 inválido',
             'telefone_2.celular_com_ddd' => 'O campo Telefone/Celular 2 inválido',
-            'obs.min'                   => 'O campo Observações deve conter no mínimo :min caracteres',
             'password.required'         => 'O campo Senha é obrigatório',
             'password.min'              => 'O campo Senha deve conter no mínimo :min caracteres/digitos',
             'password.confirmed'        => 'Confirme a senha',

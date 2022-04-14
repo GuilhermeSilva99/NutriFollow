@@ -44,8 +44,8 @@
             </div>
             @endforeach
         </ul>
-        
-        <button  onclick="document.location='/paciente/register-paciente'"> Cadastrar </button>
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/paciente/register-paciente'">Cadastar Novo</button>
+        {{-- <button  onclick="document.location='/paciente/register-paciente'"> Cadastrar </button> --}}
     </body>
     @endsection
 </html>

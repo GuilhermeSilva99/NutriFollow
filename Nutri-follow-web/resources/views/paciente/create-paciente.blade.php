@@ -71,7 +71,7 @@
                             <select id="seleciona-sexo" class="{{ $errors->has('sexo-select') ? 'is-invalid' : '' }} form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat
                                 border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="sexo-select" required>
                                 <option selected value="masculino">Masculino</option>
-                                <option value="mulher">Feminino</option>
+                                <option value="feminino">Feminino</option>
                                 <option value="outro">Outro</option>
                             </select>
                         </div>
@@ -85,7 +85,7 @@
                     <x-jet-label value="{{ __('Observações') }}" />
 
                     <x-jet-input class="{{ $errors->has('obs') ? 'is-invalid' : '' }}" type="text" name="obs"
-                                 :value="old('obs')" required />
+                                 :value="old('obs')"/>
                     <x-jet-input-error for="obs"></x-jet-input-error>
                 </div>
 
@@ -119,11 +119,9 @@
 
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        <a class="text-muted me-3 text-decoration-none" href="{{ route('dashboard') }}">
-                            {{ __('Voltar') }}
-                        </a>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/'">Início</button>
 
-                        <x-jet-button name="Cadastro" class="button rounded-pill">
+                        <x-jet-button name="Cadastro" class="btn btn-outline-secondary">
                             {{ __('Cadastrar') }}
                         </x-jet-button>
                     </div>

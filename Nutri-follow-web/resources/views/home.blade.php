@@ -135,7 +135,6 @@
                             <div class="dropdown-container">
                                 <a href="/paciente/register-paciente">Cadastrar Pasciente</a>
                                 <a href="/list/paciente">Listar Pasciente</a>
-                                {{-- <a href="/editar/paciente/{{1}}">Editar Pasciente</a> --}}
                             </div>
                             
                         </div>                    

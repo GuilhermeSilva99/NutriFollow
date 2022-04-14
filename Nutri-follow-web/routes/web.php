@@ -35,13 +35,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::delete('/deletar/{id}', [HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
     });
     Route::get('/paciente/register-paciente', [PacienteController::class, 'index']);
-    Route::post('/paciente/create', [NutricionistaController::class, 'storePaciente'])->name('paciente.create');
+    Route::post('/paciente/create', [PacienteController::class, 'storePaciente'])->name('paciente.create');
     
-    Route::get('/list/paciente', [NutricionistaController::class, 'list'])->name('paciente.list');
+    Route::get('/list/paciente', [PacienteController::class, 'list'])->name('paciente.list');
 
-    Route::get('/editar/paciente/{id}', [NutricionistaController::class, 'getEditar'])->name('paciente.get.edit');
-    Route::post('/editar/paciente', [NutricionistaController::class, 'editar'])->name('paciente.edit');
+    Route::get('/editar/paciente/{id}', [PacienteController::class, 'getEditar'])->name('paciente.get.edit');
+    Route::post('/editar/paciente', [PacienteController::class, 'editar'])->name('paciente.edit');
 
-    Route::get('/view/paciente/{id}', [NutricionistaController::class, 'view'])->name('paciente.view');
+    Route::get('/view/paciente/{id}', [PacienteController::class, 'view'])->name('paciente.view');
 
 });

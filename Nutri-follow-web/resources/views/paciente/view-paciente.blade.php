@@ -72,13 +72,8 @@
 
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        <a class="text-muted me-3 text-decoration-none" href="{{ route('dashboard') }}">
-                            {{ __('Voltar') }}
-                        </a>
-
-                        <x-jet-button name="Editar" class="button rounded-pill">
-                            {{ __('Editar') }}
-                        </x-jet-button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/list/paciente'">Listar</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$user->id}}'">Editar</button>
                     </div>
                 </div>
             </form>

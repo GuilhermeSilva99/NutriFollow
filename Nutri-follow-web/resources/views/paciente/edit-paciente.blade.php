@@ -73,7 +73,7 @@
                                 border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example" name="sexo-select" required>
                                 <option selected value={{lcfirst($paciente->sexo)}}>{{$paciente->sexo}}</option>
                                 <option value="masculino">Masculino</option>
-                                <option value="mulher">Feminino</option>
+                                <option value="feminino">Feminino</option>
                                 <option value="outro">Outro</option>
                             </select>
                         </div>
@@ -87,7 +87,7 @@
                     <x-jet-label value="{{ __('Observações') }}" />
 
                     <x-jet-input class="{{ $errors->has('obs') ? 'is-invalid' : '' }}" type="text" name="obs"
-                                 value="{{$paciente->observacoes}}" required />
+                                 value="{{$paciente->observacoes}}"/>
                     <x-jet-input-error for="obs"></x-jet-input-error>
                 </div>
 
@@ -107,11 +107,9 @@
 
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        <a class="text-muted me-3 text-decoration-none" href="{{ route('dashboard') }}">
-                            {{ __('Voltar') }}
-                        </a>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/list/paciente'">Listar</button>
 
-                        <x-jet-button name="Editar" class="button rounded-pill">
+                        <x-jet-button name="Editar" class="btn btn-outline-secondary">
                             {{ __('Editar') }}
                         </x-jet-button>
                     </div>

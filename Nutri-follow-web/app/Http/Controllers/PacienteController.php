@@ -7,6 +7,7 @@ use App\Http\Requests\StorePacienteRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UpdatePacienteRequest;
+use Illuminate\Support\Facades\DB;
 use Laravel\Jetstream\Jetstream;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,106 +16,86 @@ use Illuminate\Http\Request;
 
 class PacienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('paciente.create-paciente');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request  $input)
+    
+    public function storePaciente(StorePacienteRequest $request)
     {
-        dd($input['']);
-        // Validator::make($input, [
-        //     'nome' => ['required', 'string', 'max:255'],
-        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //     'cpf' => ['required', 'string', 'cpf', 'unique:users'],
-        //     'telefone1' => ['required', 'string', 'celular_com_ddd'],
-        //     'telefone2' => ['required', 'string', 'celular_com_ddd'],
-        //     // 'password' => PasswordValidationRules(),
-        //     'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
-        // ])->validate();
+        $data = $request->validated();
+        // dd($data);
+        $usuario = new User();
+        $usuario->fill($data);
+        $usuario->password = Hash::make($data['password']);
+        $usuario->tipo_usuario = 3;
+        $usuario->cadastro_aprovado = 1;
+        $usuario->save();
 
-        // $usuario = User::create([
-        //     'nome' => $input['nome'],
-        //     'email' => $input['email'],
-        //     'cpf' => $input['cpf'],
-        //     'telefone_1' => $input['telefone1'],
-        //     'telefone_2' => $input['telefone2'],
-        //     'tipo_usuario' => 3,
-        //     'cadastro_aprovado' => 1,
-        //     'password' => Hash::make($input['password']),
-        // ]);
+        $paciente = new Paciente();
+        $paciente->sexo = $data['sexo-select'] ?? $data['sexo-input'];
+        $paciente->observacoes = $data['obs'];
+        $paciente->user_id = $usuario->id;
+        $paciente->nutricionista_id = Auth::user()->id;
+        $paciente->save();
 
-        // Paciente::create([
-        //     'sexo' => $input['sexo'],
-        //     'observacao' => $input['observacao'],
-        //     'user_id' => $usuario->id,
-        //     'nutricionista_id' => Auth::User()->id,
-        // ]); 
+        // return redirect('/')->back()->with('success', 'Paciente cadastrado com sucesso!');
+        return redirect('/');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StorePacienteRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StorePacienteRequest $request)
+    public function list()
     {
-        //
+      $list_paciente = DB::table('pacientes')->where('nutricionista_id', Auth::user()->id)->get();
+  
+      $list_user = array();
+      foreach($list_paciente as $paciente):
+        $list_user[] = User::find($paciente->user_id);
+      endforeach;
+      return view('paciente.list-paciente', ['list_paciente' => $list_paciente, 'list_user'=>$list_user]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Paciente  $paciente
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Paciente $paciente)
-    {
-        //
-    }
+    public function view($id)
+  {
+    $user[] =  User::find($id);
+    $paciente = DB::table('pacientes')->where('user_id', $id)->get();
+    return view('paciente.view-paciente', ['user' => $user[0], 'paciente' => $paciente[0]]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Paciente  $paciente
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Paciente $paciente)
-    {
-        //
-    }
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePacienteRequest  $request
-     * @param  \App\Models\Paciente  $paciente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePacienteRequest $request, Paciente $paciente)
-    {
-        //
-    }
+  public function getEditar($id)
+  {
+    $user[] =  User::find($id);
+    $paciente = DB::table('pacientes')->where('user_id', $id)->get();
+    return view('paciente.edit-paciente', ['user' => $user[0], 'paciente' => $paciente[0]]);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Paciente  $paciente
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Paciente $paciente)
-    {
-        //
+  }
+
+  public function editar(UpdatePacienteRequest $r)
+  {
+    $data = $r->validated();
+      try{
+        $user =  User::find($r->id);
+        $user->nome = $data['nome'];
+        $user->email = $data['email'];
+        $user->cpf = $data['cpf'];
+        $user->telefone_1 = $data['telefone_1'];
+        $user->telefone_2 = $data['telefone_2'];
+        $user->update(); 
+
+        $paciente = DB::table('pacientes')->where('user_id', $user->id)->first();
+        $paciente = Paciente::find($paciente->id);
+        $paciente->sexo = $data['sexo-select'] ?? $data['sexo-input'];
+        $paciente->observacoes = $data['obs'];
+        $paciente->update();
+
+        return redirect('/list/paciente');
+      }
+    catch (\Illuminate\Database\QueryException $th) {
+      //Está aqui por redundância, mas já está sendo tratada na validação.
+      echo "Email ou matricula já existe no sistema.";
     }
+  }
+
 }
