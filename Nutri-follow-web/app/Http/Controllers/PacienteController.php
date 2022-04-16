@@ -26,7 +26,7 @@ class PacienteController extends Controller
     public function storePaciente(StorePacienteRequest $request)
     {
         $data = $request->validated();
-        // dd($data);
+        // dd($request);
         $usuario = new User();
         $usuario->fill($data);
         $usuario->password = Hash::make($data['password']);
@@ -41,7 +41,6 @@ class PacienteController extends Controller
         $paciente->nutricionista_id = Auth::user()->id;
         $paciente->save();
 
-        // return redirect('/')->back()->with('success', 'Paciente cadastrado com sucesso!');
         return redirect('/');
     }
 
