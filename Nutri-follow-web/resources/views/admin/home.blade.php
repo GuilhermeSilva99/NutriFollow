@@ -23,7 +23,7 @@
                         <form action="{{ route('cadastro.ativar', $nutricionista->user->id) }}" method="POST">
                             @method('PUT')
                             @csrf
-                            <button class="button-aprova" type="submit">Aprovar</button>
+                            <button class="button-aprova" type="submit" dusk="aprovar-button-{{$nutricionista->user->id}}">Aprovar</button>
                         </form>
                     </td>
                     <td class="alinhar-esquerda">
