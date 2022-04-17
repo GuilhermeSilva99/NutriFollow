@@ -22,7 +22,7 @@
                         <form action="{{ route('nutricionista.inativar', $nutricionista->user->id) }}" method="post">
                             @method('DELETE')
                             @csrf
-                            <button class="button-reprova" type="submit">Desativar</button>
+                            <button class="button-reprova" type="submit" dusk="desativar-button-{{$nutricionista->user->id}}">Desativar</button>
                         </form>
                     </td>
                 </tr>
