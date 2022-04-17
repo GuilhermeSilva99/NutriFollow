@@ -6,6 +6,7 @@
         <a href="{{ route('admin.home') }}">Solicitações de cadastro </a>
         <a href="{{ route('nutricionistas.listar') }}">Nutricionistas cadastrados</a>
     </x-slot>
+
     <h1>Lista de Nutricionistas Inativos</h1>
     <table class="table">
         <thead>
@@ -22,7 +23,7 @@
                         <form action="{{ route('nutricionista.reativar', $user->id) }}" method="post">
                             @method('PUT')
                             @csrf
-                            <button class="success" type="submit">Reativar</button>
+                            <button class="button-reativar" type="submit"  dusk="reativar-button-{{$user->id}}">Reativar</button>
                         </form>
                     </td>
                 </tr>
