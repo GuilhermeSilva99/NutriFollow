@@ -26,23 +26,26 @@ class PacienteTest extends TestCase
     public function test_paciente_create()
     {
         $vetor = ['nome'=>'Joaquina', 
-        'email'=>'jn@email.com', 'cpf'=>'242.411.040-96',
-        'telefone_1'=>'(82)98877-6655', 'telefone_2' => '(82)98877-6655',
-        'sexo-select' => 'masculino','sexo-input' => null, 'obs' => null,
-        'password'=>'12345678',  'password_confirmation' => '12345678',
-    ];
+            'email'=>'jn@email.com', 'cpf'=>'242.411.040-96',
+            'telefone_1'=>'(82)98877-6655', 'telefone_2' => '(82)98877-6655',
+            'sexo-select' => 'masculino','sexo-input' => null, 'obs' => null,
+            'password'=>'12345678',  'password_confirmation' => '12345678',
+        ];
+
         $user = User::where('tipo_usuario', '=', 2)->where('cadastro_aprovado', '=', 1)->first();
-        $response = $this
-            ->actingAs($user)
-            ->post('/paciente/create', $vetor)->assertStatus(302);
-            $response->assertRedirect('/');
+        $this->actingAs($user)->post('/paciente/create', $vetor);
+
+        $nutricionista = Nutricionista::where('user_id', '=', $user->id)->first();
+        $user_equals = User::where('cpf', '=', '242.411.040-96')->first();
+
+        assertEquals('242.411.040-96', $user_equals->cpf);
 
         // Limpando o banco
-        $nutricionista = Nutricionista::where('user_id', '=', $user->id)->first();
-        $paciente = Paciente::where('nutricionista_id', '=', $nutricionista->id)
-        ->orderBy('created_at', 'desc')->first();
-        Paciente::destroy($paciente->id);
-        User::destroy($paciente->user_id);
+        
+        // $paciente = Paciente::where('nutricionista_id', '=', $nutricionista->id)
+        // ->orderBy('created_at', 'desc')->first();
+        // Paciente::destroy($paciente->id);
+        // User::destroy($paciente->user_id);
     }
 
     public function test_paciente_edit()
@@ -73,7 +76,6 @@ class PacienteTest extends TestCase
         
         $paciente_equals = Paciente::where('nutricionista_id', '=', $nutricionista->id)
         ->orderBy('created_at', 'desc')->first();
-        // dd($paciente_equals);
         assertEquals('Teste edite', $paciente_equals->observacoes);
         
         // Limpando o banco

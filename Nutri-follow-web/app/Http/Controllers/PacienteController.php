@@ -41,6 +41,7 @@ class PacienteController extends Controller
         $paciente->nutricionista_id = $nutricionista[0]->id;
         $paciente->save();
 
+        return redirect('/list/paciente');
     }
 
     public function list()

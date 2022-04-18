@@ -27,7 +27,7 @@ class StorePacienteRequest extends FormRequest
         return [
             'nome' => ['required', 'string', 'min:5', 'max:255'],
             'email' => ['required', 'string', 'email', 'min:5', 'max:255', 'unique:users'],
-            'cpf' => ['required', 'string', 'cpf', 'unique:users'],
+            'cpf' => ['required', 'cpf', 'unique:users'],
             'telefone_1' => ['required', 'string', 'celular_com_ddd'],
             'telefone_2' => ['nullable', 'celular_com_ddd'],
             'sexo-select' => ['string', 'min:3', 'max:100'],
