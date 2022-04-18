@@ -13,4 +13,9 @@ class Paciente extends Model
         'observacoes',
         'sexo'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

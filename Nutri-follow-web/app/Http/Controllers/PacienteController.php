@@ -26,7 +26,6 @@ class PacienteController extends Controller
     public function storePaciente(StorePacienteRequest $request)
     {
         $data = $request->validated();
-        // dd($request);
         $usuario = new User();
         $usuario->fill($data);
         $usuario->password = Hash::make($data['password']);
@@ -34,19 +33,20 @@ class PacienteController extends Controller
         $usuario->cadastro_aprovado = 1;
         $usuario->save();
 
+        $nutricionista = DB::table('nutricionistas')->where('user_id', Auth::user()->id)->get();
         $paciente = new Paciente();
         $paciente->sexo = $data['sexo-select'] ?? $data['sexo-input'];
         $paciente->observacoes = $data['obs'];
         $paciente->user_id = $usuario->id;
-        $paciente->nutricionista_id = Auth::user()->id;
+        $paciente->nutricionista_id = $nutricionista[0]->id;
         $paciente->save();
 
-        return redirect('/');
     }
 
     public function list()
     {
-      $list_paciente = DB::table('pacientes')->where('nutricionista_id', Auth::user()->id)->get();
+      $nutricionista = DB::table('nutricionistas')->where('user_id', Auth::user()->id)->get();
+      $list_paciente = DB::table('pacientes')->where('nutricionista_id', $nutricionista[0]->id)->get();
   
       $list_user = array();
       foreach($list_paciente as $paciente):
