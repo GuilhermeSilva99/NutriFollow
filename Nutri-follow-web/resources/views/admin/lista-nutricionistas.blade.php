@@ -1,13 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="h4 font-weight-bold">
-            {{ __('Dashboard Admin') }}
+            {{ __('Dashboard Admin - Lista de Nutricionistas') }}
         </h2>
-        <a href="{{ route('nutricionistas.listar') }}">Nutricionistas cadastrados </a>
+        <a href="{{ route('admin.home') }}">Solicitações de cadastro </a>
         <a href="{{ route('nutricionistas.inativos.listar') }}">Nutricionistas inativos</a>
-
     </x-slot>
-
+    <h1>Lista de Nutricionistas</h1>
     <table class="table">
         <thead>
             <tr>
@@ -20,17 +19,10 @@
                 <tr>
                     <td>{{ $nutricionista->user->nome }}</td>
                     <td class="alinhar-esquerda">
-                        <form action="{{ route('cadastro.ativar', $nutricionista->user->id) }}" method="POST">
-                            @method('PUT')
-                            @csrf
-                            <button class="button-aprova" type="submit" dusk="aprovar-button-{{$nutricionista->user->id}}">Aprovar</button>
-                        </form>
-                    </td>
-                    <td class="alinhar-esquerda">
-                        <form action="{{ route('cadastro.recusar', $nutricionista->user->id) }}" method="post">
+                        <form action="{{ route('nutricionista.inativar', $nutricionista->user->id) }}" method="post">
                             @method('DELETE')
                             @csrf
-                            <button class="button-reprova" type="submit">Reprovar</button>
+                            <button class="button-reprova" type="submit" dusk="desativar-button-{{$nutricionista->user->id}}">Desativar</button>
                         </form>
                     </td>
                 </tr>

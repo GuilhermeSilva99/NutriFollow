@@ -2,19 +2,23 @@
 
 namespace Tests\Browser;
 
+use App\Services\GeradorCPF;
 use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
 class LoginNutricionistaTestLoginNutricionistaTest extends DuskTestCase
 {
+    use WithFaker;
+
     public function testLoginNutricioistaCadastroAprovado()
     {
         $usuarioInfo = [
             'nome' => "Usuario teste",
-            'email' => "usuario2@email.com",
-            'cpf' => "198.375.820-57",
+            'email' => $this->faker->unique()->safeEmail(),
+            'cpf' => GeradorCPF::gerarCPF(true),
             'telefone_1' => "(00)00000-0000",
             'telefone_2' => "(00)00000-0000",
             'tipo_usuario' => 2,
