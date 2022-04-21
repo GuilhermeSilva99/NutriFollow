@@ -3,6 +3,9 @@
         <h2 class="h4 font-weight-bold">
             {{ __('Dashboard Admin') }}
         </h2>
+        <a href="{{ route('nutricionistas.listar') }}">Nutricionistas cadastrados </a>
+        <a href="{{ route('nutricionistas.inativos.listar') }}">Nutricionistas inativos</a>
+
     </x-slot>
 
     <div class="table-responsive">

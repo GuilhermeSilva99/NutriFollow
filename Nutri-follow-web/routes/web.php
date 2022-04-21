@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\{HomeController, AdministrarNutricionistasController};
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PacienteController;
@@ -33,6 +33,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/admin/home', [HomeController::class, 'index'])->name('admin.home');
         Route::put('/ativar/{id}', [HomeController::class, 'ativar_cadastro'])->name('cadastro.ativar');
         Route::delete('/deletar/{id}', [HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
+        Route::get('/admin/lista-nutricionistas', [AdministrarNutricionistasController::class, 'index'])->name('nutricionistas.listar');
+        Route::delete('/inativar/{id}', [AdministrarNutricionistasController::class, 'inativar'])->name('nutricionista.inativar');
+        Route::get('/admin/lista-nutricionistas-inativos', [AdministrarNutricionistasController::class, 'listar_nutricionistas_inativos'])->name('nutricionistas.inativos.listar');
+        Route::put('/reativar/{id}', [AdministrarNutricionistasController::class, 'reativar'])->name('nutricionista.reativar');
     });
 
     Route::get('/paciente/register-paciente', [PacienteController::class, 'index']);
