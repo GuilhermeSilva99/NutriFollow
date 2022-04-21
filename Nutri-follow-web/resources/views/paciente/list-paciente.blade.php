@@ -21,21 +21,20 @@
             @foreach ($list_user as $user)
             <div class = "bd-example bd-example-row">
                 <div class="container">
-                    <div class = "row">
-                        <div class = "col-6">
-                            
-                            {{$user->nome}}  {{$user->email}} {{$user->telefone_1}} {{$user->telefone_2}}
+                    <div class = "row" >
+                        <div class = "col-2">                            
+                            {{$user->nome}} {{$user->email}} {{$user->telefone_1}} {{$user->telefone_2}}
                         </div>
-                        <div class = "col-2">
+                        <div class = "col-1">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$user->id}}'">Editar</button>
                         </div>
                         
-                        <div class = "col-2">
+                        <div class = "col-1">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$user->id}}'">Visualiza</button>
                         </div>
                         
-                        <div class = "col-2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/remover/paciente/{{$user->id}}'">Excluir</button>
+                        <div class = "col-1">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$user->id}}'">Reset Password</button>
                         </div>
                         
                     </div>

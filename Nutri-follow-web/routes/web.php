@@ -34,6 +34,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::put('/ativar/{id}', [HomeController::class, 'ativar_cadastro'])->name('cadastro.ativar');
         Route::delete('/deletar/{id}', [HomeController::class, 'recusar_cadastro'])->name('cadastro.recusar');
     });
+
     Route::get('/paciente/register-paciente', [PacienteController::class, 'index']);
     Route::post('/paciente/create', [PacienteController::class, 'storePaciente'])->name('paciente.create');
     
@@ -43,5 +44,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::post('/editar/paciente', [PacienteController::class, 'editar'])->name('paciente.edit');
 
     Route::get('/view/paciente/{id}', [PacienteController::class, 'view'])->name('paciente.view');
+
+    Route::get('/paciente/password/{id}', [PacienteController::class, 'edit_password'])->name('paciente.password.edit');
+    Route::post('/paciente/password', [PacienteController::class, 'reset_password'])->name('paciente.reset');
 
 });
