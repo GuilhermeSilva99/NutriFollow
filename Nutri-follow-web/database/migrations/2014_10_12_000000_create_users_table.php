@@ -39,6 +39,8 @@ return new class extends Migration
      */
     public function down()
     {
-        $table->dropSoftDeletes();
+        Schema::table("users", function ($table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

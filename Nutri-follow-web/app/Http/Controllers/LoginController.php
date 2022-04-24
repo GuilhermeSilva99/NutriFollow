@@ -15,7 +15,7 @@ class LoginController extends Controller
 
         if(Auth::user()->tipo_usuario == 2)
         {
-            return view('dashboard');
+            return view('home');
         }
     }
 }
