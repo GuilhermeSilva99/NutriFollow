@@ -10,13 +10,12 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-
 class AprovacaoNutriTest extends TestCase
 {
     use WithFaker;
 
     /** @test */
-    public function create_nutricionista_pendente()
+    public function testCriarNutricionistaPendente()
     {
         $user = new CreateNewUser();
 
@@ -36,58 +35,26 @@ class AprovacaoNutriTest extends TestCase
     }
 
     /** @test */
-    public function ativar_nutricionista_pendente()
+    public function testAtivarNutricionistaPendente()
     {
-
-        $usuario = User::create([
-            'nome' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'cpf' => GeradorCPF::gerarCPF(true),
-            'telefone_1' => '(87)98899-7744',
-            'telefone_2' => '(87)98899-7744',
-            'tipo_usuario' => 2,
-            'password' => '12345678',
-        ]);
-
-        Nutricionista::create([
-            'crn' => strval(rand(10000000, 99999999)),
-            'uf' => 'PE',
-            'user_id' => $usuario->id,
-        ]);
+        $nutricionista = Nutricionista::factory(1)->create()->first();
 
         $admin = new HomeController();
-        $admin->ativar_cadastro($usuario->id);
+        $admin->ativar_cadastro($nutricionista->user->id);
 
-        $usuario = User::find($usuario->id);
-
-        $this->assertEquals(1,  $usuario->cadastro_aprovado);
+        $this->assertEquals(1,  $nutricionista->user->cadastro_aprovado);
     }
 
     /** @test */
-    public function reprovar_nutricionista_pendente()
+    public function testReprovarNutricionistaPendente()
     {
-
-        $usuario = User::create([
-            'nome' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'cpf' => GeradorCPF::gerarCPF(true),
-            'telefone_1' => '(87)98899-7744',
-            'telefone_2' => '87988997744',
-            'tipo_usuario' => 2,
-            'password' => '12345678',
-        ]);
-
-        Nutricionista::create([
-            'crn' => strval(rand(10000000, 99999999)),
-            'uf' => 'PE',
-            'user_id' => $usuario->id,
-        ]);
+        $nutricionista = Nutricionista::factory(1)->create()->first();
 
         $admin = new HomeController();
-        $admin->recusar_cadastro($usuario->id);
+        $admin->recusar_cadastro($nutricionista->user->id);
 
-        $usuario = User::find($usuario->id);
+        $usuario = User::find($nutricionista->user->id);
 
-        $this->assertEquals(null,  $usuario);
+        $this->assertEquals(null, $usuario);
     }
 }

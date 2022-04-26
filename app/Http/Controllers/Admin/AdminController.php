@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\{Nutricionista, User};
 
-class AdministrarNutricionistasController extends Controller
+class AdminController extends Controller
 {
     public function index()
     {
@@ -36,6 +35,6 @@ class AdministrarNutricionistasController extends Controller
         $user->restore();
         $user->cadastro_aprovado = true;
         $user->save();
-        return redirect()->Route ('nutricionistas.inativos.listar');
+        return redirect()->Route('nutricionistas.inativos.listar');
     }
 }

@@ -6,26 +6,22 @@ use App\Models\Nutricionista;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Http\Controllers\Admin\AdministrarNutricionistasController;
+use App\Http\Controllers\Admin\AdminController;
 
 
 class AdminTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
-    public function verificar_se_admin_desativa_nutricionista_corretamente()
-    { 
-        $nutri = Nutricionista::factory(1)->create()[0];
-        $nutri->user->cadastro_aprovado = true;
-        $nutri->save();
+    public function testVerificarAdminDesativaNutricionista()
+    {
+        $nutricionista = Nutricionista::factory(1)->create()->first();
+        $nutricionista->user->cadastro_aprovado = true;
+        $nutricionista->save();
 
-        $admin = new AdministrarNutricionistasController();
-        $admin->inativar($nutri->user->id);
+        $admin = new AdminController();
+        $admin->inativar($nutricionista->user->id);
 
-        $user = User::onlyTrashed()
-                        ->where('id', $nutri->user->id)
-                        ->first();
+        $user = User::onlyTrashed()->where('id', $nutricionista->user->id)->first();
 
         $this->assertEquals(0, $user->cadastro_aprovado);
     }

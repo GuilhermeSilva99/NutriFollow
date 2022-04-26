@@ -26,8 +26,7 @@ class HomeController extends Controller
 
     public function recusar_cadastro($id)
     {
-        //$user = User::findOrFail($id)->first();
-        if(!$user = User::find($id))
+        if (!$user = User::find($id))
             return redirect()->route('admin.home');
 
         $user->delete();

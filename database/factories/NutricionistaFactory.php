@@ -19,27 +19,25 @@ class NutricionistaFactory extends Factory
      * @return array<string, mixed>
      */
 
-
     protected $model = Nutricionista::class;
-     
+
     public function definition()
     {
-        $user = User::create([
+        $usuario = User::create([
             'nome' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'cpf' => GeradorCPF::gerarCPF(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'cadastro_aprovado' => rand(0,1) == 1,
+            'cadastro_aprovado' => 1,
             'tipo_usuario' => 2,
         ]);
 
-
         return [
-            'user_id' => $user->id,
+            'user_id' => $usuario->id,
             'crn' => Str::random(45),
-            'uf' => 'pe'
+            'uf' => 'PE'
         ];
     }
 }

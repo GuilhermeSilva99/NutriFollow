@@ -25,13 +25,14 @@ class PacienteFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'cadastro_aprovado' => rand(0,1) == 1,
+            'cadastro_aprovado' => 1,
             'tipo_usuario' => 2,
         ]);
 
         $nutri = Nutricionista::first();
+
         return [
-            'sexo' => 'maculino',
+            'sexo' => 'masculino',
             'observacoes' => null,
             'user_id' => $user->id,
             'nutricionista_id' => $nutri->id,
