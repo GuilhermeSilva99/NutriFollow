@@ -20,15 +20,15 @@
         <br>
         <br>
         <div class="card-body">
-            <form method="POST" action="{{ route('paciente.edit') }}">
+            <form method="POST" action="{{ route('paciente.edit', $paciente->user->id) }}">
                 @csrf
 
-                <input type="hidden" name="id" value="{{$user->id}}" /> <br>
+                <input type="hidden" name="id" value="{{$paciente->user->id}}"/> <br>
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Nome') }}" />
 
                     <x-jet-input class="{{ $errors->has('nome') ? 'is-invalid' : '' }}" type="text" name="nome"
-                                value="{{$user->nome}}" required autofocus autocomplete="nome" />
+                                value="{{$paciente->user->nome}}" required autofocus autocomplete="nome" />
                     <x-jet-input-error for="nome"></x-jet-input-error>
                 </div>
 
@@ -36,7 +36,7 @@
                     <x-jet-label value="{{ __('Email') }}" />
 
                     <x-jet-input class="{{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email"
-                                value="{{$user->email}}" required />
+                                value="{{$paciente->user->email}}" required />
                     <x-jet-input-error for="email"></x-jet-input-error>
                 </div>
 
@@ -44,7 +44,7 @@
                     <x-jet-label value="{{ __('CPF') }}" />
 
                     <x-jet-input class="{{ $errors->has('cpf') ? 'is-invalid' : '' }}" type="string" name="cpf"
-                                value="{{$user->cpf}}" required />
+                                value="{{$paciente->user->cpf}}" required />
                     <x-jet-input-error for="cpf"></x-jet-input-error>
                 </div>
 
@@ -52,7 +52,7 @@
                     <x-jet-label value="{{ __('Telefone 1') }}" />
 
                     <x-jet-input class="{{ $errors->has('telefone_1') ? 'is-invalid' : '' }}" type="text" name="telefone_1"
-                                value="{{$user->telefone_1}}" required />
+                                value="{{$paciente->user->telefone_1}}" required />
                     <x-jet-input-error for="telefone_1"></x-jet-input-error>
                 </div>
 
@@ -60,7 +60,7 @@
                     <x-jet-label value="{{ __('Telefone 2') }}" />
 
                     <x-jet-input class="{{ $errors->has('telefone_2') ? 'is-invalid' : '' }}" type="text" name="telefone_2"
-                                value="{{$user->telefone_2}}" required />
+                                value="{{$paciente->user->telefone_2}}" required />
                     <x-jet-input-error for="telefone_2"></x-jet-input-error>
                 </div>
 

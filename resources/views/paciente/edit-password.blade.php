@@ -20,15 +20,15 @@
         <br>
         <br>
         <div class="card-body">
-            <form method="POST" action="{{route('paciente.reset') }}">
+            <form method="POST" action="{{route('paciente.reset', $paciente->user->id) }}">
                 @csrf
 
-                <input type="hidden" name="id" value="{{$user->id}}" /> <br> 
+                <input type="hidden" name="id" value="{{$paciente->user->id}}" /> <br> 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Nome') }}" />
 
                     <x-jet-input class="{{ $errors->has('nome') ? 'is-invalid' : '' }}" type="text" name="nome"
-                        value="{{$user->nome}}"  required autofocus autocomplete="nome"  readonly/>
+                        value="{{$paciente->user->nome}}"  required autofocus autocomplete="nome"  readonly/>
                     <x-jet-input-error for="nome"></x-jet-input-error>
                 </div> 
 

@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Nutricionista;
 use App\Models\User;
+use App\Services\GeradorCPF;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,10 +24,13 @@ class PacienteFactory extends Factory
             'nome' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'telefone_1' => '(00) 00000-0000',
+            'telefone_2' => '(00) 00000-0000',
+            'cpf' => GeradorCPF::gerarCPF(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'cadastro_aprovado' => 1,
-            'tipo_usuario' => 2,
+            'tipo_usuario' => 3,
         ]);
 
         $nutri = Nutricionista::first();

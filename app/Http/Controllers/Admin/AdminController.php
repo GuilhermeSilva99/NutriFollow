@@ -2,39 +2,61 @@
 
 namespace App\Http\Controllers\Admin;
 
+
 use App\Http\Controllers\Controller;
-use App\Models\{Nutricionista, User};
+use App\Services\AdminService;
 
 class AdminController extends Controller
 {
+    private $adminService;
+
+    public function __construct(AdminService $adminService)
+    {
+        $this->adminService = $adminService;
+    }
+
     public function index()
     {
-        $nutricionistas = Nutricionista::whereRelation('user', 'cadastro_aprovado', true)->get();
+        $nutricionistas = $this->adminService->index();
+        return view('admin.home', ['nutricionistas' => $nutricionistas]);
+    }
+
+    public function listaNutricionista()
+    {
+        $nutricionistas = $this->adminService->listarNutricionistas();
         return view('admin.lista-nutricionistas', ['nutricionistas' => $nutricionistas]);
     }
 
     public function inativar($id)
     {
-        $user = User::find($id);
-        $user->cadastro_aprovado = false;
-        $user->save();
-        $user = User::find($id);
-        User::destroy($id);
+        $this->adminService->inativarNutricionista($id);
         return redirect()->route('nutricionistas.listar');
     }
 
     public function listar_nutricionistas_inativos()
     {
-        $users = User::onlyTrashed()->where('tipo_usuario', 2)->get();
+        $users = $this->adminService->listarNutricionistasInativos();
         return view('admin.lista-nutricionistas-inativos', ['users' => $users]);
     }
 
     public function reativar($id)
     {
-        $user = User::onlyTrashed()->where('id', $id)->first();
-        $user->restore();
-        $user->cadastro_aprovado = true;
-        $user->save();
+        $this->adminService->reativarNutricionista($id);
         return redirect()->Route('nutricionistas.inativos.listar');
+    }
+
+    public function ativarCadastro($id)
+    {
+        $this->adminService->ativarCadastro($id);
+        return redirect()->route('admin.home');
+    }
+
+    public function recusarCadastro($id)
+    {
+        $usuario = $this->adminService->recusarCadastro($id);
+        if (!$usuario)
+            return redirect()->route('admin.home');
+
+        return redirect()->route('admin.home');
     }
 }
