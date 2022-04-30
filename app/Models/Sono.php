@@ -10,4 +10,9 @@ class Sono extends Model
     use HasFactory;
 
     protected $fillable = ["duracao", "avaliacao", "paciente_id"];
+
+    public function paciente()
+    {
+        return $this->belongsTo(Paciente::class);
+    }
 }
