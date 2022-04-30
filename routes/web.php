@@ -2,9 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{AdminController};
+use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PacienteController;
 
 /*
 |--------------------------------------------------------------------------

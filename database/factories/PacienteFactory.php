@@ -22,7 +22,7 @@ class PacienteFactory extends Factory
     {
         $user = User::create([
             'nome' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => "paciente@email.com",
             'email_verified_at' => now(),
             'telefone_1' => '(00) 00000-0000',
             'telefone_2' => '(00) 00000-0000',

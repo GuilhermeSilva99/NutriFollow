@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sono', function (Blueprint $table) {
+        Schema::create('consumos_agua', function (Blueprint $table) {
             $table->id();
-            $table->time("duracao");
-            $table->string("avaliacao");
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-
+            $table->date("data");
+            $table->double("quantidade");
+            $table->unsignedBigInteger('paciente_id');
+            $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sono');
+        Schema::dropIfExists('consumo_agua');
     }
 };

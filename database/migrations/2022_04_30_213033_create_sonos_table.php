@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('consumo_agua', function (Blueprint $table) {
+        Schema::create('sonos', function (Blueprint $table) {
             $table->id();
-            $table->date("data");
-            $table->double("quantidade");
+            $table->time("duracao");
+            $table->string("avaliacao");
             $table->unsignedBigInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('consumo_agua');
+        Schema::dropIfExists('sono');
     }
 };

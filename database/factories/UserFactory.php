@@ -27,7 +27,7 @@ class UserFactory extends Factory
     {
         return [
             'nome' => $this->faker->name(),
-            'email' => "email@email.com",
+            'email' => "admin@email.com",
             'email_verified_at' => now(),
             'telefone_1' => '(00) 00000-0000',
             'telefone_2' => '(00) 00000-0000',
