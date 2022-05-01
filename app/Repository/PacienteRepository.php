@@ -36,13 +36,14 @@ class PacienteRepository implements BaseRepositoryInterface
         return $this->find($id)->delete();
     }
 
-    public function softDelete($objeto)
+    public function softDelete($id)
     {
-        return $objeto->delete();
+        $paciente = $this->find($id)->first();
+        return $paciente->user()->delete();
     }
 
     public function findByColumnWithUser($coluna, $valor)
     {
-        return Paciente::with("user")->where($coluna, $valor)->get();
+        return Paciente::whereRelation('user', 'deleted_at', null)->where($coluna, $valor)->get();
     }
 }

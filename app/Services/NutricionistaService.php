@@ -84,4 +84,10 @@ class NutricionistaService
         $paciente->user->password = Hash::make($dados['password']);
         $this->userRepository->saveWithModel($paciente->user);
     }
+
+    public function inativar_paciente($id)
+    {
+        $paciente = $this->pacienteRepository->find($id);
+        $this->pacienteRepository->softDelete($paciente);
+    }
 }

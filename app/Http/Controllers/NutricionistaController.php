@@ -99,4 +99,10 @@ class NutricionistaController extends Controller
             echo "Erro de conexão com o Banco de Dados";
         }
     }
-}
+
+    public function inativar_paciente($id)
+    {
+        $this->nutricionistaService->inativar_paciente($id);
+        return redirect()->route('paciente.list');
+    }
+}        

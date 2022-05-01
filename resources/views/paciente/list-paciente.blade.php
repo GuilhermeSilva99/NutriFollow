@@ -22,20 +22,26 @@
             <div class = "bd-example bd-example-row">
                 <div class="container">
                     <div class = "row" >
-                        <div class = "col-2">                            
+                        <div class = "col-3">                            
                             {{$paciente->user->nome}} {{$paciente->user->email}} {{$paciente->user->telefone_1}} {{$paciente->user->telefone_2}}
                         </div>
-                        <div class = "col-1">
+                        <div class = "col-2">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$paciente->user->id}}'">Editar</button>
                         </div>
                         
-                        <div class = "col-1">
+                        <div class = "col-2">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$paciente->user->id}}'">Visualiza</button>
                         </div>
                         
-                        <div class = "col-1">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$paciente->user->id}}'">Reset Password</button>
+                        <div class = "col-2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$paciente->user->id}}'">Reset Password</button>
                         </div>
+
+                        <form action="{{ route('paciente.inativar', $paciente->id) }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
+                        </form>
                         
                     </div>
                     
