@@ -51,10 +51,12 @@ class AprovacaoNutriTest extends TestCase
     /** @test */
     public function testReprovarNutricionistaPendente()
     {
+        $userRepository = new UserRepository();
+        $nutricionistaRepository = new NutricionistaRepository();
+        $admin_service = new AdminService( $userRepository, $nutricionistaRepository);
         $nutricionista = Nutricionista::factory(1)->create()->first();
 
-        $admin = new HomeController();
-        $admin->recusar_cadastro($nutricionista->user->id);
+        $admin_service->recusarCadastro($nutricionista->user->id);
 
         $usuario = User::find($nutricionista->user->id);
 
