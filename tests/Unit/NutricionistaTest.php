@@ -3,7 +3,8 @@
 namespace Tests\Unit;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Http\Controllers\Admin\HomeController;
+use App\Repository\{NutricionistaRepository, UserRepository};
+use App\Services\AdminService;
 use App\Services\GeradorCPF;
 use App\Models\Nutricionista;
 use App\Models\User;
@@ -37,10 +38,12 @@ class AprovacaoNutriTest extends TestCase
     /** @test */
     public function testAtivarNutricionistaPendente()
     {
+        $userRepository = new UserRepository();
+        $nutricionistaRepository = new NutricionistaRepository();
+        $admin_service = new AdminService( $userRepository, $nutricionistaRepository);
         $nutricionista = Nutricionista::factory(1)->create()->first();
 
-        $admin = new HomeController();
-        $admin->ativar_cadastro($nutricionista->user->id);
+        $admin_service->ativarCadastro($nutricionista->user->id);
 
         $this->assertEquals(1,  $nutricionista->user->cadastro_aprovado);
     }
