@@ -36,9 +36,8 @@ class PacienteRepository implements BaseRepositoryInterface
         return $this->find($id)->delete();
     }
 
-    public function softDelete($id)
+    public function softDelete($paciente)
     {
-        $paciente = $this->find($id)->first();
         return $paciente->user()->delete();
     }
 

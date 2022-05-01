@@ -3,11 +3,10 @@
 namespace Tests\Unit;
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Repository\{NutricionistaRepository, UserRepository};
-use App\Services\AdminService;
+use App\Repository\{NutricionistaRepository, UserRepository, PacienteRepository};
+use App\Services\{AdminService, NutricionistaService};
 use App\Services\GeradorCPF;
-use App\Models\Nutricionista;
-use App\Models\User;
+use App\Models\{Nutricionista, User, Paciente};
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
@@ -61,5 +60,21 @@ class AprovacaoNutriTest extends TestCase
         $usuario = User::find($nutricionista->user->id);
 
         $this->assertEquals(null, $usuario);
+    }
+
+    /** @test */
+    public function testVerificarNutricionistaDesativaPaciente()
+    {
+        $paciente = Paciente::factory(1)->create()->first();
+        $this->assertNull(User::onlyTrashed()->where('id', $paciente->user->id)->first());
+
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+        $nutricionistaRepository = new NutricionistaRepository();
+        $nutricionistaService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository);
+        
+        $nutricionistaService->inativar_paciente($paciente->id);
+
+        $this->assertNotNull(User::onlyTrashed()->where('id', $paciente->user->id)->first());
     }
 }
