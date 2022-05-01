@@ -22,8 +22,8 @@ class ApiController extends Controller
             return response()->json(["erro" => "Credências invalidas"], 400);
         }
 
-        if($usuario->tipo_usuario != 3){
-            return response()->json(["erro" => "Apenas paciente pode gerar token"], 400);
+        if ($usuario->tipo_usuario != 3) {
+            return response()->json(["erro" => "Apenas pacientes podem gerar token"], 400);
         }
 
         return ["token" => $usuario->createToken(rand())->plainTextToken];

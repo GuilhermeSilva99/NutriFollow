@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('nutricionistas', function (Blueprint $table) {
+        Schema::create('sonos', function (Blueprint $table) {
             $table->id();
-            $table->string("crn", 45)->unique();
-            $table->string("uf", 2);
-
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->softDeletes();
-
+            $table->date("data");
+            $table->time("duracao");
+            $table->string("avaliacao");
+            $table->unsignedBigInteger('paciente_id');
+            $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nutricionistas');
+        Schema::dropIfExists('sono');
     }
 };

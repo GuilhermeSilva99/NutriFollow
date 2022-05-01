@@ -4,28 +4,27 @@ namespace Tests\Unit;
 
 use App\Models\Nutricionista;
 use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use App\Http\Controllers\Admin\AdministrarNutricionistasController;
-
+use App\Repository\NutricionistaRepository;
+use App\Repository\UserRepository;
+use App\Services\AdminService;
 
 class AdminTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
-    public function verificar_se_admin_desativa_nutricionista_corretamente()
-    { 
-        $nutri = Nutricionista::factory(1)->create()[0];
-        $nutri->user->cadastro_aprovado = true;
-        $nutri->save();
+    public function testVerificarAdminDesativaNutricionista()
+    {
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $adminService = new AdminService($userRepository, $nutricionistaRepository);
 
-        $admin = new AdministrarNutricionistasController();
-        $admin->inativar($nutri->user->id);
+        $nutricionista = Nutricionista::factory(1)->create()->first();
+        $nutricionista->user->cadastro_aprovado = true;
+        $nutricionista->user->save();
 
-        $user = User::onlyTrashed()
-                        ->where('id', $nutri->user->id)
-                        ->first();
+        $adminService->inativarNutricionista($nutricionista->user->id);
+
+        $user = User::onlyTrashed()->where('id', $nutricionista->user->id)->first();
 
         $this->assertEquals(0, $user->cadastro_aprovado);
     }

@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Actions\Fortify\CreateNewUser;
 use App\Models\User;
 use App\Services\GeradorCPF;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -13,11 +12,11 @@ use Tests\TestCase;
 class ApiTokenTest extends TestCase
 {
     use WithFaker;
-    
-    public function testCriarTokenApi()
+
+    public function testCriarTokenApiPaciente()
     {
         $email = $this->faker->unique()->safeEmail();
-        
+
         User::create([
             'nome' =>  $this->faker->name(),
             'email' => $email,
@@ -32,9 +31,6 @@ class ApiTokenTest extends TestCase
 
         $response = $this->postJson('/api/criar-token', ['email' => $email, 'password' => 'password']);
 
-        $response->assertStatus(200)
-            ->assertJson([
-                'token' => true,
-            ]);
+        $response->assertStatus(200)->assertJson(['token' => true]);
     }
 }

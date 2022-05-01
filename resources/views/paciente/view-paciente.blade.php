@@ -20,33 +20,33 @@
         <br>
         <br>
         <div class="card-body">
-            <form method="POST" action="{{ route('paciente.edit') }}">
+            <form method="POST" action="{{ route('paciente.edit', $paciente->user->id) }}">
                 @csrf
 
-                <input type="hidden" name="id" value="{{$user->id}}" /> <br>
+                <input type="hidden" name="id" value="{{$paciente->user->id}}" /> <br>
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Nome') }}" />
-                    <input class="form-control" type="text" placeholder={{$user->nome}} readonly>
+                    <input class="form-control" type="text" placeholder={{$paciente->user->nome}} readonly>
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Email') }}" />
-                    <input class="form-control" type="text" placeholder={{$user->email}} readonly>
+                    <input class="form-control" type="text" placeholder={{$paciente->user->email}} readonly>
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('CPF') }}" />
-                    <input class="form-control" type="text" placeholder={{$user->cpf}} readonly>
+                    <input class="form-control" type="text" placeholder={{$paciente->user->cpf}} readonly>
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Telefone 1') }}" />
-                    <input class="form-control" type="text" placeholder={{$user->telefone_1}} readonly>
+                    <input class="form-control" type="text" placeholder={{$paciente->user->telefone_1}} readonly>
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Telefone 2') }}" />
-                    <input class="form-control" type="text" placeholder={{$user->telefone_2}} readonly>
+                    <input class="form-control" type="text" placeholder={{$paciente->user->telefone_2}} readonly>
                 </div>
 
                 <div class="mb-3">
@@ -73,7 +73,7 @@
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
                         <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/list/paciente'">Listar</button>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$user->id}}'">Editar</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$paciente->user->id}}'">Editar</button>
                     </div>
                 </div>
             </form>

@@ -15,6 +15,6 @@ class NutricionistasSeeder extends Seeder
      */
     public function run()
     {
-        Nutricionista::factory(10)->create();
+        Nutricionista::factory(1)->create();
     }
 }

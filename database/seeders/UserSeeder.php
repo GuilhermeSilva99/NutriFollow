@@ -2,18 +2,18 @@
 
 namespace Database\Seeders;
 
-use App\Models\Paciente;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class PacienteSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      *
      * @return void
      */
     public function run()
     {
-        Paciente::factory(1)->create();
+        User::factory(1)->create();
     }
 }
