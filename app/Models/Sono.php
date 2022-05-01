@@ -9,7 +9,7 @@ class Sono extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["duracao", "avaliacao", "paciente_id"];
+    protected $fillable = ["data", "duracao", "avaliacao", "paciente_id"];
 
     public function paciente()
     {

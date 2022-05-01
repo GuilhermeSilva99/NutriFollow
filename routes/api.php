@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Controllers\Api\PacienteController;
+use App\Http\Controllers\Api\ConsumoAguaController;
+use App\Http\Controllers\Api\SonoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,17 +23,17 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    Route::get("/paciente/sono/listar", [PacienteController::class, "listarSono"])->name("paciente.sono.listar");
-    Route::post("/paciente/sono/criar", [PacienteController::class, "criarSono"])->name("paciente.sono.criar");
-    Route::get("/paciente/sono/{id}/deletar", [PacienteController::class, "deletarSono"])->name("paciente.sono.deletar");
-    Route::get("/paciente/sono/{id}", [PacienteController::class, "recuperarSono"])->name("paciente.sono.recuperar");
-    Route::post("/paciente/sono/{id}/atualizar", [PacienteController::class, "atualizarSono"])->name("paciente.sono.atualizar");
+    Route::get("/paciente/sono/listar", [SonoController::class, "listarSono"])->name("paciente.sono.listar");
+    Route::post("/paciente/sono/criar", [SonoController::class, "criarSono"])->name("paciente.sono.criar");
+    Route::get("/paciente/sono/{id}/deletar", [SonoController::class, "deletarSono"])->name("paciente.sono.deletar");
+    Route::get("/paciente/sono/{id}", [SonoController::class, "recuperarSono"])->name("paciente.sono.recuperar");
+    Route::post("/paciente/sono/{id}/atualizar", [SonoController::class, "atualizarSono"])->name("paciente.sono.atualizar");
 
-    Route::get("/paciente/consumo-agua/listar", [PacienteController::class, "listarConsumoAgua"])->name("paciente.consumo.agua.listar");
-    Route::post("/paciente/consumo-agua/criar", [PacienteController::class, "criarConsumoAgua"])->name("paciente.consumo.agua.criar");
-    Route::get("/paciente/consumo-agua/{id}/deletar", [PacienteController::class, "deletarConsumoAgua"])->name("paciente.consumo.agua.deletar");
-    Route::get("/paciente/consumo-agua/{id}", [PacienteController::class, "recuperarConsumoAgua"])->name("paciente.consumo.agua.recuperar");
-    Route::post("/paciente/consumo-agua/{id}/atualizar", [PacienteController::class, "atualizarConsumoAgua"])->name("paciente.consumo.agua.atualizar");
+    Route::get("/paciente/consumo-agua/listar", [ConsumoAguaController::class, "listarConsumoAgua"])->name("paciente.consumo.agua.listar");
+    Route::post("/paciente/consumo-agua/criar", [ConsumoAguaController::class, "criarConsumoAgua"])->name("paciente.consumo.agua.criar");
+    Route::get("/paciente/consumo-agua/{id}/deletar", [ConsumoAguaController::class, "deletarConsumoAgua"])->name("paciente.consumo.agua.deletar");
+    Route::get("/paciente/consumo-agua/{id}", [ConsumoAguaController::class, "recuperarConsumoAgua"])->name("paciente.consumo.agua.recuperar");
+    Route::post("/paciente/consumo-agua/{id}/atualizar", [ConsumoAguaController::class, "atualizarConsumoAgua"])->name("paciente.consumo.agua.atualizar");
 });
 
 

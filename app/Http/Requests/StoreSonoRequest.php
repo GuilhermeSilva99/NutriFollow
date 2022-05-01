@@ -27,6 +27,7 @@ class StoreSonoRequest extends FormRequest
     public function rules()
     {
         return [
+            "data"          => ["required", "date_format:Y/m/d"],
             'duracao' => ['required', 'date_format:H:i'],
             'avaliacao' => ['required', 'string', 'min:3', 'max:100']
         ];
@@ -35,6 +36,8 @@ class StoreSonoRequest extends FormRequest
     public function messages()
     {
         return [
+            'data.required'                 => 'O campo data é obrigatório',
+            'data.date_format'              => 'O campo data deve ser uma data no formato ano/mês/dia',
             'duracao.required'              => 'O campo duração é obrigatório',
             'duracao.date_format'           => 'O campo duração deve ser no formato Hora:Minuto',
             'avaliacao.required'            => 'O campo avaliação é obrigatório',

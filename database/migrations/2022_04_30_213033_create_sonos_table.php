@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sonos', function (Blueprint $table) {
             $table->id();
+            $table->date("data");
             $table->time("duracao");
             $table->string("avaliacao");
             $table->unsignedBigInteger('paciente_id');
