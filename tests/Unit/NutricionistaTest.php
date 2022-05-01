@@ -2,12 +2,14 @@
 
 namespace Tests\Unit;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Http\Controllers\Admin\HomeController;
 use App\Services\GeradorCPF;
 use App\Models\Nutricionista;
 use App\Models\User;
+use App\Repository\NutricionistaRepository;
+use App\Repository\UserRepository;
+use App\Services\AdminService;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class AprovacaoNutriTest extends TestCase
@@ -17,9 +19,7 @@ class AprovacaoNutriTest extends TestCase
     /** @test */
     public function testCriarNutricionistaPendente()
     {
-        $user = new CreateNewUser();
-
-        $usuario = $user->create([
+        $usuario = User::create([
             'nome' =>  $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'cpf' => GeradorCPF::gerarCPF(true),
@@ -27,8 +27,15 @@ class AprovacaoNutriTest extends TestCase
             'telefone_2' => '(82)97988-5544',
             'crn' => strval(rand(10000000, 99999999)),
             'uf' => 'PE',
+            'tipo_usuario' => 2,
             'password' => '12345678',
             'password_confirmation' => '12345678',
+        ]);
+
+        Nutricionista::create([
+            "crn" => Str::random(45),
+            "uf" => "PE",
+            "user_id" => $usuario->id
         ]);
 
         $this->assertEquals(0, $usuario->cadastro_aprovado);
@@ -37,21 +44,47 @@ class AprovacaoNutriTest extends TestCase
     /** @test */
     public function testAtivarNutricionistaPendente()
     {
-        $nutricionista = Nutricionista::factory(1)->create()->first();
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $adminService = new AdminService($userRepository, $nutricionistaRepository);
 
-        $admin = new HomeController();
-        $admin->ativar_cadastro($nutricionista->user->id);
+        $nutricionista  = $nutricionistaRepository->all()->last();
 
-        $this->assertEquals(1,  $nutricionista->user->cadastro_aprovado);
+        $adminService->ativarCadastro($nutricionista->user->id);
+        $usuarioNutricionista = $nutricionista->user->refresh();
+
+        $this->assertEquals(1,  $usuarioNutricionista->cadastro_aprovado);
     }
 
     /** @test */
     public function testReprovarNutricionistaPendente()
     {
-        $nutricionista = Nutricionista::factory(1)->create()->first();
+        $usuario = User::create([
+            'nome' =>  $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'cpf' => GeradorCPF::gerarCPF(true),
+            'telefone_1' => '(82)97988-5544',
+            'telefone_2' => '(82)97988-5544',
+            'crn' => strval(rand(10000000, 99999999)),
+            'uf' => 'PE',
+            'tipo_usuario' => 2,
+            'password' => '12345678',
+            'password_confirmation' => '12345678',
+        ]);
 
-        $admin = new HomeController();
-        $admin->recusar_cadastro($nutricionista->user->id);
+        Nutricionista::create([
+            "crn" => Str::random(45),
+            "uf" => "PE",
+            "user_id" => $usuario->id
+        ]);
+
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $adminService = new AdminService($userRepository, $nutricionistaRepository);
+
+        $nutricionista  = $nutricionistaRepository->all()->last();
+
+        $adminService->recusarCadastro($nutricionista->user->id);
 
         $usuario = User::find($nutricionista->user->id);
 

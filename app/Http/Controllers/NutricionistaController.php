@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Requests\UpdatePacienteRequest;
-use App\Models\Nutricionista;
 use App\Services\NutricionistaService;
 
 class NutricionistaController extends Controller

@@ -14,7 +14,7 @@ class NutricionistaService
     private $nutricionistaRepository;
     private $userRepository;
 
-    public function __construct(PacienteRepository $pacienteRepository,  NutricionistaRepository $nutricionistaRepository, UserRepository $userRepository)
+    public function __construct(PacienteRepository $pacienteRepository, NutricionistaRepository $nutricionistaRepository, UserRepository $userRepository)
     {
         $this->pacienteRepository = $pacienteRepository;
         $this->nutricionistaRepository = $nutricionistaRepository;

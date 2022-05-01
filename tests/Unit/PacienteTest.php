@@ -2,10 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Models\Nutricionista;
-use App\Models\Paciente;
 use App\Models\User;
+use App\Repository\NutricionistaRepository;
+use App\Repository\PacienteRepository;
+use App\Repository\UserRepository;
 use App\Services\GeradorCPF;
+use App\Services\NutricionistaService;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -17,17 +19,26 @@ class PacienteTest extends TestCase
 
     public function testCriarPaciente()
     {
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+
         $dadosCadastro = [
             'nome' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(), 'cpf' => GeradorCPF::gerarCPF(true),
             'telefone_1' => '(82)98877-6655', 'telefone_2' => '(82)98877-6655',
-            'sexo-select' => 'masculino', 'sexo-input' => null, 'obs' => null,
-            'password' => '12345678',  'password_confirmation' => '12345678',
+            'sexo-select' => 'masculino', 'sexo-input' => null, 'obs' => "observações",
+            'password' => '12345678',  'password_confirmation' => '12345678', "tipo_usuario" => 3
         ];
 
-        $usuarioBD = User::where('tipo_usuario', 2)->where('cadastro_aprovado', 1)->first();
+        $usuarioPaciente = $userRepository->save($dadosCadastro);
+        $nutricionistaPaciente = $nutricionistaRepository->findByColumn("user_id", 2)->first();
 
-        $this->actingAs($usuarioBD)->post('/paciente/create', $dadosCadastro);
+        $dadosCadastro['sexo'] = $dadosCadastro['sexo-select'] ?? $dadosCadastro['sexo-input'];
+        $dadosCadastro['user_id'] = $usuarioPaciente->id;
+        $dadosCadastro['nutricionista_id'] = $nutricionistaPaciente->id;
+
+        $pacienteRepository->save($dadosCadastro);
 
         $pacienteUsuario = User::where('cpf', $dadosCadastro['cpf'])->first();
 
@@ -36,63 +47,29 @@ class PacienteTest extends TestCase
 
     public function testEditarPaciente()
     {
-        //Criando paciente
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository);
+
         $dados = [
-            'nome' => $this->faker->name(),
+            'nome' => "Joaquina da Silva",
             'email' => $this->faker->unique()->safeEmail(), 'cpf' => GeradorCPF::gerarCPF(true),
-            'telefone_1' => '(82)98877-6655', 'telefone_2' => '(82)98877-6655',
-            'sexo-select' => 'masculino', 'sexo-input' => null, 'obs' => null,
+            'telefone_1' => '(81)98877-6655', 'telefone_2' => '(81)98877-6600',
+            'sexo-select' => 'feminino', 'sexo-input' => null, 'obs' => 'Teste edition',
             'password' => '12345678',  'password_confirmation' => '12345678',
         ];
 
-        $usuarioBD = User::where('tipo_usuario', 2)->where('cadastro_aprovado', 1)->first();
-        $this->actingAs($usuarioBD)->post('/paciente/create', $dados);
+        $nutriService->editar($dados, 3);
 
-        //Editar pacente
-        $nutricionistaBD = Nutricionista::where('user_id', $usuarioBD->id)->first();
-        $pacienteCadastrado = Paciente::where('nutricionista_id', $nutricionistaBD->id)->orderBy('created_at', 'desc')->first();
+        $usuarioPaciente = $pacienteRepository->find(1);
 
-        $dados['id'] = $pacienteCadastrado->user_id;
-        $dados['nome'] = 'Joaquina da Silva';
-        $dados['cpf'] = GeradorCPF::gerarCPF(true);
-        $dados['email'] = $this->faker->unique()->safeEmail();
-        $dados['telefone_1'] = '(81)98877-6655';
-        $dados['telefone_2'] = '(81)98877-6600';
-        $dados['sexo-select'] = 'feminino';
-        $dados['obs'] = 'Teste edition';
-
-        $this->actingAs($usuarioBD)->post('/editar/paciente', $dados);
-
-        $usuarioEditado = User::find($pacienteCadastrado->user_id);
-        $pacienteCadastrado = $pacienteCadastrado->refresh();
-
-        assertEquals('Joaquina da Silva', $usuarioEditado->nome);
-        assertEquals($dados['cpf'], $usuarioEditado->cpf);
-        assertEquals($dados['email'], $usuarioEditado->email);
-        assertEquals('(81)98877-6655', $usuarioEditado->telefone_1);
-        assertEquals('(81)98877-6600', $usuarioEditado->telefone_2);
-        assertEquals('Teste edition', $pacienteCadastrado->observacoes);
-        assertEquals('feminino', $pacienteCadastrado->sexo);
-    }
-
-    public function testPacienteView()
-    {
-        $dados = [
-            'nome' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(), 'cpf' => GeradorCPF::gerarCPF(true),
-            'telefone_1' => '(82)98877-6655', 'telefone_2' => '(82)98877-6655',
-            'sexo-select' => 'masculino', 'sexo-input' => null, 'obs' => null,
-            'password' => '12345678',  'password_confirmation' => '12345678',
-        ];
-
-        $usuarioBD = User::where('tipo_usuario', 2)->where('cadastro_aprovado', 1)->first();
-        $this->actingAs($usuarioBD)->post('/paciente/create', $dados);
-
-        //listando o paciente
-        $nutricionistaBD = Nutricionista::where('user_id', $usuarioBD->id)->first();
-        $paciente = Paciente::where('nutricionista_id', '=', $nutricionistaBD->id)->orderBy('created_at', 'desc')->first();
-
-        $response = $this->actingAs($usuarioBD)->get('/view/paciente/' . $paciente->user_id);
-        $this->assertEquals(200, $response->status());
+        assertEquals('Joaquina da Silva', $usuarioPaciente->user->nome);
+        assertEquals($dados['cpf'], $usuarioPaciente->user->cpf);
+        assertEquals($dados['email'], $usuarioPaciente->user->email);
+        assertEquals('(81)98877-6655', $usuarioPaciente->user->telefone_1);
+        assertEquals('(81)98877-6600', $usuarioPaciente->user->telefone_2);
+        assertEquals('Teste edition', $usuarioPaciente->observacoes);
+        assertEquals('feminino', $usuarioPaciente->sexo);
     }
 }
