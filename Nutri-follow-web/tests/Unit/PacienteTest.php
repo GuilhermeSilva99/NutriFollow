@@ -172,24 +172,27 @@ class PacienteTest extends TestCase
         $nutri->user->save();
 
         $vetor = ['nome'=>'Joaquina', 
-        'email'=>'jn.teste@email.com', 'cpf'=>'242.411.040-96',
-        'telefone_1'=>'(82)98877-6655', 'telefone_2' => '(82)98877-6655',
-        'sexo-select' => 'masculino','sexo-input' => null, 'obs' => null,
-        'password'=>'12345678',  'password_confirmation' => '12345678',
-         ];
+            'email'=>'jn@email.com', 'cpf'=>'242.411.040-96',
+            'telefone_1'=>'(82)98877-6655', 'telefone_2' => '(82)98877-6655',
+            'sexo-select' => 'masculino','sexo-input' => null, 'obs' => null,
+            'password'=>'12345678',  'password_confirmation' => '12345678',
+        ];
         
-        $user = User::find($nutri->user->id);
-        
-        // dd($user);
-        $this->actingAs($user)->post('/paciente/create', $vetor);
+        $this->actingAs($nutri->user)->post('/paciente/create', $vetor);
         assertTrue(true);
 
         $paciente = Paciente::where('nutricionista_id', '=', $nutri->id)
         ->orderBy('created_at', 'desc')->first();
+
+        $user_equals = User::where('cpf', '=', '242.411.040-96')->first();
+        assertEquals('242.411.040-96', $user_equals->cpf);
+        assertEquals('Joaquina', $user_equals->nome);
+        assertEquals('jn@email.com', $user_equals->email);
+        assertEquals('(82)98877-6655', $user_equals->telefone_1);
         
-        // dd($nutri->id);
+        //Limpar banco
         DB::table('users')->where('id', $paciente->user_id)->delete();
-        // DB::table('users')->where('id', $nutri->user_id)->delete();
+        DB::table('users')->where('id', $nutri->user_id)->delete();
     }
 
 }
