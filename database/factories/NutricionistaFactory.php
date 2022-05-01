@@ -24,8 +24,8 @@ class NutricionistaFactory extends Factory
     public function definition()
     {
         $usuario = User::create([
-            'nome' => $this->faker->name(),
-            'email' => $this->faker->safeEmail(),
+            'nome' => "nutricionista",
+            'email' => "nutri" . Str::random(10) . "@email.com",
             'email_verified_at' => now(),
             'telefone_1' => '(00) 00000-0000',
             'telefone_2' => '(00) 00000-0000',
