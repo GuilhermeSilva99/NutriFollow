@@ -27,6 +27,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/paciente/sono/{id}/deletar", [PacienteController::class, "deletarSono"])->name("paciente.sono.deletar");
     Route::get("/paciente/sono/{id}", [PacienteController::class, "recuperarSono"])->name("paciente.sono.recuperar");
     Route::post("/paciente/sono/{id}/atualizar", [PacienteController::class, "atualizarSono"])->name("paciente.sono.atualizar");
+
+    Route::get("/paciente/consumo-agua/listar", [PacienteController::class, "listarConsumoAgua"])->name("paciente.consumo.agua.listar");
+    Route::post("/paciente/consumo-agua/criar", [PacienteController::class, "criarConsumoAgua"])->name("paciente.consumo.agua.criar");
+    Route::get("/paciente/consumo-agua/{id}/deletar", [PacienteController::class, "deletarConsumoAgua"])->name("paciente.consumo.agua.deletar");
+    Route::get("/paciente/consumo-agua/{id}", [PacienteController::class, "recuperarConsumoAgua"])->name("paciente.consumo.agua.recuperar");
+    Route::post("/paciente/consumo-agua/{id}/atualizar", [PacienteController::class, "atualizarConsumoAgua"])->name("paciente.consumo.agua.atualizar");
 });
 
 

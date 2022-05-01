@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('consumos_agua', function (Blueprint $table) {
+        Schema::create('consumo_aguas', function (Blueprint $table) {
             $table->id();
             $table->date("data");
             $table->double("quantidade");

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use App\Services\PacienteService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreConsumoAguaRequest;
 use App\Http\Requests\StoreSonoRequest;
 
 class PacienteController extends Controller
@@ -22,6 +23,8 @@ class PacienteController extends Controller
     {
         return view('paciente.create-paciente');
     }
+
+    //Sono
 
     public function listarSono(Request $request)
     {
@@ -48,5 +51,34 @@ class PacienteController extends Controller
     {
         $dados = $request->validated();
         return $this->pacienteService->atualizarSono($dados, $request->id);
+    }
+
+    //Consumo de água
+
+    public function listarConsumoAgua(Request $request)
+    {
+        return $this->pacienteService->listarConsumoAgua($request->user()->id);
+    }
+
+    public function criarConsumoAgua(StoreConsumoAguaRequest $request)
+    {
+        $dados = $request->validated();
+        return $this->pacienteService->criarConsumoAgua($dados, $request->user()->id);
+    }
+
+    public function deletarConsumoAgua(Request $request)
+    {
+        return $this->pacienteService->deletarConsumoAgua($request->id);
+    }
+
+    public function recuperarConsumoAgua(Request $request)
+    {
+        return $this->pacienteService->recuperarConsumoAgua($request->id);
+    }
+
+    public function atualizarConsumoAgua(StoreConsumoAguaRequest $request)
+    {
+        $dados = $request->validated();
+        return $this->pacienteService->atualizarConsumoAgua($dados, $request->id);
     }
 }
