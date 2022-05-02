@@ -6,9 +6,12 @@ namespace Tests\Unit;
 use App\Services\GeradorCPF;
 use App\Models\Nutricionista;
 use App\Models\User;
+use App\Models\Paciente;
 use App\Repository\NutricionistaRepository;
 use App\Repository\UserRepository;
+use App\Repository\PacienteRepository;
 use App\Services\AdminService;
+use App\Services\NutricionistaService;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -97,7 +100,28 @@ class AprovacaoNutriTest extends TestCase
     /** @test */
     public function testVerificarNutricionistaDesativaPaciente()
     {
-        $paciente = Paciente::factory(1)->create()->first();
+        $user = User::create([
+            'nome' => "paciente",
+            'email' => "paciente2@email.com",
+            'email_verified_at' => now(),
+            'telefone_1' => '(00) 00000-0000',
+            'telefone_2' => '(00) 00000-0000',
+            'cpf' => GeradorCPF::gerarCPF(),
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+            'cadastro_aprovado' => 1,
+            'tipo_usuario' => 3,
+        ]);
+
+        $nutri = Nutricionista::first();
+
+        $paciente = Paciente::create([
+            'sexo' => 'masculino',
+            'observacoes' => null,
+            'user_id' => $user->id,
+            'nutricionista_id' => $nutri->id,
+        ]);
+        
         $this->assertNull(User::onlyTrashed()->where('id', $paciente->user->id)->first());
 
         $userRepository = new UserRepository();
