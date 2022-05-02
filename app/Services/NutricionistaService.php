@@ -14,7 +14,7 @@ class NutricionistaService
     private $nutricionistaRepository;
     private $userRepository;
 
-    public function __construct(PacienteRepository $pacienteRepository,  NutricionistaRepository $nutricionistaRepository, UserRepository $userRepository)
+    public function __construct(PacienteRepository $pacienteRepository, NutricionistaRepository $nutricionistaRepository, UserRepository $userRepository)
     {
         $this->pacienteRepository = $pacienteRepository;
         $this->nutricionistaRepository = $nutricionistaRepository;
@@ -75,7 +75,7 @@ class NutricionistaService
 
     public function edit_password($id)
     {
-        return $this->pacienteRepository->find($id);
+        return $this->pacienteRepository->findByColumnWithUser('user_id', $id)->first();
     }
 
     public function reset_password($dados, $id)

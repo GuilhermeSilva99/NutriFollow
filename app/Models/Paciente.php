@@ -20,4 +20,14 @@ class Paciente extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function sono()
+    {
+        return $this->hasMany(Sono::class);
+    }
+
+    public function consumoAgua()
+    {
+        return $this->hasMany(ConsumoAgua::class);
+    }
 }

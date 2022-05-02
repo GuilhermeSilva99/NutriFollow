@@ -21,8 +21,8 @@ class PacienteFactory extends Factory
     public function definition()
     {
         $user = User::create([
-            'nome' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'nome' => "paciente",
+            'email' => "paciente@email.com",
             'email_verified_at' => now(),
             'telefone_1' => '(00) 00000-0000',
             'telefone_2' => '(00) 00000-0000',
