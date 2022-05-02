@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('refeicaos', function (Blueprint $table) {
             $table->id();
-            $table->string("dia_da_semana");
+            $table->string("dia_da_semana")->nullable();
             $table->string("descricao_refeicao");
             $table->double("caloria");
-            $table->date("horario");
+            $table->time("horario");
             $table->string("nome_refeicao");
-            $table->date("data");
+            $table->date("data")->nullable();
 
-            $table->foreignId('dieta_id')->constrained('dietas')->onDelete('cascade');
+            $table->foreignId('dieta_id')->references('id')->on('dietas');#->constrained('dietas')->onDelete('cascade');
             
 
             $table->timestamps();

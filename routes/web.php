@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\{HomeController, AdministrarNutricionistasControl
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\RefeicaoController;
+use App\Http\Controllers\DietaController;
 use App\Models\Paciente;
 
 /*
@@ -53,3 +55,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::post('/paciente/password', [PacienteController::class, 'reset_password'])->name('paciente.reset');
 
 });
+
+Route::get('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'index']);#->name('refeicao.cadastroRefeicao');
+Route::post('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'store'])->name('refeicao.cadastroRefeicao');
+
+Route::get('/nutricionista/cadastro-dieta', [DietaController::class, 'index']);
+Route::post('/nutricionista/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');

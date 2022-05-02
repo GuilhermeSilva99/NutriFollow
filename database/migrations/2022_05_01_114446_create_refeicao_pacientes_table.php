@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string("foto");
             
-            $table->foreignId('refeicao_id')->constrained('refeicaos')->onDelete('cascade');
-            $table->foreignId('paciente_id')->constrained('pacientes')->onDelete('cascade');
+            $table->foreignId('refeicao_id')->references('id')->on('refeicaos');#->constrained('refeicaos')->onDelete('cascade');
+            $table->foreignId('paciente_id')->references('id')->on('pacientes');#->constrained('pacientes')->onDelete('cascade');
 
             $table->timestamps();
         });

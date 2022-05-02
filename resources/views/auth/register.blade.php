@@ -43,17 +43,17 @@
                         <div class="mb-3">
                             <x-jet-label value="{{ __('Telefone 1') }}" />
 
-                            <x-jet-input class="{{ $errors->has('telefone1') ? 'is-invalid' : '' }}" type="text" name="telefone1"
-                                        :value="old('telefone1')" required />
-                            <x-jet-input-error for="telefone1"></x-jet-input-error>
+                            <x-jet-input class="{{ $errors->has('telefone_1') ? 'is-invalid' : '' }}" type="text" name="telefone_1"
+                                        :value="old('telefone_1')" required />
+                            <x-jet-input-error for="telefone_1"></x-jet-input-error>
                         </div>
 
                         <div class="mb-3">
                             <x-jet-label value="{{ __('Telefone 2') }}" />
 
-                            <x-jet-input class="{{ $errors->has('telefone2') ? 'is-invalid' : '' }}" type="text" name="telefone2"
-                                        :value="old('telefone2')" />
-                            <x-jet-input-error for="telefone2"></x-jet-input-error>
+                            <x-jet-input class="{{ $errors->has('telefone_2') ? 'is-invalid' : '' }}" type="text" name="telefone_2"
+                                        :value="old('telefone_2')" />
+                            <x-jet-input-error for="telefone_2"></x-jet-input-error>
                         </div>
 
                         <div class="mb-3">
