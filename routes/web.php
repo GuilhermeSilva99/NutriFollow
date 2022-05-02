@@ -50,4 +50,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::get('/paciente/password/{id}', [NutricionistaController::class, 'edit_password'])->name('paciente.password.edit');
     Route::post('/paciente/password/{id}', [NutricionistaController::class, 'reset_password'])->name('paciente.reset');
+
+    Route::delete('/inativar/{id}', [NutricionistaController::class, 'inativar_paciente'])->name('paciente.inativar');
+
 });
