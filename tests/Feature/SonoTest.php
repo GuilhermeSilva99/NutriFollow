@@ -64,4 +64,15 @@ class SonoTest extends TestCase
 
         $response->assertStatus(200)->assertJson(['sucesso' => "Sono deletado com sucesso!"]);
     }
+
+    public function testListarSono()
+    {
+        $usuarioPaciente = User::find(3);
+
+        Sanctum::actingAs($usuarioPaciente, ['*']);
+
+        $response = $this->get("/api/paciente/sono/listar");
+
+        $response->assertStatus(200);
+    }
 }
