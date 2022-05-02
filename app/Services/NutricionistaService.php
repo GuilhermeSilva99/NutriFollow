@@ -75,7 +75,7 @@ class NutricionistaService
 
     public function edit_password($id)
     {
-        return $this->pacienteRepository->find($id);
+        return $this->pacienteRepository->findByColumnWithUser('user_id', $id)->first();
     }
 
     public function reset_password($dados, $id)
