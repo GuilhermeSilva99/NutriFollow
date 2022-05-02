@@ -48,10 +48,11 @@ class AdminService
         $this->userRepository->restore($nutricionista);
         $this->userRepository->restore($nutricionistaUsuario);
 
-        $nutricionistaUsuario->cadastro_aprovado = true;
+        $nutricionista = $this->userRepository->refresh($nutricionista);
+        $nutricionista->user->cadastro_aprovado = true;
 
         $this->userRepository->saveWithModel($nutricionista);
-        $this->userRepository->saveWithModel($nutricionistaUsuario);
+        $this->userRepository->saveWithModel($nutricionista->user);
     }
 
     public function ativarCadastro($id)
@@ -68,6 +69,7 @@ class AdminService
         if (!$nutricionistaUsuario) {
             return false;
         }
+
         $this->nutricionistaRepository->softDelete($nutricionista);
         $this->userRepository->softDelete($nutricionistaUsuario);
         return true;

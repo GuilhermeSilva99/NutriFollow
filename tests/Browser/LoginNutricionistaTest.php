@@ -13,7 +13,7 @@ class LoginNutricionistaTestLoginNutricionistaTest extends DuskTestCase
 {
     use WithFaker;
 
-    public function testLoginNutricioistaCadastroAprovado()
+    public function testLoginNutricionistaCadastroAprovado()
     {
         $usuarioInfo = [
             'nome' => "Usuario teste",
