@@ -18,23 +18,23 @@
         <br><br>
         <h1>Pacientes</h1>
         <ul>
-            @foreach ($list_user as $user)
+            @foreach ($pacientes as $paciente)
             <div class = "bd-example bd-example-row">
                 <div class="container">
                     <div class = "row" >
                         <div class = "col-2">                            
-                            {{$user->nome}} {{$user->email}} {{$user->telefone_1}} {{$user->telefone_2}}
+                            {{$paciente->user->nome}} {{$paciente->user->email}} {{$paciente->user->telefone_1}} {{$paciente->user->telefone_2}}
                         </div>
                         <div class = "col-1">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$user->id}}'">Editar</button>
-                        </div>
-                        
-                        <div class = "col-1">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$user->id}}'">Visualiza</button>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$paciente->user->id}}'">Editar</button>
                         </div>
                         
                         <div class = "col-1">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$user->id}}'">Reset Password</button>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$paciente->user->id}}'">Visualiza</button>
+                        </div>
+                        
+                        <div class = "col-1">
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$paciente->user->id}}'">Reset Password</button>
                         </div>
                         
                     </div>

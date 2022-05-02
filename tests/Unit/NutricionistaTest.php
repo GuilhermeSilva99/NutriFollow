@@ -2,25 +2,24 @@
 
 namespace Tests\Unit;
 
-use App\Actions\Fortify\CreateNewUser;
-use App\Http\Controllers\Admin\HomeController;
 use App\Services\GeradorCPF;
 use App\Models\Nutricionista;
 use App\Models\User;
+use App\Repository\NutricionistaRepository;
+use App\Repository\UserRepository;
+use App\Services\AdminService;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\TestCase;
-
 
 class AprovacaoNutriTest extends TestCase
 {
     use WithFaker;
 
     /** @test */
-    public function create_nutricionista_pendente()
+    public function testCriarNutricionistaPendente()
     {
-        $user = new CreateNewUser();
-
-        $usuario = $user->create([
+        $usuario = User::create([
             'nome' =>  $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'cpf' => GeradorCPF::gerarCPF(true),
@@ -28,66 +27,67 @@ class AprovacaoNutriTest extends TestCase
             'telefone_2' => '(82)97988-5544',
             'crn' => strval(rand(10000000, 99999999)),
             'uf' => 'PE',
+            'tipo_usuario' => 2,
             'password' => '12345678',
             'password_confirmation' => '12345678',
+        ]);
+
+        Nutricionista::create([
+            "crn" => Str::random(45),
+            "uf" => "PE",
+            "user_id" => $usuario->id
         ]);
 
         $this->assertEquals(0, $usuario->cadastro_aprovado);
     }
 
     /** @test */
-    public function ativar_nutricionista_pendente()
+    public function testAtivarNutricionistaPendente()
     {
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $adminService = new AdminService($userRepository, $nutricionistaRepository);
 
-        $usuario = User::create([
-            'nome' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'cpf' => GeradorCPF::gerarCPF(true),
-            'telefone_1' => '(87)98899-7744',
-            'telefone_2' => '(87)98899-7744',
-            'tipo_usuario' => 2,
-            'password' => '12345678',
-        ]);
+        $nutricionista  = $nutricionistaRepository->all()->last();
 
-        Nutricionista::create([
-            'crn' => strval(rand(10000000, 99999999)),
-            'uf' => 'PE',
-            'user_id' => $usuario->id,
-        ]);
+        $adminService->ativarCadastro($nutricionista->user->id);
+        $usuarioNutricionista = $nutricionista->user->refresh();
 
-        $admin = new HomeController();
-        $admin->ativar_cadastro($usuario->id);
-
-        $usuario = User::find($usuario->id);
-
-        $this->assertEquals(1,  $usuario->cadastro_aprovado);
+        $this->assertEquals(1,  $usuarioNutricionista->cadastro_aprovado);
     }
 
     /** @test */
-    public function reprovar_nutricionista_pendente()
+    public function testReprovarNutricionistaPendente()
     {
-
         $usuario = User::create([
-            'nome' => $this->faker->name(),
+            'nome' =>  $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'cpf' => GeradorCPF::gerarCPF(true),
-            'telefone_1' => '(87)98899-7744',
-            'telefone_2' => '87988997744',
+            'telefone_1' => '(82)97988-5544',
+            'telefone_2' => '(82)97988-5544',
+            'crn' => strval(rand(10000000, 99999999)),
+            'uf' => 'PE',
             'tipo_usuario' => 2,
             'password' => '12345678',
+            'password_confirmation' => '12345678',
         ]);
 
         Nutricionista::create([
-            'crn' => strval(rand(10000000, 99999999)),
-            'uf' => 'PE',
-            'user_id' => $usuario->id,
+            "crn" => Str::random(45),
+            "uf" => "PE",
+            "user_id" => $usuario->id
         ]);
 
-        $admin = new HomeController();
-        $admin->recusar_cadastro($usuario->id);
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $adminService = new AdminService($userRepository, $nutricionistaRepository);
 
-        $usuario = User::find($usuario->id);
+        $nutricionista  = $nutricionistaRepository->all()->last();
 
-        $this->assertEquals(null,  $usuario);
+        $adminService->recusarCadastro($nutricionista->user->id);
+
+        $usuario = User::find($nutricionista->user->id);
+
+        $this->assertEquals(null, $usuario);
     }
 }

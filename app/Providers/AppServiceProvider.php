@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Services\AdminService;
 use Illuminate\Support\ServiceProvider;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
     }
 
     /**
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->bind(AdminController::class, function ($app) {
+            return new AdminController($app->make(AdminService::class));
+        });
     }
 }

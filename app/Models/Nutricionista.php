@@ -4,19 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Nutricionista extends Model
 {
     use HasFactory;
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    use SoftDeletes;
 
     protected $fillable = [
         'crn',
         'uf',
         'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

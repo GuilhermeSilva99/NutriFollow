@@ -23,7 +23,7 @@
                         <form action="{{ route('nutricionista.reativar', $user->id) }}" method="post">
                             @method('PUT')
                             @csrf
-                            <button class="button-reativar" type="submit"  dusk="reativar-button-{{$user->id}}">Reativar</button>
+                            <button class="button-reativar" type="submit" dusk="reativar-button-{{$user->id}}">Reativar</button>
                         </form>
                     </td>
                 </tr>
