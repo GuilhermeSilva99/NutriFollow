@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ $nutricionista->user->nome }}</td>
                     <td class="alinhar-esquerda">
-                        <form action="{{ route('nutricionista.inativar', $nutricionista->user->id) }}" method="post">
+                        <form action="/inativar/{{ $nutricionista->user->id }}" method="post">
                             @method('DELETE')
                             @csrf
                             <button class="button-reprova" type="submit" dusk="desativar-button-{{$nutricionista->user->id}}">Desativar</button>

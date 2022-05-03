@@ -102,7 +102,7 @@ class AprovacaoNutriTest extends TestCase
     {
         $user = User::create([
             'nome' => "paciente",
-            'email' => "paciente2@email.com",
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'telefone_1' => '(00) 00000-0000',
             'telefone_2' => '(00) 00000-0000',
