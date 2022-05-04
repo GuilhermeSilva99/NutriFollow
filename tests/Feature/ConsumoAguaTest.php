@@ -55,7 +55,7 @@ class ConsumoAguaTest extends TestCase
 
         Sanctum::actingAs($usuarioPaciente, ['*']);
 
-        $response = $this->get("/api/paciente/consumo-agua/" . $consumoAgua->id . "/deletar");
+        $response = $this->delete("/api/paciente/consumo-agua/" . $consumoAgua->id . "/deletar");
 
         $response->assertStatus(200)->assertJson(['sucesso' => "Consumo de água deletado com sucesso!"]);
     }
