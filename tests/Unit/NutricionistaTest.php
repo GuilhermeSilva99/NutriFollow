@@ -102,7 +102,7 @@ class AprovacaoNutriTest extends TestCase
     {
         $user = User::create([
             'nome' => "paciente",
-            'email' => "paciente2@email.com",
+            'email' => $this->faker->safeEmail(),
             'email_verified_at' => now(),
             'telefone_1' => '(00) 00000-0000',
             'telefone_2' => '(00) 00000-0000',
@@ -121,14 +121,14 @@ class AprovacaoNutriTest extends TestCase
             'user_id' => $user->id,
             'nutricionista_id' => $nutri->id,
         ]);
-        
+
         $this->assertNull(User::onlyTrashed()->where('id', $paciente->user->id)->first());
 
         $userRepository = new UserRepository();
         $pacienteRepository = new PacienteRepository();
         $nutricionistaRepository = new NutricionistaRepository();
         $nutricionistaService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository);
-        
+
         $nutricionistaService->inativar_paciente($paciente->id);
 
         $this->assertNotNull(User::onlyTrashed()->where('id', $paciente->user->id)->first());
