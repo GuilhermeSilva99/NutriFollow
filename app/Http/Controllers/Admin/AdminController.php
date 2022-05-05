@@ -21,39 +21,39 @@ class AdminController extends Controller
         return view('admin.home', ['nutricionistas' => $nutricionistas]);
     }
 
-    public function listaNutricionista()
+    public function listarNutricionistas()
     {
         $nutricionistas = $this->adminService->listarNutricionistas();
         return view('admin.lista-nutricionistas', ['nutricionistas' => $nutricionistas]);
     }
 
-    public function inativar($id)
+    public function inativarNutricionista($id)
     {
         $this->adminService->inativarNutricionista($id);
-        return redirect()->route('nutricionistas.listar');
+        return redirect()->route('admin.listar.nutricionistas');
     }
 
-    public function listar_nutricionistas_inativos()
+    public function listarNutricionistasInativos()
     {
         $users = $this->adminService->listarNutricionistasInativos();
         return view('admin.lista-nutricionistas-inativos', ['users' => $users]);
     }
 
-    public function reativar($id)
+    public function reativarNutricionista($id)
     {
         $this->adminService->reativarNutricionista($id);
-        return redirect()->Route('nutricionistas.inativos.listar');
+        return redirect()->Route('admin.listar.nutricionistas.inativos');
     }
 
-    public function ativarCadastro($id)
+    public function ativarCadastroNutricionista($id)
     {
-        $this->adminService->ativarCadastro($id);
+        $this->adminService->ativarCadastroNutricionista($id);
         return redirect()->route('admin.home');
     }
 
-    public function recusarCadastro($id)
+    public function recusarCadastroNutricionista($id)
     {
-        $usuario = $this->adminService->recusarCadastro($id);
+        $usuario = $this->adminService->recusarCadastroNutricionista($id);
         if (!$usuario)
             return redirect()->route('admin.home');
 

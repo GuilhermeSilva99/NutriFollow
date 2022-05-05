@@ -55,7 +55,7 @@ class AprovacaoNutriTest extends TestCase
 
         $nutricionista  = $nutricionistaRepository->all()->last();
 
-        $adminService->ativarCadastro($nutricionista->user->id);
+        $adminService->ativarCadastroNutricionista($nutricionista->user->id);
         $usuarioNutricionista = $nutricionista->user->refresh();
 
         $this->assertEquals(1,  $usuarioNutricionista->cadastro_aprovado);
@@ -90,7 +90,7 @@ class AprovacaoNutriTest extends TestCase
 
         $nutricionista  = $nutricionistaRepository->all()->last();
 
-        $adminService->recusarCadastro($nutricionista->user->id);
+        $adminService->recusarCadastroNutricionista($nutricionista->user->id);
 
         $usuario = User::find($nutricionista->user->id);
 
@@ -129,7 +129,7 @@ class AprovacaoNutriTest extends TestCase
         $nutricionistaRepository = new NutricionistaRepository();
         $nutricionistaService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository);
 
-        $nutricionistaService->inativar_paciente($paciente->id);
+        $nutricionistaService->inativarPaciente($paciente->id);
 
         $this->assertNotNull(User::onlyTrashed()->where('id', $paciente->user->id)->first());
     }

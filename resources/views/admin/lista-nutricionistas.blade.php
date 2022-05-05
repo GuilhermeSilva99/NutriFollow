@@ -4,7 +4,7 @@
             {{ __('Dashboard Admin - Lista de Nutricionistas') }}
         </h2>
         <a href="{{ route('admin.home') }}">Solicitações de cadastro </a>
-        <a href="{{ route('nutricionistas.inativos.listar') }}">Nutricionistas inativos</a>
+        <a href="{{ route('admin.listar.nutricionistas.inativos') }}">Nutricionistas inativos</a>
     </x-slot>
     <h1>Lista de Nutricionistas</h1>
     <table class="table">
@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ $nutricionista->user->nome }}</td>
                     <td class="alinhar-esquerda">
-                        <form action="{{ route('nutricionista.inativar', $nutricionista->user->id) }}" method="post">
+                        <form action="{{ route('admin.inativar.nutricionista', $nutricionista->user->id) }}" method="post">
                             @method('DELETE')
                             @csrf
                             <button class="button-reprova" type="submit" dusk="desativar-button-{{$nutricionista->user->id}}">Desativar</button>

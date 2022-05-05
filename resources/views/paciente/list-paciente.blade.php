@@ -26,18 +26,18 @@
                             {{$paciente->user->nome}} {{$paciente->user->email}} {{$paciente->user->telefone_1}} {{$paciente->user->telefone_2}}
                         </div>
                         <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$paciente->user->id}}'">Editar</button>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/editar/paciente/{{$paciente->user->id}}'">Editar</button>
                         </div>
                         
                         <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$paciente->user->id}}'">Visualiza</button>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/nutricionista/exibir/paciente/{{$paciente->user->id}}'">Visualiza</button>
                         </div>
                         
                         <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$paciente->user->id}}'">Reset Password</button>
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/nutricionista/paciente/senha/{{$paciente->user->id}}'">Reset Password</button>
                         </div>
 
-                        <form action="{{ route('paciente.inativar', $paciente->id) }}" method="post">
+                        <form action="{{ route('nutricionista.paciente.inativar', $paciente->id) }}" method="post">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
@@ -49,8 +49,8 @@
             </div>
             @endforeach
         </ul>
-        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/paciente/register-paciente'">Cadastar Novo</button>
-        {{-- <button  onclick="document.location='/paciente/register-paciente'"> Cadastrar </button> --}}
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/register-paciente'">Cadastar Novo</button>
+        {{-- <button  onclick="document.location='/nutricionista/register-paciente'"> Cadastrar </button> --}}
     </body>
     @endsection
 </html>

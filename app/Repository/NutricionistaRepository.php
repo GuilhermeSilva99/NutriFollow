@@ -53,6 +53,12 @@ class NutricionistaRepository implements BaseRepositoryInterface
         return Nutricionista::onlyTrashed()->where('cadastro_aprovado', 2)->get();
     }
 
+    public function listarNutricionistasComCadastroPendente()
+    {
+        return Nutricionista::whereRelation('user', 'cadastro_aprovado', 0)
+            ->whereRelation('user', 'email_verified_at', "!=", null)->get();
+    }
+
     public function listarNutricionistasComCadastroAprovado()
     {
         return Nutricionista::whereRelation('user', 'cadastro_aprovado', 1)->get();
