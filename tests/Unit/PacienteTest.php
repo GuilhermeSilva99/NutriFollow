@@ -86,7 +86,7 @@ class PacienteTest extends TestCase
             'password' => 'Teste123456',  'password_confirmation' => 'Teste123456',
         ];
 
-        $nutriService->reset_password($dados, 3);
+        $nutriService->atualizarSenha($dados, 3);
 
         $usuarioPaciente = $userRepository->find(3);
         assertTrue(Hash::check('Teste123456', $usuarioPaciente->password));

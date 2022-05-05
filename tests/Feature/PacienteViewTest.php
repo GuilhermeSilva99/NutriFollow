@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class PacienteViewTest extends TestCase
 {
-    
+
     public function test_view_user()
     {
         /* No banco de teste são criados por padrão via seed 3 usuários:
@@ -19,7 +19,7 @@ class PacienteViewTest extends TestCase
         */
         $userRepository = new UserRepository();
         $usuarioNutricionista = $userRepository->find(2);
-        $response = $this->actingAs($usuarioNutricionista)->get('/view/paciente/'. 3);
+        $response = $this->actingAs($usuarioNutricionista)->get('/nutricionista/exibir/paciente/' . 3);
         $this->assertEquals(200, $response->status());
     }
 }

@@ -20,7 +20,7 @@
         <br>
         <br>
         <div class="card-body">
-            <form method="POST" action="{{route('paciente.reset', $paciente->user->id) }}">
+            <form method="POST" action="{{route('nutricionista.paciente.atualizar.senha', $paciente->user->id) }}">
                 @csrf
 
                 <input type="hidden" name="id" value="{{$paciente->user->id}}" /> <br> 
@@ -62,7 +62,7 @@
 
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/list/paciente'">Listar</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/listar/pacientes'">Listar</button>
 
                         <x-jet-button name="Resetar" class="btn btn-outline-secondary">
                             {{ __('Resetar') }}

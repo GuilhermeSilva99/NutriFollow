@@ -133,8 +133,8 @@
                             <button class="dropdown-btn">Paciente                                <i class="fa fa-caret-down"></i>
                             </button>
                             <div class="dropdown-container">
-                                <a href="/paciente/register-paciente">Cadastrar Pasciente</a>
-                                <a href="/list/paciente">Listar Pasciente</a>
+                                <a href="/nutricionista/register-paciente">Cadastrar Pasciente</a>
+                                <a href="/nutricionista/listar/pacientes">Listar Pasciente</a>
                             </div>
                             
                         </div>                    

@@ -17,7 +17,7 @@ class AdminService
 
     public function index()
     {
-        return $this->nutricionistaRepository->listarNutricionistasComCadastroAprovado();
+        return $this->nutricionistaRepository->listarNutricionistasComCadastroPendente();
     }
 
     public function listarNutricionistas()
@@ -55,14 +55,14 @@ class AdminService
         $this->userRepository->saveWithModel($nutricionista->user);
     }
 
-    public function ativarCadastro($id)
+    public function ativarCadastroNutricionista($id)
     {
         $nutricionistaUsuario = $this->userRepository->find($id);
         $nutricionistaUsuario->cadastro_aprovado = 1;
         $this->userRepository->saveWithModel($nutricionistaUsuario);
     }
 
-    public function recusarCadastro($id)
+    public function recusarCadastroNutricionista($id)
     {
         $nutricionista = $this->nutricionistaRepository->findByColumn("user_id", $id)->first();
         $nutricionistaUsuario = $nutricionista->user;
