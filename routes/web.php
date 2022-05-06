@@ -50,6 +50,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/nutricionista/paciente/senha/{id}', [NutricionistaController::class, 'editarSenha'])->name('nutricionista.paciente.senha');
     Route::post('/nutricionista/paciente/senha/{id}', [NutricionistaController::class, 'atualizarSenha'])->name('nutricionista.paciente.atualizar.senha');
     Route::delete('/nutricionista/paciente/inativar/{id}', [NutricionistaController::class, 'inativarPaciente'])->name('nutricionista.paciente.inativar');
+
+    Route::middleware('NutricionistaDoPaciente')->group(function(){
+        Route::get('sono/{id}', [SonoController::class, 'index'])->name('sono');
+    });
 });
 
-Route::get('sono/{id}', [SonoController::class, 'index'])->name('sono');
