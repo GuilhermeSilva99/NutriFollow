@@ -22,12 +22,12 @@ class NutricionistaDoPaciente
         $nutricionista = Nutricionista::whereRelation('user', 'id', Auth::user()->id)->first();
         $paciente = Paciente::whereRelation('user', 'id' , $request->id)->first();
         
-        if($paciente == null || $nutricionista ==null)
+        if($paciente == null || $nutricionista == null)
             return back();
-
-        if($paciente->user_id != $nutricionista->id)
-            return redirect()->back()->withErrors(['Apenas o nutricionista do paciente pode acessar os seus dados']);
         
-        return $next($request);
+        if($paciente->nutricionista_id != $nutricionista->id)
+            return redirect()->back()->withErrors(['Apenas o nutricionista do paciente pode acessar os seus dados']);
+
+            return $next($request);
     }
 }
