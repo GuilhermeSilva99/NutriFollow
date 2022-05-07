@@ -17,13 +17,18 @@ class SonoController extends Controller
 
     public function index(Request $request, $id)
     {
-        $inicio = Carbon::parse($request->inicio)->format('y-m-d');
-        $fim = Carbon::parse($request->fim)->format('y-m-d');
-        
+        Carbon::setlocale('pt-BR');
+
         if($request->inicio == null || $request->fim == null)
-            $registros_sono = $this->sonoService->listarSono($id);
-        else
-            $registros_sono = $this->sonoService->listarSonoPorPeriodo($inicio, $fim, $id);
+        {
+            $fim = Carbon::now();
+            $inicio = Carbon::now()->sub(30, 'days');
+        } else {
+            $inicio = Carbon::createFromFormat('d/m/Y',$request->inicio);
+            $fim = Carbon::createFromFormat('d/m/Y',$request->fim);
+        }
+
+        $registros_sono = $this->sonoService->listarSonoPorPeriodo($inicio, $fim, $id);
 
         $status = ["Bom" => 10, "Mediano" => 5, "Ruim" => 0];
         $dias = [];
@@ -32,17 +37,19 @@ class SonoController extends Controller
         
         foreach ($registros_sono as $sono)
         {
-            $dias[] = date('d-m', strtotime($sono->data)); 
+            $dias[] = date('d-m-y', strtotime($sono->data)); 
             $duracao[] = floatval($sono->duracao);
             $qualidade[] = floatval($status[$sono->avaliacao]);
         }
 
-
         $duracao_data = ['name' => 'Tempo de sono','data' => $duracao];
         $qualidade_data = ['name' => 'Qualidade', 'data' => $qualidade];
+
         return view('paciente.sono', ['dias' => json_encode($dias),
                                       'duracao' => json_encode($duracao_data),
                                       'qualidade' => json_encode($qualidade_data),
-                                      'id' => $id]);
+                                      'id' => $id,
+                                      'inicio' => $inicio->format('d/m/Y'), 
+                                      'fim' => $fim->format('d/m/Y')]);
     }
 }

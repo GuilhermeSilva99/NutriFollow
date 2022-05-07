@@ -44,6 +44,6 @@ class SonoRepository implements BaseRepositoryInterface
 
     public function findByPeriod($inicio, $fim, $paciente_id)
     {
-        return Sono::where('paciente_id', $paciente_id)->whereDate('data','>=', $inicio)->whereDate('data','<=', $fim)->get();
+        return Sono::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->get();
     }
 }

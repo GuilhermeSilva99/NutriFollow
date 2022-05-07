@@ -20,8 +20,8 @@
                 <label class="col-sm-5 col-form-label">Início</label> 
                 <label class="col-sm-1 col-form-label">Fim</label>                        
                 <div class="input-daterange input-group" id="datepicker">
-                    <input type="text" class="input-sm form-control" name="inicio" />
-                    <input type="text" class="input-sm form-control" name="fim" />
+                    <input type="text" class="input-sm form-control" name="inicio" autocomplete="off" />
+                    <input type="text" class="input-sm form-control" name="fim" autocomplete="off"/>
                     <button class="btn btn-success" type="submit">Filtrar</button>
                 </div>
             </div>
@@ -39,10 +39,10 @@
             type: 'column'
         },
         title: {
-            text: 'Sono do Paciente'
+            text: 'Relatório de sono do Paciente'
         },
         subtitle: {
-            text: 'Quantidade e qualidade dos últimos dias'
+            text: 'Quantidade e qualidade de sono no periodo entre os dias {{ $inicio }} à {{$fim}}'
         },
         xAxis: {
             categories: <?= $dias ?>,
@@ -81,6 +81,7 @@
 <script type="text/javascript">
     $('.input-daterange').datepicker({
     format: "dd/mm/yyyy",
+    todayHighlight: true,
     todayBtn: "linked",
     clearBtn: true,
     language: "pt-BR"
