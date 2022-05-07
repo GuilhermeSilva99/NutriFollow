@@ -21,6 +21,12 @@ class SonoService
         return $this->sonoRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
     }
 
+    public function listarSonoPorPeriodo($inicio, $fim, $usuarioID)
+    {
+        $usuarioPaciente = $this->userRepository->find($usuarioID);
+        return $this->sonoRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
+    }
+
     public function criarSono($dadosSono, $usuarioID)
     {
         $usuarioPaciente = $this->userRepository->find($usuarioID);

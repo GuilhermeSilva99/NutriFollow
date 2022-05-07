@@ -53,5 +53,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::middleware('NutricionistaDoPaciente')->group(function(){
         Route::get('/sono/{id}', [SonoController::class, 'index'])->name('sono');
+        Route::post('/sono/{id}', [SonoController::class, 'index'])->name('sono');
     });
 });

@@ -12,6 +12,21 @@
             </div>
         </div>
     </div>
+
+    <form method="POST" action="{{ route('sono', $id) }}">
+    @csrf
+        <div class="container mt-5" style="max-width: 450px">
+            <div class="row form-group">       
+                <label class="col-sm-5 col-form-label">Início</label> 
+                <label class="col-sm-1 col-form-label">Fim</label>                        
+                <div class="input-daterange input-group" id="datepicker">
+                    <input type="text" class="input-sm form-control" name="inicio" />
+                    <input type="text" class="input-sm form-control" name="fim" />
+                    <button class="btn btn-success" type="submit">Filtrar</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </x-guest-layout>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -59,44 +74,15 @@
 </script>
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    {{-- <div class="card">
-        <div class="card-header">{{ __('Registros de Sono') }}</div>
-        <div class="card-body">
-            <div id="container"></div>
-        </div>
-    </div>
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col">
-                <div id="container"></div>
-            </div>
-        </div>
-    </div> --}}
-
-    
-   
-</body>
-</html> --}}
+<script type="text/javascript">
+    $('.input-daterange').datepicker({
+    format: "dd/mm/yyyy",
+    todayBtn: "linked",
+    clearBtn: true,
+    language: "pt-BR"
+});
+</script> 
