@@ -36,7 +36,6 @@
                         <div class = "col-2">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/nutricionista/paciente/senha/{{$paciente->user->id}}'">Reset Password</button>
                         </div>
-
                         <form action="{{ route('nutricionista.paciente.inativar', $paciente->id) }}" method="post">
                             @method('DELETE')
                             @csrf

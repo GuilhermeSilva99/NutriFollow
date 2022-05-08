@@ -135,6 +135,7 @@
                             <div class="dropdown-container">
                                 <a href="/nutricionista/register-paciente">Cadastrar Pasciente</a>
                                 <a href="/nutricionista/listar/pacientes">Listar Pasciente</a>
+                                <a href="/paciente/cadastro-dieta">Atribuir Dieta</a>
                             </div>
                             
                         </div>                    

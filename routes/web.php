@@ -5,8 +5,10 @@ use App\Http\Controllers\Admin\{AdminController};
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RefeicaoController;
+use App\Http\Controllers\DietaController;
+use App\Models\Paciente;
 use App\Http\Controllers\SonoController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/nutricionista/paciente/senha/{id}', [NutricionistaController::class, 'editarSenha'])->name('nutricionista.paciente.senha');
     Route::post('/nutricionista/paciente/senha/{id}', [NutricionistaController::class, 'atualizarSenha'])->name('nutricionista.paciente.atualizar.senha');
     Route::delete('/nutricionista/paciente/inativar/{id}', [NutricionistaController::class, 'inativarPaciente'])->name('nutricionista.paciente.inativar');
+
+    Route::post('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'store'])->name('refeicao.cadastroRefeicao.post');
+
+
+    Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
+    Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');
+    Route::get('/paciente/cadastro-dieta/{id}', [DietaController::class, 'view'])->name('dieta.view-dieta');
+    Route::get('/nutricionista/cadastro-refeicao/{id}', [DietaController::class, 'adicionarRefeicao'])->name('refeicao.PrepDietaRef');
 
     Route::middleware('NutricionistaDoPaciente')->group(function(){
         Route::get('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono');
