@@ -41,4 +41,9 @@ class SonoRepository implements BaseRepositoryInterface
     {
         return $objeto->delete();
     }
+
+    public function findByPeriod($inicio, $fim, $paciente_id)
+    {
+        return Sono::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->get();
+    }
 }

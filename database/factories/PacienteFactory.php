@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Nutricionista;
+use App\Models\Paciente;
 use App\Models\User;
 use App\Services\GeradorCPF;
 use Illuminate\Support\Str;
@@ -18,6 +19,9 @@ class PacienteFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Paciente::class;
+
     public function definition()
     {
         $user = User::create([

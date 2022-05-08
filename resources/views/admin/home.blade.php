@@ -3,8 +3,8 @@
         <h2 class="h4 font-weight-bold">
             {{ __('Dashboard Admin') }}
         </h2>
-        <a href="{{ route('nutricionistas.listar') }}">Nutricionistas cadastrados </a>
-        <a href="{{ route('nutricionistas.inativos.listar') }}">Nutricionistas inativos</a>
+        <a href="{{ route('admin.listar.nutricionistas') }}">Nutricionistas cadastrados </a>
+        <a href="{{ route('admin.listar.nutricionistas.inativos') }}">Nutricionistas inativos</a>
 
     </x-slot>
 
@@ -24,14 +24,14 @@
                         <td type="button" data-bs-toggle="modal" data-bs-target="#modal-nutricionista-{{$nutricionista->id}}">{{ $nutricionista->crn }}</td>
                         <td class="row" style="text-align: center; margin: 0px">
                             <div class="col-md-6">
-                                <form action="{{ route('cadastro.ativar', $nutricionista->user->id) }}" method="POST">
+                                <form action="{{ route('admin.ativar.cadastro.nutricionista', $nutricionista->user->id) }}" method="POST">
                                     @method('PUT')  
                                     @csrf
                                     <button class="button-aprova" type="submit" dusk="aprovar-button-{{$nutricionista->user->id}}">Aprovar</button>
                                 </form>
                             </div>
                             <div class="col-md-6">
-                                <form action="{{ route('cadastro.recusar', $nutricionista->user->id) }}" method="post">
+                                <form action="{{ route('admin.recusar.cadastro.nutricionista', $nutricionista->user->id) }}" method="post">
                                     @method('DELETE')
                                     @csrf
                                     <button class="button-reprova" type="submit">Reprovar</button>

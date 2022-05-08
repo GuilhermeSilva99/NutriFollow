@@ -10,8 +10,10 @@ use App\Services\GeradorCPF;
 use App\Services\NutricionistaService;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertTrue;
 
 class PacienteTest extends TestCase
 {
@@ -71,5 +73,22 @@ class PacienteTest extends TestCase
         assertEquals('(81)98877-6600', $usuarioPaciente->user->telefone_2);
         assertEquals('Teste edition', $usuarioPaciente->observacoes);
         assertEquals('feminino', $usuarioPaciente->sexo);
+    }
+
+    public function testResetarSenhaPaciente()
+    {
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository);
+
+        $dados = [
+            'password' => 'Teste123456',  'password_confirmation' => 'Teste123456',
+        ];
+
+        $nutriService->atualizarSenha($dados, 3);
+
+        $usuarioPaciente = $userRepository->find(3);
+        assertTrue(Hash::check('Teste123456', $usuarioPaciente->password));
     }
 }

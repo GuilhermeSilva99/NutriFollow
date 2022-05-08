@@ -11,7 +11,7 @@
         <x-jet-validation-errors class="mb-3" />
 
         <div class="card-body">
-            <form method="POST" action="{{ route('nutricionista.store.paciente') }}">
+            <form method="POST" action="{{ route('nutricionista.salvar.paciente') }}">
                 @csrf
 
                 <div class="mb-3">

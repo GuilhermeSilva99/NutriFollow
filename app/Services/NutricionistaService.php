@@ -40,18 +40,18 @@ class NutricionistaService
         $this->pacienteRepository->save($dadosPaciente);
     }
 
-    public function list()
+    public function listarPacientes()
     {
         $nutricionista = $this->nutricionistaRepository->findByColumn("user_id", Auth::user()->id)->first();
         return $this->pacienteRepository->findByColumnWithUser('nutricionista_id', $nutricionista->id);
     }
 
-    public function view($id)
+    public function exibirPaciente($id)
     {
         return $this->pacienteRepository->findByColumnWithUser('user_id', $id)->first();
     }
 
-    public function getEditar($id)
+    public function editarPaciente($id)
     {
         return $this->pacienteRepository->findByColumnWithUser('user_id', $id)->first();
     }
@@ -73,15 +73,21 @@ class NutricionistaService
         $this->userRepository->saveWithModel($paciente);
     }
 
-    public function edit_password($id)
+    public function editarSenha($id)
     {
         return $this->pacienteRepository->findByColumnWithUser('user_id', $id)->first();
     }
 
-    public function reset_password($dados, $id)
+    public function atualizarSenha($dados, $id)
     {
         $paciente = $this->pacienteRepository->findByColumnWithUser('user_id', $id)->first();
         $paciente->user->password = Hash::make($dados['password']);
         $this->userRepository->saveWithModel($paciente->user);
+    }
+
+    public function inativarPaciente($id)
+    {
+        $paciente = $this->pacienteRepository->find($id);
+        $this->pacienteRepository->softDelete($paciente);
     }
 }

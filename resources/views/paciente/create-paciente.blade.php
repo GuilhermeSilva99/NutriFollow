@@ -20,7 +20,7 @@
         <br>
         <br>
         <div class="card-body">
-            <form method="POST" action="{{ route('paciente.create') }}">
+            <form method="POST" action="{{ route('nutricionista.paciente.create') }}">
                 @csrf
 
                 <div class="mb-3">

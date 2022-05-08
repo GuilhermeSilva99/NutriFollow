@@ -26,76 +26,87 @@ class NutricionistaController extends Controller
         return view('nutricionista.cadastro-paciente');
     }
 
-    public function storePaciente(StorePacienteRequest $request)
+    public function index()
+    {
+        return view('paciente.create-paciente');
+    }
+
+    public function salvarPaciente(StorePacienteRequest $request)
     {
         try {
             $data = $request->validated();
             $this->nutricionistaService->save($data);
-            return redirect('/list/paciente');
+            return redirect('/nutricionista/listar/pacientes');
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
         }
     }
 
-    public function list()
+    public function listarPacientes()
     {
         try {
-            $pacientes = $this->nutricionistaService->list();
+            $pacientes = $this->nutricionistaService->listarPacientes();
             return view('paciente.list-paciente', ['pacientes' => $pacientes]);
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
         }
     }
 
-    public function view($id)
+    public function exibirPaciente($id)
     {
         try {
-            $paciente = $this->nutricionistaService->view($id);
+            $paciente = $this->nutricionistaService->exibirPaciente($id);
             return view('paciente.view-paciente', ['paciente' => $paciente]);
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
         }
     }
 
-    public function getEditar($id)
+    public function editarPaciente($id)
     {
         try {
-            $paciente = $this->nutricionistaService->getEditar($id);
+            $paciente = $this->nutricionistaService->editarPaciente($id);
             return view('paciente.edit-paciente', ['paciente' => $paciente]);
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
         }
     }
 
-    public function editar(UpdatePacienteRequest $request, $id)
+    public function atualizarPaciente(UpdatePacienteRequest $request, $id)
     {
         try {
             $dadosValidados = $request->validated();
             $this->nutricionistaService->editar($dadosValidados, $id);
-            return redirect('/list/paciente');
+            return redirect('/nutricionista/listar/pacientes');
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
         }
     }
 
-    public function edit_password($id)
+    public function editarSenha($id)
     {
         try {
-            $paciente = $this->nutricionistaService->edit_password($id);
+            $paciente = $this->nutricionistaService->editarSenha($id);
             return view('paciente.edit-password', ['paciente' => $paciente]);
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
         }
     }
 
-    public function reset_password(ResetPasswordRequest $request, $id)
+    public function atualizarSenha(ResetPasswordRequest $request, $id)
     {
         try {
             $dados = $request->validated();
-            $this->nutricionistaService->reset_password($dados, $id);
-            return redirect('/list/paciente');
+            $this->nutricionistaService->atualizarSenha($dados, $id);
+            return redirect('/nutricionista/listar/pacientes');
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
         }
+    }
+
+    public function inativarPaciente($id)
+    {
+        $this->nutricionistaService->inativarPaciente($id);
+        return redirect()->route('nutricionista.listar.pacientes');
     }
 }
