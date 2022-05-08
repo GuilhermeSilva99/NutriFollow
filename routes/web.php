@@ -53,10 +53,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::get('/paciente/password/{id}', [NutricionistaController::class, 'edit_password'])->name('paciente.password.edit');
     Route::post('/paciente/password/{id}', [NutricionistaController::class, 'reset_password'])->name('paciente.reset');
+
+    Route::post('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'store'])->name('refeicao.cadastroRefeicao.post');
+
+
+    Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
+    Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');
+    Route::get('/paciente/cadastro-dieta/{id}', [DietaController::class, 'view'])->name('dieta.view-dieta');
+    Route::get('/nutricionista/cadastro-refeicao/{id}', [DietaController::class, 'adicionarRefeicao'])->name('refeicao.PrepDietaRef');
 });
 
-Route::get('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'index']);#->name('refeicao.cadastroRefeicao');
-Route::post('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'store'])->name('refeicao.cadastroRefeicao');
-
-Route::get('/nutricionista/cadastro-dieta', [DietaController::class, 'index']);
-Route::post('/nutricionista/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');

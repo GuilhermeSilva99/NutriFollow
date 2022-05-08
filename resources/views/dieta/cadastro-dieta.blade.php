@@ -1,59 +1,75 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 font-weight-bold">
-            {{ __('Cadastrar Dieta') }}
-        </h2>
-    </x-slot>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-        </x-slot>
-
-        <x-jet-validation-errors class="mb-3" />
-
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cadastrar Dieta</title>
+        <style>
+            .bd-example-row {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                border-bottom: 1px solid;
+            }
+        </style>
+    </head>
+    @extends('home')
+    @section('content')
+    <body class="antialiased">
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="card-body">
-            <form method="POST" action="{{ route('dieta.cadastroDieta') }}">
+            <form method="POST" action="{{route('dieta.cadastroDieta') }}">
                 @csrf
-
+                
                 <div class="mb-3">
-                    <x-jet-label value="{{ __('Nome') }}" />
-
-                    <x-jet-input class="{{ $errors->has('nome') ? 'is-invalid' : '' }}" type="text" name="nome_refeicao"
-                                 :value="old('nome')" required autofocus autocomplete="nome" />
-                    <x-jet-input-error for="nome_refeicao"></x-jet-input-error>
+                    <x-jet-label value="{{ __('Paciente') }}" />
+                    <select class="form-select" aria-label="Default select example" name="paciente_id" for="paciente_id">
+                        <option selected>Selecione Paciente</option>
+                            @foreach ($pacientes as $paciente)
+                                <option  value="{{$paciente->id}}" >{{$paciente->user->nome}}</option>
+                            @endforeach
+                    </select>
+                    
                 </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Descrição') }}" />
 
-                    <x-jet-input class="{{ $errors->has('descricao') ? 'is-invalid' : '' }}" type="text" name="descricao_refeicao"
+                    <x-jet-input class="{{ $errors->has('nome') ? 'is-invalid' : '' }}" type="text" name="descricao"
                                  :value="old('descricao')" required autofocus autocomplete="descricao" />
-                    <x-jet-input-error for="descricao_refeicao"></x-jet-input-error>
+                    <x-jet-input-error for="descricao"></x-jet-input-error>
                 </div>
 
                 <div class="mb-3">
-                    <x-jet-label value="{{ __('Calorias') }}" />
+                    <x-jet-label value="{{ __('Data de Início') }}" />
 
-                    <x-jet-input class="{{ $errors->has('calorias') ? 'is-invalid' : '' }}" type="number" name="caloria"
-                                 :value="old('calorias')" required />
-                    <x-jet-input-error for="caloria"></x-jet-input-error>
+                    <x-jet-input class="{{ $errors->has('data_inicio') ? 'is-invalid' : '' }}" type="date" name="data_inicio"
+                                 :value="old('descricao')" required autofocus autocomplete="descricao" />
+                    <x-jet-input-error for="data_inicio"></x-jet-input-error>
                 </div>
 
                 <div class="mb-3">
-                    <x-jet-label value="{{ __('Horário') }}" />
+                    <x-jet-label value="{{ __('Data de Fim') }}" />
 
-                    <x-jet-input class="{{ $errors->has('horario') ? 'is-invalid' : '' }}" type="time" name="horario"
-                                 :value="old('horario')" required />
-                    <x-jet-input-error for="horario"></x-jet-input-error>
+                    <x-jet-input class="{{ $errors->has('data_fim') ? 'is-invalid' : '' }}" type="date" name="data_fim"
+                                 :value="old('data_fim')" required />
+                    <x-jet-input-error for="data_fim"></x-jet-input-error>
                 </div>
 
-                <div class="mb-0">
+                <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        <x-jet-button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/list/paciente'">Listar</button>
+
+                        <x-jet-button name="cadastrar" class="btn btn-outline-secondary">
                             {{ __('Cadastrar') }}
                         </x-jet-button>
                     </div>
                 </div>
             </form>
         </div>
-    </x-jet-authentication-card>
-</x-app-layout>
+    </body>
+    @endsection
+    
+</html>

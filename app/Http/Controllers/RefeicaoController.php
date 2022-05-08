@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class RefeicaoController extends Controller
 {
-    public function index()
-    {
-        //return("view");
-        return view('refeicao.cadastro-refeicao');
-    }
     
     public function store(Request $request)
     {
@@ -22,11 +17,14 @@ class RefeicaoController extends Controller
             'caloria' => 'required',
             'horario' => 'required',
         ]);
+        
         $dados = $request->all();
-        $dados['dieta_id'] = 1;
+        $id = $dados['dieta_id'];
         Refeicao::create($dados);
-        return redirect(route('refeicao.cadastroRefeicao'));
+        return redirect()->route('dieta.view-dieta', $id);
         
     }
+
+    
     
 }

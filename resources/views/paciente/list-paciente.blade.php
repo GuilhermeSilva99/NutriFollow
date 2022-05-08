@@ -36,7 +36,6 @@
                         <div class = "col-1">
                         <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$paciente->user->id}}'">Reset Password</button>
                         </div>
-                        
                     </div>
                     
                 </div>

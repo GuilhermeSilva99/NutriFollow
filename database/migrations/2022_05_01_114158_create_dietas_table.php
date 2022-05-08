@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date("data_inicio");
             $table->date("data_fim");
             
-            $table->foreignId('paciente_id')->references('id')->on('pacientes');#->constrained('pacientes')->onDelete('cascade');
+            $table->foreignId('paciente_id')->references('id')->on('pacientes');
 
             $table->timestamps();
         });

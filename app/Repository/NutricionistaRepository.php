@@ -55,6 +55,6 @@ class NutricionistaRepository implements BaseRepositoryInterface
 
     public function listarNutricionistasComCadastroAprovado()
     {
-        return Nutricionista::whereRelation('user', 'cadastro_aprovado', 1)->get();
+        return Nutricionista::whereRelation('user', 'cadastro_aprovado', 0)->get();
     }
 }

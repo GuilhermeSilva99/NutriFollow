@@ -1,18 +1,30 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h4 font-weight-bold">
-            {{ __('Cadastrar Refeição') }}
-        </h2>
-    </x-slot>
-    <x-jet-authentication-card>
-        <x-slot name="logo">
-        </x-slot>
-
-        <x-jet-validation-errors class="mb-3" />
-
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cadastrar Dieta</title>
+        <style>
+            .bd-example-row {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                border-bottom: 1px solid;
+            }
+        </style>
+    </head>
+    @extends('home')
+    @section('content')
+    <body class="antialiased">
+        <br>
+        <br>
+        <br>
+        <br>
         <div class="card-body">
-            <form method="POST" action="{{ route('refeicao.cadastroRefeicao') }}">
+            <form method="POST" action="{{ route('refeicao.cadastroRefeicao.post') }}">
                 @csrf
+
+                <input type="hidden" name="dieta_id" value="{{$dieta_id}}" /> <br>
+               
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Nome') }}" />
@@ -55,5 +67,7 @@
                 </div>
             </form>
         </div>
-    </x-jet-authentication-card>
-</x-app-layout>
+    </body>
+    @endsection
+    
+</html>
