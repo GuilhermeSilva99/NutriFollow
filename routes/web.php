@@ -52,7 +52,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::delete('/nutricionista/paciente/inativar/{id}', [NutricionistaController::class, 'inativarPaciente'])->name('nutricionista.paciente.inativar');
 
     Route::middleware('NutricionistaDoPaciente')->group(function(){
-        Route::get('/sono/{id}', [SonoController::class, 'index'])->name('sono');
-        Route::post('/sono/{id}', [SonoController::class, 'index'])->name('sono');
+        Route::get('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono');
+        Route::post('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono.filtrar');
     });
 });
