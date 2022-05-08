@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreConsumoAguaRequest;
+use App\Http\Requests\UpdateConsumoAguaRequest;
 use App\Services\ConsumoAguaService;
 
 class ConsumoAguaController extends Controller
@@ -39,7 +40,7 @@ class ConsumoAguaController extends Controller
         return $this->consumoAguaService->recuperarConsumoAgua($request->id);
     }
 
-    public function atualizarConsumoAgua(StoreConsumoAguaRequest $request)
+    public function atualizarConsumoAgua(UpdateConsumoAguaRequest $request)
     {
         $dados = $request->validated();
         return $this->consumoAguaService->atualizarConsumoAgua($dados, $request->id);

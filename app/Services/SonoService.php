@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\{SonoRepository, UserRepository};
+use Carbon\Carbon;
 
 class SonoService
 {
@@ -23,9 +24,16 @@ class SonoService
 
     public function criarSono($dadosSono, $usuarioID)
     {
+        $data = Carbon::parse($dadosSono["data"]);
+        $sono = $this->sonoRepository->findByColumn("data", $data);
+
+        if (count($sono) >= 1)
+            return response()->json(["erro" => "Já existe um sono cadastrado nessa data"], 400);
+
         $usuarioPaciente = $this->userRepository->find($usuarioID);
         $dadosSono['paciente_id'] = $usuarioPaciente->paciente->id;
         $this->sonoRepository->save($dadosSono);
+
         return response()->json(["sucesso" => "Sono cadastrado com sucesso!"], 200);
     }
 
@@ -35,9 +43,9 @@ class SonoService
         if ($sono) {
             $this->sonoRepository->softDelete($sono);
             return response()->json(["sucesso" => "Sono deletado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Sono não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Sono não encontrado"], 400);
     }
 
     public function recuperarSono($sonoId)
@@ -45,8 +53,8 @@ class SonoService
         $sono = $this->sonoRepository->find($sonoId);
         if ($sono)
             return $sono;
-        else
-            return response()->json(["erro" => "Sono não encontrado"], 400);
+
+        return response()->json(["erro" => "Sono não encontrado"], 400);
     }
 
     public function atualizarSono($dadosSono, $sonoId)
@@ -55,8 +63,8 @@ class SonoService
         if ($sono) {
             $this->sonoRepository->update($sonoId, $dadosSono);
             return response()->json(["sucesso" => "Sono atualizado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Sono não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Sono não encontrado"], 400);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreExercicioRequest;
+use App\Http\Requests\UpdateExercicioRequest;
 use App\Services\ExercicioService;
 
 class ExercicioController extends Controller
@@ -37,7 +38,7 @@ class ExercicioController extends Controller
         return $this->exercicioService->recuperarExercicio($request->id);
     }
 
-    public function atualizarExercicio(StoreExercicioRequest $request)
+    public function atualizarExercicio(UpdateExercicioRequest $request)
     {
         $dados = $request->validated();
         return $this->exercicioService->atualizarExercicio($dados, $request->id);

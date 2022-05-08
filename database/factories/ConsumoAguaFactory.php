@@ -23,6 +23,7 @@ class ConsumoAguaFactory extends Factory
         return [
             "data" => Carbon::now(),
             "quantidade" => $this->faker->numberBetween(0, 6),
+            "observacoes" => "obs",
             "paciente_id" => 1
         ];
     }

@@ -29,7 +29,8 @@ class StoreSonoRequest extends FormRequest
         return [
             "data"          => ["required", "date_format:Y/m/d"],
             'duracao'       => ['required', 'date_format:H:i'],
-            'avaliacao'     => ['required', 'string', 'min:3', 'max:100']
+            'avaliacao'     => ['required', 'string', 'min:3', 'max:100'],
+            "observacoes"   => ["nullable", "min:1", "max:255"]
         ];
     }
 
@@ -44,6 +45,8 @@ class StoreSonoRequest extends FormRequest
             'avaliacao.required'            => 'O campo avaliação deve ser uma string',
             'avaliacao.min'                 => 'O campo avaliação deve ter no mínimo :min caracteres',
             'avaliacao.min'                 => 'O campo avaliação deve ter no máximo :min caracteres',
+            'observacoes.min'               => 'O campo observações deve ter no mínimo :min',
+            'observacoes.max'               => 'O campo observações deve ter no máximo :max'
         ];
     }
 
