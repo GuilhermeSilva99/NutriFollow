@@ -22,6 +22,19 @@ class SonoService
         return $this->sonoRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
     }
 
+    public function listarSonoPorPeriodo($inicio, $fim, $usuarioID)
+    {
+        Carbon::setlocale('pt-BR');
+        if($inicio == null || $fim == null)
+        {
+            $fim = Carbon::now();
+            $inicio = Carbon::now()->sub(30, 'days');
+        }        
+
+        $usuarioPaciente = $this->userRepository->find($usuarioID);
+        return $this->sonoRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
+    }
+
     public function criarSono($dadosSono, $usuarioID)
     {
         $data = Carbon::parse($dadosSono["data"]);
