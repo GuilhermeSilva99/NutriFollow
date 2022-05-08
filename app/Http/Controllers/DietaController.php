@@ -58,4 +58,9 @@ class DietaController extends Controller
         return view('refeicao.cadastro-refeicao', ['dieta_id' => $id]);
     }
 
+    public function listarDietas($id){
+        $dietas = Dieta::where("paciente_id", $id)->orderBy('id', 'DESC')->get();
+        return view('dieta.list-dietas',['dietas' => $dietas]);
+    }
+
 }
