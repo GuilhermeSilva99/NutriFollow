@@ -45,6 +45,10 @@
                             @csrf
                             <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relátorios</button>
                         </form>
+                        <form action="{{ route('agua',[$paciente->user->id]) }}" method="get">
+                            @csrf
+                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relát. Água</button>
+                        </form>
                     </div>
                     
                 </div>

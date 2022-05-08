@@ -29,7 +29,7 @@
                         <button class="btn btn-sccess" type="submit">Voltar</button>    
                     </form>
                 </div>
-                <form method="POST" action="{{ route('sono', $id) }}">
+                <form method="POST" action="{{ route('agua', $id) }}">
                     @csrf
                     <div class="container mt-5" style="max-width: 450px">
                         <div class="row form-group">       
@@ -59,11 +59,11 @@
             type: 'column'
         },
         title: {
-            text: 'Relatório de sono do Paciente'
+            text: 'Relatório de Consumo de Água do Paciente'
         },
-        subtitle: {
-            text: 'Quantidade e qualidade de sono do paciente no período'
-        },
+        // subtitle: {
+        //     text: 'Quantidade e qualidade de sono do paciente no período'
+        // },
         xAxis: {
             categories: <?= $dias ?>,
             crosshair: true
@@ -71,7 +71,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Sono'
+                text: 'Água'
             }
         },
         tooltip: {
@@ -88,7 +88,7 @@
                 borderWidth: 0
             }
         },
-        series: [<?= $duracao ?>, <?= $qualidade ?>]
+        series: [<?= $quantidade ?>]
     
     });
 </script>
