@@ -540,6 +540,24 @@
                     </div>
 
                 </div>
+<<<<<<< HEAD
+=======
+            </nav>
+            
+            <div class="container">
+                <div class = "row justify-content-center">
+                    
+                        <div class="sidenav">
+                            <button class="dropdown-btn">Paciente                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-container">
+                                <a href="/nutricionista/register-paciente">Cadastrar Pasciente</a>
+                                <a href="/nutricionista/listar/pacientes">Listar Pasciente</a>
+                                <a href="/paciente/cadastro-dieta">Atribuir Dieta</a>
+                            </div>
+                            
+                        </div>                    
+>>>>>>> main
 
                 <div id="pagectr" class="container">
                     @yield('content')

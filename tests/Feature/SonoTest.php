@@ -60,7 +60,7 @@ class SonoTest extends TestCase
 
         Sanctum::actingAs($usuarioPaciente, ['*']);
 
-        $response = $this->get("/api/paciente/sono/" . $sono->id . "/deletar");
+        $response = $this->delete("/api/paciente/sono/" . $sono->id . "/deletar");
 
         $response->assertStatus(200)->assertJson(['sucesso' => "Sono deletado com sucesso!"]);
     }

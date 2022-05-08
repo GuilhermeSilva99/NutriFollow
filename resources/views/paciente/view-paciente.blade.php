@@ -20,7 +20,7 @@
         <br>
         <br>
         <div class="card-body">
-            <form method="POST" action="{{ route('paciente.edit', $paciente->user->id) }}">
+            <form method="POST" action="{{ route('nutricionista.atualizar.paciente', $paciente->user->id) }}">
                 @csrf
 
                 <input type="hidden" name="id" value="{{$paciente->user->id}}" /> <br>
@@ -72,8 +72,8 @@
 
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/list/paciente'">Listar</button>
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/editar/paciente/{{$paciente->user->id}}'">Editar</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/listar/pacientes'">Listar</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/editar/paciente/{{$paciente->user->id}}'">Editar</button>
                     </div>
                 </div>
             </form>

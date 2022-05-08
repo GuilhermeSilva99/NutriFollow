@@ -28,8 +28,8 @@ class StoreSonoRequest extends FormRequest
     {
         return [
             "data"          => ["required", "date_format:Y/m/d"],
-            'duracao' => ['required', 'date_format:H:i'],
-            'avaliacao' => ['required', 'string', 'min:3', 'max:100']
+            'duracao'       => ['required', 'date_format:H:i'],
+            'avaliacao'     => ['required', 'string', 'min:3', 'max:100']
         ];
     }
 
