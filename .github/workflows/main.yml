@@ -12,13 +12,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Adicionar remote do heroku
-      run: heroku git:remote -a nutrifollow
-      
     - name: Deploy application
-      if: ${{github.ref == 'refs/heads/main' }}
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: "nutrifollow"
         heroku_email: "yresendeo@gmail.com"
+        branch: main
