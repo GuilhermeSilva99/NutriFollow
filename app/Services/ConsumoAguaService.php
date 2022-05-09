@@ -59,7 +59,7 @@ class ConsumoAguaService
     {
         $consumo = $this->consumoAguaRepository->find($consumoId);
         if ($consumo) {
-            $this->consumoAguaRepository->update($consumoId, $dadosConsumo);
+            $this->consumoAguaRepository->updateWithModel($consumo, $dadosConsumo);
             return response()->json(["sucesso" => "Consumo de água atualizado com sucesso!"], 200);
         }
 

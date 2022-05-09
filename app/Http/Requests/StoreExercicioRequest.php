@@ -27,12 +27,12 @@ class StoreExercicioRequest extends FormRequest
     public function rules()
     {
         return [
-            "tipo"                  => ["required", "string", "min:3", "max:255"],
+            "tipo"                  => ["nullable", "string", "min:3", "max:255"],
             "duracao"               => ["required", "date_format:H:i"],
             "descricao"             => ["required", "string", "min:3", "max:255"],
             "data"                  => ["required", "date_format:Y/m/d"],
             "observacoes"           => ["nullable", "min:1", "max:255"],
-            "tipo_exercicio_id"     => ["required", "numeric"]
+            "tipo_exercicio_id"     => ["nullable", "numeric"]
         ];
     }
 
@@ -46,10 +46,8 @@ class StoreExercicioRequest extends FormRequest
             'descricao.required'            => 'O campo descricao é obrigatório',
             'descricao.min'                 => 'O campo descricao deve ter no mínimo :min',
             'descricao.max'                 => 'O campo descricao deve ser no máximo :max',
-            'tipo.required'                 => 'O campo tipo é obrigatório',
             'tipo.min'                      => 'O campo tipo deve ter no mínimo :min',
             'tipo.max'                      => 'O campo tipo deve ser no máximo :max',
-            "tipo_exercicio_id.required"    => "O tipo de exercício não foi informado",
             "tipo_exercicio_id.numeric"     => "Tipo de exercício inválido",
             'observacoes.min'               => 'O campo observações deve ter no mínimo :min',
             'observacoes.max'               => 'O campo observações deve ter no máximo :max'

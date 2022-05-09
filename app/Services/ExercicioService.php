@@ -57,7 +57,7 @@ class ExercicioService
     {
         $exercicio = $this->exercicioRepository->find($exercicioId);
         if ($exercicio) {
-            $this->exercicioRepository->update($exercicioId, $dadosExercicio);
+            $this->exercicioRepository->updateWithModel($exercicio, $dadosExercicio);
             return response()->json(["sucesso" => "Exercício atualizado com sucesso!"], 200);
         }
 
