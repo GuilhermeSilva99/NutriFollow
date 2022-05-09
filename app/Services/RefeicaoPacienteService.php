@@ -54,11 +54,11 @@ class RefeicaoPacienteService
         return response()->json(["erro" => "Refeição não encontrada"], 400);
     }
 
-    public function atualizarRefeicaoPaciente($dadosConsumo, $refeicaoPacienteId)
+    public function atualizarRefeicaoPaciente($dadosRefeicao, $refeicaoPacienteId)
     {
-        $consumo = $this->refeicaoPacienteRepository->find($refeicaoPacienteId);
-        if ($consumo) {
-            $this->refeicaoPacienteRepository->update($refeicaoPacienteId, $dadosConsumo);
+        $refeicaoPaciente = $this->refeicaoPacienteRepository->find($refeicaoPacienteId);
+        if ($refeicaoPaciente) {
+            $this->refeicaoPacienteRepository->updateWithModel($refeicaoPaciente, $dadosRefeicao);
             return response()->json(["sucesso" => "Refeição atualizada com sucesso!"], 200);
         }
 

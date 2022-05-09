@@ -41,4 +41,9 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
     {
         return $objeto->delete();
     }
+
+    public function updateWithModel($objeto, $atributos)
+    {
+        return $objeto->update($atributos);
+    }
 }

@@ -30,7 +30,7 @@ class SonoService
         }
 
         $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->sonoRepository->findByPeriod($inicio, $fim, $$usuarioPaciente->id);
+        return $this->sonoRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
     }
 
     public function criarSono($dadosSono, $pacienteId)
@@ -71,7 +71,7 @@ class SonoService
     {
         $sono = $this->sonoRepository->find($sonoId);
         if ($sono) {
-            $this->sonoRepository->update($sonoId, $dadosSono);
+            $this->sonoRepository->updateWithModel($sono, $dadosSono);
             return response()->json(["sucesso" => "Sono atualizado com sucesso!"], 200);
         }
 
