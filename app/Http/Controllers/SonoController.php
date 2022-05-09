@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\SonoService;
-use Carbon\Carbon;
 
 class SonoController extends Controller
 {
@@ -23,20 +22,21 @@ class SonoController extends Controller
         $dias = [];
         $duracao = [];
         $qualidade = [];
-        
-        foreach ($registros_sono as $sono)
-        {
-            $dias[] = date('d-m-y', strtotime($sono->data)); 
+
+        foreach ($registros_sono as $sono) {
+            $dias[] = date('d-m-y', strtotime($sono->data));
             $duracao[] = floatval($sono->duracao);
             $qualidade[] = floatval($status[$sono->avaliacao]);
         }
 
-        $duracao_data = ['name' => 'Tempo de sono','data' => $duracao];
+        $duracao_data = ['name' => 'Tempo de sono', 'data' => $duracao];
         $qualidade_data = ['name' => 'Qualidade', 'data' => $qualidade];
 
-        return view('paciente.sono', ['dias' => json_encode($dias),
-                                      'duracao' => json_encode($duracao_data),
-                                      'qualidade' => json_encode($qualidade_data),
-                                      'id' => $id]);
+        return view('paciente.sono', [
+            'dias' => json_encode($dias),
+            'duracao' => json_encode($duracao_data),
+            'qualidade' => json_encode($qualidade_data),
+            'id' => $id
+        ]);
     }
 }

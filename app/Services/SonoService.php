@@ -16,30 +16,34 @@ class SonoService
         $this->sonoRepository = $sonoRepository;
     }
 
-    public function listarSono($usuarioID)
+    public function listarSono($pacienteID)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->sonoRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
+        return $this->sonoRepository->findByColumn("paciente_id", $pacienteID);
     }
 
     public function listarSonoPorPeriodo($inicio, $fim, $usuarioID)
     {
         Carbon::setlocale('pt-BR');
-        if($inicio == null || $fim == null)
-        {
+        if ($inicio == null || $fim == null) {
             $fim = Carbon::now();
             $inicio = Carbon::now()->sub(30, 'days');
-        }        
+        }
 
         $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->sonoRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
+        return $this->sonoRepository->findByPeriod($inicio, $fim, $$usuarioPaciente->id);
     }
 
-    public function criarSono($dadosSono, $usuarioID)
+    public function criarSono($dadosSono, $pacienteId)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        $dadosSono['paciente_id'] = $usuarioPaciente->paciente->id;
+        $data = Carbon::parse($dadosSono["data"]);
+        $sono = $this->sonoRepository->findByColumn("data", $data);
+
+        if (count($sono) >= 1)
+            return response()->json(["erro" => "Já existe um sono cadastrado nessa data"], 400);
+
+        $dadosSono['paciente_id'] = $pacienteId;
         $this->sonoRepository->save($dadosSono);
+
         return response()->json(["sucesso" => "Sono cadastrado com sucesso!"], 200);
     }
 
@@ -49,9 +53,9 @@ class SonoService
         if ($sono) {
             $this->sonoRepository->softDelete($sono);
             return response()->json(["sucesso" => "Sono deletado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Sono não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Sono não encontrado"], 400);
     }
 
     public function recuperarSono($sonoId)
@@ -59,8 +63,8 @@ class SonoService
         $sono = $this->sonoRepository->find($sonoId);
         if ($sono)
             return $sono;
-        else
-            return response()->json(["erro" => "Sono não encontrado"], 400);
+
+        return response()->json(["erro" => "Sono não encontrado"], 400);
     }
 
     public function atualizarSono($dadosSono, $sonoId)
@@ -69,8 +73,8 @@ class SonoService
         if ($sono) {
             $this->sonoRepository->update($sonoId, $dadosSono);
             return response()->json(["sucesso" => "Sono atualizado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Sono não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Sono não encontrado"], 400);
     }
 }

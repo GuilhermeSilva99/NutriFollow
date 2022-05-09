@@ -31,6 +31,7 @@ class StoreExercicioRequest extends FormRequest
             "duracao"               => ["required", "date_format:H:i"],
             "descricao"             => ["required", "string", "min:3", "max:255"],
             "data"                  => ["required", "date_format:Y/m/d"],
+            "observacoes"           => ["nullable", "min:1", "max:255"],
             "tipo_exercicio_id"     => ["required", "numeric"]
         ];
     }
@@ -50,6 +51,8 @@ class StoreExercicioRequest extends FormRequest
             'tipo.max'                      => 'O campo tipo deve ser no máximo :max',
             "tipo_exercicio_id.required"    => "O tipo de exercício não foi informado",
             "tipo_exercicio_id.numeric"     => "Tipo de exercício inválido",
+            'observacoes.min'               => 'O campo observações deve ter no mínimo :min',
+            'observacoes.max'               => 'O campo observações deve ter no máximo :max'
         ];
     }
 

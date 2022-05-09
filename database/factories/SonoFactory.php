@@ -26,6 +26,7 @@ class SonoFactory extends Factory
             "data" => Carbon::now(),
             "duracao" => "01:00",
             "avaliacao" => $this->faker->randomElement($this->statusAvaliacao),
+            "observacoes" => "obs",
             "paciente_id" => 1
         ];
     }
