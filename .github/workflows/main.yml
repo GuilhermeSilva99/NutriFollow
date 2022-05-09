@@ -13,9 +13,9 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Deploy application
+      if: ${{github.ref == 'refs/heads/main' }}
       uses: akhileshns/heroku-deploy@v3.12.12
       with:
-        heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+        heroku_api_key: ${{secrets.HEROKU_KEY }}
         heroku_app_name: "nutrifollow"
         heroku_email: "yresendeo@gmail.com"
-        branch: main
