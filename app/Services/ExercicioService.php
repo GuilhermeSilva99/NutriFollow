@@ -2,27 +2,24 @@
 
 namespace App\Services;
 
-use App\Repository\{ExercicioRepository, UserRepository};
+use App\Repository\{ExercicioRepository};
 use Carbon\Carbon;
 
 class ExercicioService
 {
     private $exercicioRepository;
-    private $userRepository;
 
-    public function __construct(UserRepository $userRepository, ExercicioRepository $exercicioRepository)
+    public function __construct(ExercicioRepository $exercicioRepository)
     {
-        $this->userRepository = $userRepository;
         $this->exercicioRepository = $exercicioRepository;
     }
 
-    public function listarExercicios($usuarioID)
+    public function listarExercicios($pacienteId)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->exercicioRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
+        return $this->exercicioRepository->findByColumn("paciente_id", $pacienteId);
     }
 
-    public function criarExercicio($dadosExercicio, $usuarioID)
+    public function criarExercicio($dadosExercicio, $pacienteId)
     {
         $data = Carbon::parse($dadosExercicio["data"]);
         $sono = $this->exercicioRepository->findByColumn("data", $data);
@@ -30,8 +27,7 @@ class ExercicioService
         if (count($sono) >= 1)
             return response()->json(["erro" => "Já existe um exercício cadastrado nessa data"], 400);
 
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        $dadosExercicio['paciente_id'] = $usuarioPaciente->paciente->id;
+        $dadosExercicio['paciente_id'] = $pacienteId;
         $this->exercicioRepository->save($dadosExercicio);
 
         return response()->json(["sucesso" => "Exercício cadastrado com sucesso!"], 200);

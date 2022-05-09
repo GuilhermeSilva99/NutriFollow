@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repository\{TipoExercicioRepository, UserRepository};
+use App\Repository\{TipoExercicioRepository};
 
 class TipoExercicioService
 {
@@ -13,7 +13,7 @@ class TipoExercicioService
         $this->tipoExercicioRepository = $tipoExercicioRepository;
     }
 
-    public function listarTipoExercicios($usuarioID)
+    public function listarTipoExercicios()
     {
         return $this->tipoExercicioRepository->all();
     }

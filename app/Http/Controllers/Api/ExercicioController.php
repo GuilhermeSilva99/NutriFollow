@@ -19,13 +19,13 @@ class ExercicioController extends Controller
 
     public function listarExercicios(Request $request)
     {
-        return $this->exercicioService->listarExercicios($request->user()->id);
+        return $this->exercicioService->listarExercicios($request->user()->paciente->id);
     }
 
     public function criarExercicio(StoreExercicioRequest $request)
     {
         $dados = $request->validated();
-        return $this->exercicioService->criarExercicio($dados, $request->user()->id);
+        return $this->exercicioService->criarExercicio($dados, $request->user()->paciente->id);
     }
 
     public function deletarExercicio(Request $request)

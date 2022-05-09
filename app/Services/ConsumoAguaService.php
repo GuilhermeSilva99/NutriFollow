@@ -3,24 +3,23 @@
 namespace App\Services;
 
 use App\Repository\ConsumoAguaRepository;
-use App\Repository\UserRepository;
 use Carbon\Carbon;
 
 class ConsumoAguaService
 {
-    public function __construct(UserRepository $userRepository, ConsumoAguaRepository $consumoAguaRepository)
+    private $consumoAguaRepository;
+
+    public function __construct(ConsumoAguaRepository $consumoAguaRepository)
     {
-        $this->userRepository = $userRepository;
         $this->consumoAguaRepository = $consumoAguaRepository;
     }
 
-    public function listarConsumoAgua($usuarioID)
+    public function listarConsumoAgua($pacienteID)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->consumoAguaRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
+        return $this->consumoAguaRepository->findByColumn("paciente_id", $pacienteID);
     }
 
-    public function criarConsumoAgua($dadosConsumo, $usuarioID)
+    public function criarConsumoAgua($dadosConsumo, $pacienteID)
     {
         $data = Carbon::parse($dadosConsumo["data"]);
         $consumoAgua = $this->consumoAguaRepository->findByColumn("data", $data);
@@ -28,8 +27,7 @@ class ConsumoAguaService
         if (count($consumoAgua) >= 1)
             return response()->json(["erro" => "Já existe um consumo de água nessa data"], 400);
 
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        $dadosConsumo['paciente_id'] = $usuarioPaciente->paciente->id;
+        $dadosConsumo['paciente_id'] = $pacienteID;
         $this->consumoAguaRepository->save($dadosConsumo);
 
         return response()->json(["sucesso" => "Consumo de água cadastrado com sucesso!"], 200);

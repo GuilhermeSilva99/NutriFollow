@@ -16,26 +16,24 @@ class SonoService
         $this->sonoRepository = $sonoRepository;
     }
 
-    public function listarSono($usuarioID)
+    public function listarSono($pacienteID)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->sonoRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
+        return $this->sonoRepository->findByColumn("paciente_id", $pacienteID);
     }
 
     public function listarSonoPorPeriodo($inicio, $fim, $usuarioID)
     {
         Carbon::setlocale('pt-BR');
-        if($inicio == null || $fim == null)
-        {
+        if ($inicio == null || $fim == null) {
             $fim = Carbon::now();
             $inicio = Carbon::now()->sub(30, 'days');
-        }        
+        }
 
         $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->sonoRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
+        return $this->sonoRepository->findByPeriod($inicio, $fim, $$usuarioPaciente->id);
     }
 
-    public function criarSono($dadosSono, $usuarioID)
+    public function criarSono($dadosSono, $pacienteId)
     {
         $data = Carbon::parse($dadosSono["data"]);
         $sono = $this->sonoRepository->findByColumn("data", $data);
@@ -43,8 +41,7 @@ class SonoService
         if (count($sono) >= 1)
             return response()->json(["erro" => "Já existe um sono cadastrado nessa data"], 400);
 
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        $dadosSono['paciente_id'] = $usuarioPaciente->paciente->id;
+        $dadosSono['paciente_id'] = $pacienteId;
         $this->sonoRepository->save($dadosSono);
 
         return response()->json(["sucesso" => "Sono cadastrado com sucesso!"], 200);

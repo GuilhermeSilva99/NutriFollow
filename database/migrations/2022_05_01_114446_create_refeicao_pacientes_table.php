@@ -16,10 +16,9 @@ return new class extends Migration
         Schema::create('refeicao_pacientes', function (Blueprint $table) {
             $table->id();
             $table->string("foto");
-            
+            $table->string("observacoes")->nullable();
             $table->foreignId('refeicao_id')->references('id')->on('refeicaos');
             $table->foreignId('paciente_id')->references('id')->on('pacientes');
-
             $table->timestamps();
         });
     }

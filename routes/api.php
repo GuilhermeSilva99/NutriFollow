@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\ConsumoAguaController;
 use App\Http\Controllers\Api\ExercicioController;
+use App\Http\Controllers\Api\RefeicaoPacienteController;
 use App\Http\Controllers\Api\SonoController;
 use App\Http\Controllers\Api\TipoExercicioController;
 use Illuminate\Http\Request;
@@ -45,6 +46,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get("/paciente/tipo-exercicio/listar", [TipoExercicioController::class, "listarTipoExercicios"])->name("paciente.tipo.exercicio.listar");
     Route::get("/paciente/tipo-exercicio/{id}", [TipoExercicioController::class, "recuperarTipoExercicio"])->name("paciente.tipo.exercicio.recuperar");
+
+    Route::get("/paciente/refeicao/listar", [RefeicaoPacienteController::class, "listarRefeicaoDoPaciente"])->name("paciente.refeicao.listar");
+    Route::post("/paciente/refeicao-paciente/criar", [RefeicaoPacienteController::class, "criarRefeicaoPaciente"])->name("paciente.refeicao-paciente.criar");
+    Route::get("/paciente/refeicao/{id}", [RefeicaoPacienteController::class, "recuperarRefeicaoDoPaciente"])->name("paciente.refeicao.recuperar");
+    Route::get("/paciente/refeicao-paciente/{id}", [RefeicaoPacienteController::class, "recuperarRefeicaoPaciente"])->name("paciente.refeicao-paciente.recuperar");
+    Route::post("/paciente/refeicao-paciente/{id}/atualizar", [RefeicaoPacienteController::class, "atualizarRefeicaoPaciente"])->name("paciente.refeicao-paciente.atualizar");
 });
 
 
