@@ -41,4 +41,9 @@ class ConsumoAguaRepository implements BaseRepositoryInterface
     {
         return $objeto->delete();
     }
+
+    public function updateWithModel($consumo, $atributos)
+    {
+        return $consumo->update($atributos);
+    }
 }

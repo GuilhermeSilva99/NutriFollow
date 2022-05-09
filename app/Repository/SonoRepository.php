@@ -46,4 +46,9 @@ class SonoRepository implements BaseRepositoryInterface
     {
         return Sono::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->get();
     }
+
+    public function updateWithModel($sono, $atributos)
+    {
+        return $sono->update($atributos);
+    }
 }

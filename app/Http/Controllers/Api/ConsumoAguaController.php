@@ -32,17 +32,17 @@ class ConsumoAguaController extends Controller
 
     public function deletarConsumoAgua(Request $request)
     {
-        return $this->consumoAguaService->deletarConsumoAgua($request->user()->paciente->id);
+        return $this->consumoAguaService->deletarConsumoAgua($request->id);
     }
 
     public function recuperarConsumoAgua(Request $request)
     {
-        return $this->consumoAguaService->recuperarConsumoAgua($request->user()->paciente->id);
+        return $this->consumoAguaService->recuperarConsumoAgua($request->id);
     }
 
     public function atualizarConsumoAgua(UpdateConsumoAguaRequest $request)
     {
         $dados = $request->validated();
-        return $this->consumoAguaService->atualizarConsumoAgua($dados, $request->user()->paciente->id);
+        return $this->consumoAguaService->atualizarConsumoAgua($dados, $request->id);
     }
 }
