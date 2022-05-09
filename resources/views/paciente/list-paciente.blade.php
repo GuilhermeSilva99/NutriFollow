@@ -41,13 +41,9 @@
                             @csrf
                             <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
                         </form>
-                        <form action="{{ route('sono',[$paciente->user->id]) }}" method="get">
-                            @csrf
-                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relátorios</button>
-                        </form>
                         <form action="{{ route('agua',[$paciente->user->id]) }}" method="get">
                             @csrf
-                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relát. Água</button>
+                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relátorios</button>
                         </form>
                     </div>
                     

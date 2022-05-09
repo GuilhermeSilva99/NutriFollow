@@ -540,8 +540,6 @@
                     </div>
 
                 </div>
-<<<<<<< HEAD
-=======
             </nav>
             
             <div class="container">
@@ -557,7 +555,6 @@
                             </div>
                             
                         </div>                    
->>>>>>> main
 
                 <div id="pagectr" class="container">
                     @yield('content')

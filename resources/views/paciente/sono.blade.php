@@ -16,18 +16,30 @@
     <x-guest-layout>
         <div class="row cards justify-content-center pt-4">
             <div class="col-6">
-                <div>
-                    <x-jet-authentication-card-logo />
-                </div>
+                <br><br><br><br><br>
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#">Relatório de Dieta</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/nutricionista/paciente/agua/{{$id}}">Relatório de Consumo de Água</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="/nutricionista/listar/pacientes">Listar Pascientes</a>
+                    </li>
+                  </ul>
     
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <div id="container"></div>
                     </div>
-                    <form action="{{route('nutricionista.listar.pacientes') }}" method="get">
+                    {{-- <form action="{{route('nutricionista.listar.pacientes') }}" method="get">
                         @csrf
                         <button class="btn btn-sccess" type="submit">Voltar</button>    
-                    </form>
+                    </form> --}}
                 </div>
                 <form method="POST" action="{{ route('sono', $id) }}">
                     @csrf
