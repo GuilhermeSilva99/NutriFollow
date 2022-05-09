@@ -58,13 +58,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::post('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'store'])->name('refeicao.cadastroRefeicao.post');
 
-
     Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
     Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');
     Route::get('/paciente/cadastro-dieta/{id}', [DietaController::class, 'view'])->name('dieta.view-dieta');
     Route::get('/nutricionista/cadastro-refeicao/{id}', [DietaController::class, 'adicionarRefeicao'])->name('refeicao.PrepDietaRef');
+    Route::get('/paciente/dietas/{id}', [DietaController::class, 'listarDietas'])->name('dieta.dietas');
 
-    Route::middleware('NutricionistaDoPaciente')->group(function(){
+    Route::middleware('NutricionistaDoPaciente')->group(function () {
         Route::get('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono');
         Route::post('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono.filtrar');
         Route::get('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua');

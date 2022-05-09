@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('duracao');
             $table->string('descricao');
             $table->date('data');
+            $table->string("observacoes")->nullable();
             $table->foreignId('paciente_id')->constrained('pacientes');
             $table->foreignId('tipo_exercicio_id')->constrained('tipo_exercicios');
             $table->timestamps();

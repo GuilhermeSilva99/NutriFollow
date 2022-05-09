@@ -45,6 +45,10 @@
                             @csrf
                             <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relátorios</button>
                         </form>
+                        <form action="{{ route('dieta.dietas',[$paciente->id]) }}" method="get">
+                            @csrf
+                            <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Dieta</button>
+                        </form>
                     </div>
                     
                 </div>

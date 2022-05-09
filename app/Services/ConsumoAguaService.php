@@ -3,28 +3,35 @@
 namespace App\Services;
 
 use App\Repository\ConsumoAguaRepository;
-use App\Repository\UserRepository;
 use Carbon\Carbon;
+use App\Repository\UserRepository;
 
 class ConsumoAguaService
 {
+    private $consumoAguaRepository;
+
     public function __construct(UserRepository $userRepository, ConsumoAguaRepository $consumoAguaRepository)
     {
-        $this->userRepository = $userRepository;
         $this->consumoAguaRepository = $consumoAguaRepository;
+        $this->userRepository = $userRepository;
     }
 
-    public function listarConsumoAgua($usuarioID)
+    public function listarConsumoAgua($pacienteID)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->consumoAguaRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
+        return $this->consumoAguaRepository->findByColumn("paciente_id", $pacienteID);
     }
 
-    public function criarConsumoAgua($dadosConsumo, $usuarioID)
+    public function criarConsumoAgua($dadosConsumo, $pacienteID)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        $dadosConsumo['paciente_id'] = $usuarioPaciente->paciente->id;
+        $data = Carbon::parse($dadosConsumo["data"]);
+        $consumoAgua = $this->consumoAguaRepository->findByColumn("data", $data);
+
+        if (count($consumoAgua) >= 1)
+            return response()->json(["erro" => "Já existe um consumo de água nessa data"], 400);
+
+        $dadosConsumo['paciente_id'] = $pacienteID;
         $this->consumoAguaRepository->save($dadosConsumo);
+
         return response()->json(["sucesso" => "Consumo de água cadastrado com sucesso!"], 200);
     }
 
@@ -34,9 +41,9 @@ class ConsumoAguaService
         if ($consumo) {
             $this->consumoAguaRepository->softDelete($consumo);
             return response()->json(["sucesso" => "Consumo de água deletado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Consumo de água não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Consumo de água não encontrado"], 400);
     }
 
     public function recuperarConsumoAgua($consumoId)
@@ -44,8 +51,8 @@ class ConsumoAguaService
         $consumo = $this->consumoAguaRepository->find($consumoId);
         if ($consumo)
             return $consumo;
-        else
-            return response()->json(["erro" => "Consumo de água não encontrado"], 400);
+
+        return response()->json(["erro" => "Consumo de água não encontrado"], 400);
     }
 
     public function atualizarConsumoAgua($dadosConsumo, $consumoId)
@@ -54,9 +61,9 @@ class ConsumoAguaService
         if ($consumo) {
             $this->consumoAguaRepository->update($consumoId, $dadosConsumo);
             return response()->json(["sucesso" => "Consumo de água atualizado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Consumo de água não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Consumo de água não encontrado"], 400);
     }
 
     public function listarConsumoAguaPorPeriodo($inicio, $fim, $usuarioID)

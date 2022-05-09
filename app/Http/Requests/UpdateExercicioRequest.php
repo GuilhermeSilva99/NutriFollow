@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Validation\ValidationException;
 
-class StoreConsumoAguaRequest extends FormRequest
+class UpdateExercicioRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,26 +22,25 @@ class StoreConsumoAguaRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function rules()
     {
         return [
-            "data"          => ["required", "date_format:Y/m/d"],
-            "quantidade"    => ["required", "min:0.1", "max:10", "numeric"],
-            "observacoes"   => ["nullable", "min:1", "max:255"]
+            "duracao"               => ["required", "date_format:H:i"],
+            "descricao"             => ["required", "string", "min:3", "max:255"],
+            "observacoes"           => ["nullable", "min:1", "max:255"],
         ];
     }
 
     public function messages()
     {
         return [
-            'data.required'                 => 'O campo data é obrigatório',
-            'data.date_format'              => 'O campo data deve ser uma data no formato ano/mês/dia',
-            'quantidade.required'           => 'O campo quantidade é obrigatório',
-            'quantidade.min'                => 'O campo quantidade deve ter no mínimo :min',
-            'quantidade.max'                => 'O campo quantidade deve ter no máximo :max',
-            'quantidade.numeric'            => 'O campo quantidade deve ser um número',
+            'duracao.required'              => 'O campo duração é obrigatório',
+            'duracao.date_format'           => 'O campo duração deve ser no formato Hora:Minuto',
+            'descricao.required'            => 'O campo descricao é obrigatório',
+            'descricao.min'                 => 'O campo descricao deve ter no mínimo :min',
+            'descricao.max'                 => 'O campo descricao deve ser no máximo :max',
             'observacoes.min'               => 'O campo observações deve ter no mínimo :min',
             'observacoes.max'               => 'O campo observações deve ter no máximo :max'
         ];

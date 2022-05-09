@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->date("data");
             $table->double("quantidade");
+            $table->string("observacoes")->nullable();
             $table->unsignedBigInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->timestamps();
