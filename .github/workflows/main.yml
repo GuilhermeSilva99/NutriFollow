@@ -12,6 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Adicionar remote do heroku
+      run: heroku git:remote -a nutrifollow
+      
     - name: Deploy application
       if: ${{github.ref == 'refs/heads/main' }}
       uses: akhileshns/heroku-deploy@v3.12.12
