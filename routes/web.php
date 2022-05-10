@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{AdminController};
+use App\Http\Controllers\AguaController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
@@ -20,6 +21,8 @@ use App\Http\Controllers\SonoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 
 Route::redirect('/', '/dashboard');
 
@@ -64,5 +67,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::middleware('NutricionistaDoPaciente')->group(function () {
         Route::get('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono');
         Route::post('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono.filtrar');
+        Route::get('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua');
+        Route::post('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua.filtrar');
     });
+
+    
 });

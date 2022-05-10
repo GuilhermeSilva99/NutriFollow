@@ -42,6 +42,10 @@ class ConsumoAguaRepository implements BaseRepositoryInterface
         return $objeto->delete();
     }
 
+    public function findByPeriod($inicio, $fim, $paciente_id)
+    {
+        return ConsumoAgua::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->get();
+    }
     public function updateWithModel($consumo, $atributos)
     {
         return $consumo->update($atributos);
