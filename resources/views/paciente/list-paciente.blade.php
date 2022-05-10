@@ -30,7 +30,11 @@
                         </div>
                         
                         <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$paciente->user->id}}'">Visualiza</button>
+                        <form action="{{ route('paciente.view',[$paciente->user->id]) }}" method="get">
+                            @csrf
+                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Visualizar</button>
+                        </form>
+                            <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$paciente->user->id}}'">Visualiza</button> -->
                         </div>
                         
                         <div class = "col-2">
