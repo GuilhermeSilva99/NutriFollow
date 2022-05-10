@@ -44,14 +44,15 @@
             
         </div>
         <div>
-            <form method="POST" action="{{ route('agua', $id) }}" >
+            <form class="form-inline" method="POST" action="{{ route('agua', $id) }}" style="justify-content: center; margin-top: 15px;">
                 @csrf
-                <div class="container mt-5" style="max-width: 450px">  
-                <label class="col col-form-label">Intervalo</label> 
-                <div class="input-group input-daterange">
-                    <input type="date" class="input-sm form-control" name="inicio" autocomplete="off"/>
-                    <div class="input-group-addon">a</div>
-                    <input type="date" class="input-sm form-control" name="fim" autocomplete="off"/>
+                <div>Intervalo</div> 
+                <div class="form-group" style="margin: 3px;">
+                    <input type="date" class="form-control" name="inicio" autocomplete="off"/>
+                </div>
+                <span> A </span>
+                <div class="form-group" style="margin: 3px;">
+                    <input type="date" class="form-control" name="fim" autocomplete="off"/>
                 </div>
                 <button class="btn btn-success" type="submit">Filtrar</button>
             </form>
