@@ -30,22 +30,20 @@
                         </div>
                         
                         <div class = "col-2">
-                        <form action="{{ route('paciente.view',[$paciente->user->id]) }}" method="get">
-                            @csrf
-                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Visualizar</button>
-                        </form>
-                            <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$paciente->user->id}}'">Visualiza</button> -->
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/view/paciente/{{$paciente->user->id}}'">Visualiza</button>
                         </div>
                         
                         <div class = "col-2">
                             <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/paciente/password/{{$paciente->user->id}}'">Reset Password</button>
                         </div>
-
-                        <form action="{{ route('paciente.inativar', $paciente->id) }}" method="post">
-                            @method('DELETE')
-                            @csrf
-                            <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
-                        </form>
+                        <div class = "col-2">
+                            <form action="{{ route('paciente.inativar', $paciente->id) }}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
+                            </form>
+                        </div>
+                        
                         
                     </div>
                     
