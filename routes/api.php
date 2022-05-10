@@ -3,10 +3,10 @@
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\Api\ConsumoAguaController;
 use App\Http\Controllers\Api\ExercicioController;
+use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\Api\RefeicaoPacienteController;
 use App\Http\Controllers\Api\SonoController;
 use App\Http\Controllers\Api\TipoExercicioController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,10 +21,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->group(function () {
-
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
 
     Route::get("/paciente/sono/listar", [SonoController::class, "listarSono"])->name("paciente.sono.listar");
     Route::post("/paciente/sono/criar", [SonoController::class, "criarSono"])->name("paciente.sono.criar");
@@ -52,6 +48,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get("/paciente/refeicao/{id}", [RefeicaoPacienteController::class, "recuperarRefeicaoDoPaciente"])->name("paciente.refeicao.recuperar");
     Route::get("/paciente/refeicao-paciente/{id}", [RefeicaoPacienteController::class, "recuperarRefeicaoPaciente"])->name("paciente.refeicao-paciente.recuperar");
     Route::put("/paciente/refeicao-paciente/{id}/atualizar", [RefeicaoPacienteController::class, "atualizarRefeicaoPaciente"])->name("paciente.refeicao-paciente.atualizar");
+
+    Route::get("/paciente/informacoes", [PacienteController::class, "minhasInformacoes"])->name("paciente.informacoes");
+    Route::put("/paciente/atualizar", [PacienteController::class, "atualizarInformacoes"])->name("paciente.atualizar");
 });
 
 
