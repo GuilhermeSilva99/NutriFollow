@@ -4,14 +4,16 @@ namespace App\Services;
 
 use App\Repository\ConsumoAguaRepository;
 use Carbon\Carbon;
+use App\Repository\UserRepository;
 
 class ConsumoAguaService
 {
     private $consumoAguaRepository;
 
-    public function __construct(ConsumoAguaRepository $consumoAguaRepository)
+    public function __construct(UserRepository $userRepository, ConsumoAguaRepository $consumoAguaRepository)
     {
         $this->consumoAguaRepository = $consumoAguaRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function listarConsumoAgua($pacienteID)
@@ -62,5 +64,18 @@ class ConsumoAguaService
         }
 
         return response()->json(["erro" => "Consumo de água não encontrado"], 400);
+    }
+
+    public function listarConsumoAguaPorPeriodo($inicio, $fim, $usuarioID)
+    {
+        Carbon::setlocale('pt-BR');
+        if($inicio == null || $fim == null)
+        {
+            $fim = Carbon::now();
+            $inicio = Carbon::now()->sub(30, 'days');
+        }        
+
+        $usuarioPaciente = $this->userRepository->find($usuarioID);
+        return $this->consumoAguaRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
     }
 }

@@ -13,7 +13,9 @@
         </style>
     </head>
     @extends('home')
+   
     <x-guest-layout>
+       
         <div class="row cards justify-content-center pt-4">
             <div class="col-6">
                 <br><br><br><br><br>
@@ -22,10 +24,10 @@
                       <a class="nav-link disabled" href="#">Relatório de Dieta</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/nutricionista/paciente/agua/{{$id}}">Relatório de Consumo de Água</a>
+                      <a class="nav-link active" href="/nutricionista/paciente/agua/{{$id}}">Relatório de Consumo de Água</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
+                      <a class="nav-link" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="/nutricionista/listar/pacientes">Listar Pascientes</a>
@@ -36,26 +38,23 @@
                     <div class="card-body">
                         <div id="container"></div>
                     </div>
-                    {{-- <form action="{{route('nutricionista.listar.pacientes') }}" method="get">
-                        @csrf
-                        <button class="btn btn-sccess" type="submit">Voltar</button>    
-                    </form> --}}
                 </div>
-                <form method="POST" action="{{ route('sono', $id) }}">
-                    @csrf
-                    <div class="container mt-5" style="max-width: 450px">
-                        <div class="row form-group">       
-                            <label class="col-sm-5 col-form-label">Início</label> 
-                            <label class="col-sm-1 col-form-label">Fim</label>                        
-                            <div class="input-daterange input-group" id="datepicker">
-                                <input type="date" class="input-sm form-control" name="inicio" autocomplete="off"/>
-                                <input type="date" class="input-sm form-control" name="fim" autocomplete="off"/>
-                                <button class="btn btn-success" type="submit">Filtrar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                
             </div>
+            
+        </div>
+        <div>
+            <form method="POST" action="{{ route('agua', $id) }}" >
+                @csrf
+                <div class="container mt-5" style="max-width: 450px">  
+                <label class="col col-form-label">Intervalo</label> 
+                <div class="input-group input-daterange">
+                    <input type="date" class="input-sm form-control" name="inicio" autocomplete="off"/>
+                    <div class="input-group-addon">a</div>
+                    <input type="date" class="input-sm form-control" name="fim" autocomplete="off"/>
+                </div>
+                <button class="btn btn-success" type="submit">Filtrar</button>
+            </form>
         </div>
     </x-guest-layout>
     
@@ -71,11 +70,11 @@
             type: 'column'
         },
         title: {
-            text: 'Relatório de sono do Paciente'
+            text: 'Relatório de Consumo de Água do Paciente'
         },
-        subtitle: {
-            text: 'Quantidade e qualidade de sono do paciente no período'
-        },
+        // subtitle: {
+        //     text: 'Quantidade e qualidade de sono do paciente no período'
+        // },
         xAxis: {
             categories: <?= $dias ?>,
             crosshair: true
@@ -83,7 +82,7 @@
         yAxis: {
             min: 0,
             title: {
-                text: 'Sono'
+                text: 'Água (Listros)'
             }
         },
         tooltip: {
@@ -100,7 +99,7 @@
                 borderWidth: 0
             }
         },
-        series: [<?= $duracao ?>, <?= $qualidade ?>]
+        series: [<?= $quantidade ?>]
     
     });
 </script>
