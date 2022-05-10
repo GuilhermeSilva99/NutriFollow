@@ -28,6 +28,13 @@ class ExercicioService
             return response()->json(["erro" => "Já existe um exercício cadastrado nessa data"], 400);
 
         $dadosExercicio['paciente_id'] = $pacienteId;
+
+        if (
+            !array_key_exists("tipo_exercicio_id", $dadosExercicio) ||
+            $dadosExercicio["tipo_exercicio_id"] == null
+        )
+            $dadosExercicio["tipo_exercicio_id"] = 1;
+
         $this->exercicioRepository->save($dadosExercicio);
 
         return response()->json(["sucesso" => "Exercício cadastrado com sucesso!"], 200);

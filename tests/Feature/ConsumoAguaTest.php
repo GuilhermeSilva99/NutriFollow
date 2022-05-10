@@ -43,7 +43,7 @@ class ConsumoAguaTest extends TestCase
         Sanctum::actingAs($usuarioPaciente, ['*']);
 
         $dadosSono = ["data" => "2022/08/02", "quantidade" => "02"];
-        $response = $this->postJson("/api/paciente/consumo-agua/" . $consumoAgua->id . "/atualizar", $dadosSono);
+        $response = $this->putJson("/api/paciente/consumo-agua/" . $consumoAgua->id . "/atualizar", $dadosSono);
 
         $response->assertStatus(200)->assertJson(['sucesso' => "Consumo de água atualizado com sucesso!"]);
     }

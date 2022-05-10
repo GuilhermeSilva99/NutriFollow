@@ -536,7 +536,7 @@
                     </button>
                     <div class="dropdown-container">
                         <a href="/paciente/register-paciente">Cadastrar Pasciente</a>
-                        <a href="/list/paciente">Listar Pasciente</a>
+                        <a href="'{{route('nutricionista.listar.pacientes')}}'">Listar Pasciente</a>
                     </div>
 
                 </div>
