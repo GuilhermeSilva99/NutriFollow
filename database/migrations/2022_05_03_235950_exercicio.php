@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('exercicios', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo');
+            $table->string('tipo')->nullable();
             $table->time('duracao');
             $table->string('descricao');
             $table->date('data');
             $table->string("observacoes")->nullable();
             $table->foreignId('paciente_id')->constrained('pacientes');
-            $table->foreignId('tipo_exercicio_id')->constrained('tipo_exercicios');
+            $table->foreignId('tipo_exercicio_id')->constrained('tipo_exercicios')->nullable();
             $table->timestamps();
         });
     }
