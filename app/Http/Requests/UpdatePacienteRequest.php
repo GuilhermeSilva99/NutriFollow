@@ -38,14 +38,14 @@ class UpdatePacienteRequest extends FormRequest
     public function messages()
     {
         return [
-            'nome.required'             => 'O campo Nome é obrigatório',
-            'nome.min'                  => 'O campo Nome deve conter no mínimo :min caracteres',
-            'sexo-input.required_if'    => 'O campo Sexo é obrigatório',
-            'telefone_1.required'        => 'O campo Telefone/Celular 1 é obrigatório',
-            'telefone_1.celular_com_ddd' => 'O campo Telefone/Celular 1 inválido',
-            'telefone_2.celular_com_ddd' => 'O campo Telefone/Celular 2 inválido',
-            'obs.min'                   => 'O campo Observações deve conter no mínimo :min caracteres',
-            'email.required'            => 'O campo Email é obrigatório',
+            'nome.required'                 => 'O campo Nome é obrigatório',
+            'nome.min'                      => 'O campo Nome deve conter no mínimo :min caracteres',
+            'sexo-input.required_if'        => 'O campo Sexo é obrigatório',
+            'telefone_1.required'           => 'O campo Telefone/Celular 1 é obrigatório',
+            'telefone_1.celular_com_ddd'    => 'O campo Telefone/Celular 1 inválido',
+            'telefone_2.celular_com_ddd'    => 'O campo Telefone/Celular 2 inválido',
+            'obs.min'                       => 'O campo Observações deve conter no mínimo :min caracteres',
+            'email.required'                => 'O campo Email é obrigatório',
         ];
     }
 }

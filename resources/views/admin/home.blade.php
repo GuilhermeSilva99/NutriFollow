@@ -4,8 +4,8 @@
             {{ __('Dashboard Admin') }}
         </h2>
         <a href="{{ route('admin.home') }}" style="text-decoration:none"> <input disabled="disabled" type="button" class="button-selecao" value="Solicitações de cadastro"> </a>
-        <a href="{{ route('nutricionistas.listar') }}" style="text-decoration:none"> <input class="button-selecao" type="button" value="Nutricionistas cadastrados"> </a>
-        <a href="{{ route('nutricionistas.inativos.listar') }}" style="text-decoration:none"> <input type="button" class="button-selecao" value="Nutricionistas inativos"> </a>
+        <a href="{{ route('admin.listar.nutricionistas') }}" style="text-decoration:none"> <input class="button-selecao" type="button" value="Nutricionistas cadastrados"> </a>
+        <a href="{{ route('admin.listar.nutricionistas.inativos') }}" style="text-decoration:none"> <input type="button" class="button-selecao" value="Nutricionistas inativos"> </a>
 
     </x-slot>
 
@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-3">
                             <td>
-                                <form action="{{ route('cadastro.recusar', $nutricionista->user->id) }}" method="post">
+                                <form action="{{ route('admin.recusar.cadastro.nutricionista', $nutricionista->user->id) }}" method="post">
                                     @method('DELETE')
                                     @csrf
                                     <button class="btn btn-danger" type="submit">Reprovar</button>

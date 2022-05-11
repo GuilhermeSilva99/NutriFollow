@@ -18,9 +18,8 @@ class DesativarNutricionistaTest extends DuskTestCase
     {
         $user = User::where('tipo_usuario', 1)->first();
 
-        if (!$user) {
+        if (!$user)
             $user = User::factory(1)->create()[0];
-        }
 
         $nutri = Nutricionista::factory()->create();
         $nutri->user->cadastro_aprovado = 1;
@@ -28,10 +27,10 @@ class DesativarNutricionistaTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user, $nutri) {
             $browser->loginAs($user)
-                ->visit('/admin/lista-nutricionistas')
+                ->visit('/admin/listar/nutricionistas')
                 ->assertSee($nutri->user->nome)
                 ->press('@desativar-button-' . $nutri->user->id)
-                ->visit('/admin/lista-nutricionistas-inativos')
+                ->visit('/admin/listar/nutricionistas-inativos')
                 ->assertSee($nutri->user->nome);
         });
     }

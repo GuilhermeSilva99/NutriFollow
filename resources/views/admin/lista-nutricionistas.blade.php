@@ -4,8 +4,8 @@
             {{ __('Dashboard Admin - Lista de Nutricionistas') }}
         </h2>
         <a href="{{ route('admin.home') }}" style="text-decoration:none"> <input type="button" class="button-selecao" value="Solicitações de cadastro"> </a>
-        <a href="{{ route('nutricionistas.listar') }}" style="text-decoration:none"> <input disabled="disabled" class="button-selecao" type="button" value="Nutricionistas cadastrados"> </a>
-        <a href="{{ route('nutricionistas.inativos.listar') }}" style="text-decoration:none"> <input type="button" class="button-selecao" value="Nutricionistas inativos"> </a>
+        <a href="{{ route('admin.listar.nutricionistas') }}" style="text-decoration:none"> <input disabled="disabled" class="button-selecao" type="button" value="Nutricionistas cadastrados"> </a>
+        <a href="{{ route('admin.listar.nutricionistas.inativos') }}" style="text-decoration:none"> <input type="button" class="button-selecao" value="Nutricionistas inativos"> </a>
     </x-slot>
     <h1>Lista de Nutricionistas</h1>
     <table class="table">
@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ $nutricionista->user->nome }}</td>
                     <td class="alinhar-esquerda">
-                        <form action="/inativar/{{$nutricionista->user->id}}" method="post">
+                        <form action="{{ route('admin.inativar.nutricionista', $nutricionista->user->id) }}" method="post">
                             @method('DELETE')
                             @csrf
                             <button class="btn btn-danger" type="submit" dusk="desativar-button-{{$nutricionista->user->id}}">Desativar</button>

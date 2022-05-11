@@ -9,7 +9,7 @@ class ConsumoAgua extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["data", "quantidade", "paciente_id"];
+    protected $fillable = ["data", "quantidade", "observacoes", "paciente_id"];
 
     public function paciente()
     {

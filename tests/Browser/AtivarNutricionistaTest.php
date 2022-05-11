@@ -19,7 +19,7 @@ class AtivarNutricionistaTest extends DuskTestCase
         $user = User::where('tipo_usuario', 1)->first();
 
         $nutri = Nutricionista::factory()->create();
-        $nutri->user->cadastro_aprovado = 1;
+        $nutri->user->cadastro_aprovado = 0;
         $nutri->user->save();
 
         $this->browse(function (Browser $browser) use ($user, $nutri) {
@@ -27,7 +27,7 @@ class AtivarNutricionistaTest extends DuskTestCase
                 ->visit('/admin/home')
                 ->assertSee($nutri->user->nome)
                 ->press('@aprovar-button-' . $nutri->user->id)
-                ->visit('/admin/lista-nutricionistas')
+                ->visit('/admin/listar/nutricionistas')
                 ->assertSee($nutri->user->nome);
         });
     }

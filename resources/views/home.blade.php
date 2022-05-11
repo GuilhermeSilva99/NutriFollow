@@ -110,13 +110,18 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="/paciente/register-paciente" class="menu-link">
+                  <a href="/nutricionista/register-paciente" class="menu-link">
                     <div>Cadastrar Paciente</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="/list/paciente" class="menu-link">
+                  <a href="/nutricionista/listar/pacientes" class="menu-link">
                     <div>Listar Pasciente</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/paciente/cadastro-dieta" class="menu-link">
+                    <div>Atribuir Dieta</div>
                   </a>
                 </li>
               </ul>
