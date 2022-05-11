@@ -15,10 +15,6 @@
     @extends('home')
     @section('content')
     <body class="antialiased">
-        <br>
-        <br>
-        <br>
-        <br>
         <div class="card-body">
             <form method="POST" action="{{route('nutricionista.paciente.atualizar.senha', $paciente->user->id) }}">
                 @csrf
