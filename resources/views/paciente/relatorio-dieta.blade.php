@@ -20,13 +20,13 @@
                 <div class="mx-auto" style="width: 680px;">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                        <a class="nav-link" href="/nutricionista/paciente/relatorio-dieta/{{$id}}">Relatório de Dieta</a>
+                        <a class="nav-link active" href="/nutricionista/paciente/relatorio-dieta/{{$id}}">Relatório de Dieta</a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/nutricionista/paciente/agua/{{$id}}">Relatório de Consumo de Água</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
+                        <a class="nav-link" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
                         </li>
                     </ul>
                 </div>
@@ -40,22 +40,25 @@
                     </div>
                     <br>
                 </div>
-                <form method="POST" action="{{ route('sono', $id) }}">
-                    @csrf
-                    <div class="container mt-5" style="max-width: 450px">
-                        <div class="row form-group">       
-                            <label class="col-sm-5 col-form-label">Início</label> 
-                            <label class="col-sm-1 col-form-label">Fim</label>                        
-                            <div class="input-daterange input-group" id="datepicker">
-                                <input type="date" class="input-sm form-control" name="inicio" autocomplete="off"/>
-                                <input type="date" class="input-sm form-control" name="fim" autocomplete="off"/>
-                                <button class="btn btn-success" type="submit">Filtrar</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
+        <table class="table align-middle table-sm">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+
+              </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
     </x-guest-layout>
     
 </html>
@@ -70,19 +73,16 @@
             type: 'column'
         },
         title: {
-            text: 'Relatório de sono do Paciente'
-        },
-        subtitle: {
-            text: 'Quantidade e qualidade de sono do paciente no período'
+            text: 'Relatório de Calorias Consumidas Pelo Paciente'
         },
         xAxis: {
-            categories: <?= $dias ?>,
+            categories: [1],
             crosshair: true
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Sono'
+                text: 'Calorias'
             }
         },
         tooltip: {
@@ -99,7 +99,7 @@
                 borderWidth: 0
             }
         },
-        series: [<?= $duracao ?>, <?= $qualidade ?>]
+        series: [[1, 2, 3, 4]]
     
     });
 </script>
