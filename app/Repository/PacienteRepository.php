@@ -43,7 +43,7 @@ class PacienteRepository implements BaseRepositoryInterface
 
     public function findByColumnWithUser($coluna, $valor)
     {
-        return Paciente::whereRelation('user', 'deleted_at', null)->where($coluna, $valor)->get();
+        return Paciente::whereRelation('user', 'deleted_at', null)->where($coluna, $valor)->paginate(7);
     }
 
     public function updateWithModel($sono, $atributos)
