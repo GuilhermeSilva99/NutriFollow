@@ -21,7 +21,11 @@ return new class extends Migration
             $table->time("horario");
             $table->string("nome_refeicao");
             $table->date("data")->nullable();
-            $table->foreignId('dieta_id')->references('id')->on('dietas');
+            $table->string("foto")->nullable();
+            $table->string("observacoes")->nullable();
+            $table->foreignId('dieta_id')->constrained('dietas');
+            $table->foreignId('nutricionista_id')->nullable()->constrained('nutricionistas');
+            $table->foreignId('paciente_id')->nullable()->constrained('pacientes');
             $table->timestamps();
         });
     }

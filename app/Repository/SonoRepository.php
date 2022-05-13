@@ -23,8 +23,7 @@ class SonoRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $nutricionista = Sono::create($atributos);
-        return $nutricionista->save();
+        return Sono::create($atributos);
     }
 
     public function update($id, $atributos)
@@ -50,5 +49,10 @@ class SonoRepository implements BaseRepositoryInterface
     public function updateWithModel($sono, $atributos)
     {
         return $sono->update($atributos);
+    }
+
+    public function findByColumnExceptConsumo($coluna, $valor, $id)
+    {
+        return Sono::where($coluna, $valor)->where("id", "!=", $id)->get();
     }
 }

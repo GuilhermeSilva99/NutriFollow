@@ -63,7 +63,14 @@ class ExercicioService
     public function atualizarExercicio($dadosExercicio, $exercicioId)
     {
         $exercicio = $this->exercicioRepository->find($exercicioId);
+
         if ($exercicio) {
+            $data = Carbon::parse($dadosExercicio["data"] ?? $exercicio->data);
+            $listaExercicio = $this->exercicioRepository->findByColumnExceptConsumo("data", $data, $exercicio->id);
+
+            if (count($listaExercicio) >= 1)
+                return response()->json(["erro" => "Já existe um exercício cadastrado nessa data"], 400);
+
             $this->exercicioRepository->updateWithModel($exercicio, $dadosExercicio);
             return response()->json(["sucesso" => "Exercício atualizado com sucesso!"], 200);
         }

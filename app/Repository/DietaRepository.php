@@ -23,8 +23,7 @@ class DietaRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $dieta = Dieta::create($atributos);
-        return $dieta->save();
+        return Dieta::create($atributos);
     }
 
     public function update($id, $atributos)

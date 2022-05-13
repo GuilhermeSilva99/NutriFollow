@@ -38,7 +38,7 @@ class ExercicioController extends Controller
         return $this->exercicioService->recuperarExercicio($request->id);
     }
 
-    public function atualizarExercicio(UpdateExercicioRequest $request)
+    public function atualizarExercicio(StoreExercicioRequest $request)
     {
         $dados = $request->validated();
         return $this->exercicioService->atualizarExercicio($dados, $request->id);
