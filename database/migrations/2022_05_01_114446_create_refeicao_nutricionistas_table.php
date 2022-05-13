@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('refeicao_pacientes', function (Blueprint $table) {
+        Schema::create('refeicao_nutricionistas', function (Blueprint $table) {
             $table->id();
-            $table->string("foto")->nullable();
-            $table->string("observacoes")->nullable();
             $table->foreignId('refeicao_id')->references('id')->on('refeicaos');
-            $table->foreignId('refeicao_referencia_id')->references('id')->on('refeicaos');
-            $table->foreignId('paciente_id')->references('id')->on('pacientes');
+            $table->foreignId('nutricionista_id')->references('id')->on('nutricionistas');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('refeicao_pacientes');
+        Schema::dropIfExists('refeicao_nutricionistas');
     }
 };

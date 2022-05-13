@@ -28,9 +28,7 @@ class RefeicaoFactory extends Factory
             'horario' => 1,
             "nome_refeicao" => $this->faker->word(),
             "data" => now()->addDays(rand(1, 20)),
-            "dieta_id" => 1,
-            "nutricionista_id" => 1,
-            "paciente_id" => null
+            "dieta_id" => 1
         ];
     }
 }
