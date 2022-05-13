@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Refeicao;
+use App\Models\RefeicaoNutricionista;
 use Illuminate\Database\Seeder;
 
-class RefeicaoSeeder extends Seeder
+class RefeicaoNutricionistaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,7 +15,7 @@ class RefeicaoSeeder extends Seeder
     public function run()
     {
         for ($i = 1; $i <= 10; $i++) {
-            Refeicao::factory(1)->create(["data" => now()->addDays($i)]);
+            RefeicaoNutricionista::factory(1)->create(["refeicao_id" => $i]);
         }
     }
 }

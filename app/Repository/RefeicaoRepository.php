@@ -61,4 +61,9 @@ class RefeicaoRepository implements BaseRepositoryInterface
     {
         return $objeto->update($atributos);
     }
+
+    public function refresh($objeto)
+    {
+        return $objeto->refresh();
+    }
 }
