@@ -40,7 +40,7 @@ class ConsumoAguaController extends Controller
         return $this->consumoAguaService->recuperarConsumoAgua($request->id);
     }
 
-    public function atualizarConsumoAgua(UpdateConsumoAguaRequest $request)
+    public function atualizarConsumoAgua(StoreConsumoAguaRequest $request)
     {
         $dados = $request->validated();
         return $this->consumoAguaService->atualizarConsumoAgua($dados, $request->id);

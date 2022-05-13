@@ -17,16 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string("sexo");
             $table->string("observacoes", 100)->nullable();
-
-            $table->foreignId('user_id')
-            ->constrained('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
-            $table->foreignId('nutricionista_id')
-                    ->constrained('nutricionistas')
-                    ->onDelete('cascade')
-                    ->onUpdate('cascade');
-            
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('nutricionista_id')->constrained('nutricionistas')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

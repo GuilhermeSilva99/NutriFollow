@@ -39,7 +39,7 @@ class SonoController extends Controller
         return $this->sonoService->recuperarSono($request->id);
     }
 
-    public function atualizarSono(UpdateSonoRequest $request)
+    public function atualizarSono(StoreSonoRequest $request)
     {
         $dados = $request->validated();
         return $this->sonoService->atualizarSono($dados, $request->id);

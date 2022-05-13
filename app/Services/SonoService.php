@@ -70,7 +70,14 @@ class SonoService
     public function atualizarSono($dadosSono, $sonoId)
     {
         $sono = $this->sonoRepository->find($sonoId);
+
         if ($sono) {
+            $data = Carbon::parse($dadosSono["data"] ?? $sono->data);
+            $listaSono = $this->sonoRepository->findByColumnExceptConsumo("data", $data, $sono->id);
+
+            if (count($listaSono) >= 1)
+                return response()->json(["erro" => "Já existe um sono cadastrado nessa data"], 400);
+
             $this->sonoRepository->updateWithModel($sono, $dadosSono);
             return response()->json(["sucesso" => "Sono atualizado com sucesso!"], 200);
         }

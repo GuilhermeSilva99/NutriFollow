@@ -24,8 +24,7 @@ class TipoExercicioRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $exercicio = TipoExercicio::create($atributos);
-        return $exercicio->save();
+        return TipoExercicio::create($atributos);;
     }
 
     public function update($id, $atributos)

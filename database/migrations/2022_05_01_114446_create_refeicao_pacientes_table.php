@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("foto")->nullable();
             $table->string("observacoes")->nullable();
             $table->foreignId('refeicao_id')->references('id')->on('refeicaos');
+            $table->foreignId('nova_refeicao_id')->references('id')->on('refeicaos');
             $table->foreignId('paciente_id')->references('id')->on('pacientes');
             $table->timestamps();
         });

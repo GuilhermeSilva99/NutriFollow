@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Refeicao;
+use Illuminate\Support\Facades\DB;
 
 class RefeicaoRepository implements BaseRepositoryInterface
 {
@@ -23,8 +24,7 @@ class RefeicaoRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $nutricionista = Refeicao::create($atributos);
-        return $nutricionista->save();
+        return Refeicao::create($atributos);
     }
 
     public function update($id, $atributos)
@@ -42,8 +42,23 @@ class RefeicaoRepository implements BaseRepositoryInterface
         return $objeto->delete();
     }
 
-    public function findByColumnWithFields($coluna, $valor, $fields)
+    public function findByColumnWithFields($coluna, $valor, $campos)
     {
-        return Refeicao::where($coluna, $valor)->get($fields);
+        return Refeicao::where($coluna, $valor)->get($campos);
+    }
+
+    public function findByColumnFromNutricionista($coluna, $valor)
+    {
+        return Refeicao::where($coluna, $valor)->whereNotNull("nutricionista_id")->get();
+    }
+
+    public function findByColumnFromPaciente($coluna, $valor)
+    {
+        return Refeicao::where($coluna, $valor)->whereNotNull("paciente_id")->get();
+    }
+
+    public function updateWithModel($objeto, $atributos)
+    {
+        return $objeto->update($atributos);
     }
 }

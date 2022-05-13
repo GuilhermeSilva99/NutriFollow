@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\RefeicaoPaciente;
+use Illuminate\Support\Facades\DB;
 
 class RefeicaoPacienteRepository implements BaseRepositoryInterface
 {
@@ -23,8 +24,7 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $refeicaoPaciente = RefeicaoPaciente::create($atributos);
-        return $refeicaoPaciente->save();
+        return RefeicaoPaciente::create($atributos);
     }
 
     public function update($id, $atributos)
@@ -45,5 +45,10 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
     public function updateWithModel($objeto, $atributos)
     {
         return $objeto->update($atributos);
+    }
+
+    public function findByColumnWithRefeicao($coluna, $valor)
+    {
+        return RefeicaoPaciente::with('refeicao')->where($coluna, $valor)->get();
     }
 }
