@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Refeicao;
+use App\Models\RefeicaoNutricionista;
 use Illuminate\Support\Facades\DB;
 use App\Services\RefeicaoPacienteService;
 use Illuminate\Http\Request;
@@ -28,8 +29,11 @@ class RefeicaoController extends Controller
 
         $dados = $request->all();
         $id = $dados['dieta_id'];
-        $dados = Auth::user()->nutricionista->id;
-        Refeicao::create($dados);
+        $refeicao = Refeicao::create($dados);
+        RefeicaoNutricionista::create([
+            "nutricionista_id" => Auth::user()->nutricionista->id,
+            "refeicao_id" => $refeicao->id
+        ]);
         return redirect()->route('dieta.view-dieta', $id);
     }
 

@@ -51,4 +51,26 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
     {
         return RefeicaoPaciente::with('refeicao')->where($coluna, $valor)->get();
     }
+
+    public function findRefeicoesByDietaId($dietaId, $pacienteId)
+    {
+        return DB::table("refeicao_pacientes")
+            ->join("refeicaos", "refeicao_pacientes.refeicao_id", "=", "refeicaos.id")
+            ->select("refeicaos.*", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->where("refeicaos.dieta_id", "=", $dietaId)
+            ->where("refeicao_pacientes.id", "=", $pacienteId)
+            ->groupBy("refeicaos.id", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->get();
+    }
+
+    public function findRefeicaoByPacienteId($refeicaoId)
+    {
+        return DB::table("refeicao_pacientes")
+            ->join("refeicaos", "refeicao_pacientes.refeicao_id", "=", "refeicaos.id")
+            ->select("refeicaos.*", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->where("refeicao_pacientes.refeicao_id", $refeicaoId)
+            ->where("refeicaos.id", $refeicaoId)
+            ->groupBy("refeicaos.id", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->get();
+    }
 }
