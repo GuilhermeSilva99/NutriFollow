@@ -40,25 +40,73 @@
                     </div>
                     <br>
                 </div>
+                <form method="POST" action="{{ route('dieta.relatorio', $id) }}">
+                    @csrf
+                    <div class="container mt-5" style="max-width: 450px">
+                        <div class="row form-group">       
+                            <label class="col-sm-5 col-form-label">Início</label> 
+                            <label class="col-sm-1 col-form-label">Fim</label>                        
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="date" class="input-sm form-control" name="inicio" autocomplete="off"/>
+                                <input type="date" class="input-sm form-control" name="fim" autocomplete="off"/>
+                                <button class="btn btn-success" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <table class="table align-middle table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">Horário</th>
+                        <th scope="col">Calorias</th> 
+                        <th scope="col">Visualizar</th>       
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <tr scope="row">
+                            <th scope="col">01/05/2022</th>
+                            <th>06:00 <br>
+                                09:00 <br>
+                                12:00 <br>
+                                15:00 <br>
+                                18:00 <br>
+                                21:00
+                            </th>
+                            <th>520 <br>
+                                300 <br>
+                                800 <br>
+                                500 <br>
+                                600 <br>
+                                279
+                            </th> 
+                            <th><button class="btn btn-sm btn-outline-info">Visualizar Detalhes</button></th>       
+                          </tr>
+                          <tr scope="row">
+                            <th scope="col">02/05/2022</th>
+                            <th>06:00 <br>
+                                09:00 <br>
+                                12:00 <br>
+                                15:00 <br>
+                                18:00 <br>
+                                21:00
+                            </th>
+                            <th>520 <br>
+                                300 <br>
+                                800 <br>
+                                500 <br>
+                                600 <br>
+                                279
+                            </th> 
+                            <th><button class="btn btn-sm btn-outline-info">Visualizar Detalhes</button></th>       
+                          </tr>
+                    </tbody>
+                </table>
+
             </div>
         </div>
-        <table class="table align-middle table-sm">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-
-              </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-        </table>
     </x-guest-layout>
     
 </html>

@@ -70,6 +70,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua');
         Route::post('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua.filtrar');
         Route::get('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes'])->name('dieta.relatorio');
+        Route::post('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes']);
+
     });
 
     
