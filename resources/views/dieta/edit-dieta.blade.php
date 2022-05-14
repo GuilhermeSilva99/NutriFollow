@@ -20,25 +20,14 @@
         <br>
         <br>
         <div class="card-body">
-            <form method="POST" action="{{route('dieta.cadastroDieta') }}">
+            <form method="POST" action="{{ route('dieta.atualizarDieta', $dieta->id) }}">
                 @csrf
-                
-                <div class="mb-3">
-                    <x-jet-label value="{{ __('Paciente') }}" />
-                    <select class="form-select" aria-label="Default select example" name="paciente_id" for="paciente_id">
-                        <option selected>Selecione Paciente</option>
-                            @foreach ($pacientes as $paciente)
-                                <option  value="{{$paciente->id}}" >{{$paciente->user->nome}}</option>
-                            @endforeach
-                    </select>
-                    
-                </div>
 
                 <div class="mb-3">
                     <x-jet-label value="{{ __('Descrição') }}" />
 
                     <x-jet-input class="{{ $errors->has('nome') ? 'is-invalid' : '' }}" type="text" name="descricao"
-                                 :value="old('descricao')" required autofocus autocomplete="descricao" />
+                                 value="{{$dieta->descricao}}" required autofocus autocomplete="descricao" />
                     <x-jet-input-error for="descricao"></x-jet-input-error>
                 </div>
 
@@ -46,7 +35,7 @@
                     <x-jet-label value="{{ __('Data de Início') }}" />
 
                     <x-jet-input class="{{ $errors->has('data_inicio') ? 'is-invalid' : '' }}" type="date" name="data_inicio"
-                                 :value="old('descricao')" required autofocus autocomplete="descricao" />
+                                 value="{{$dieta->data_inicio}}" required autofocus autocomplete="descricao" />
                     <x-jet-input-error for="data_inicio"></x-jet-input-error>
                 </div>
 
@@ -54,18 +43,24 @@
                     <x-jet-label value="{{ __('Data de Fim') }}" />
 
                     <x-jet-input class="{{ $errors->has('data_fim') ? 'is-invalid' : '' }}" type="date" name="data_fim"
-                                 :value="old('data_fim')" required />
+                                 value="{{$dieta->data_fim}}" required />
                     <x-jet-input-error for="data_fim"></x-jet-input-error>
                 </div>
 
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
                         <x-jet-button name="cadastrar" class="btn btn-outline-secondary">
-                            {{ __('Cadastrar') }}
+                            {{ __('Editar') }}
                         </x-jet-button>
                     </div>
                 </div>
             </form>
+
+            <form method="get" action="{{ route('dieta.dietas', $dieta->paciente_id) }}" >
+                @csrf
+                <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Voltar</button>
+            </form>
+
         </div>
     </body>
     @endsection
