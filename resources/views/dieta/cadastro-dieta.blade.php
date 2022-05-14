@@ -60,7 +60,7 @@
 
                 <div class="mb-0 rodape-form-registo">
                     <div class="d-flex justify-content-end align-items-baseline">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/list/paciente'">Listar</button>
+                        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='{{route('nutricionista.listar.pacientes')}}'">Listar</button>
 
                         <x-jet-button name="cadastrar" class="btn btn-outline-secondary">
                             {{ __('Cadastrar') }}

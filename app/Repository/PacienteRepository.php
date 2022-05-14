@@ -45,4 +45,9 @@ class PacienteRepository implements BaseRepositoryInterface
     {
         return Paciente::whereRelation('user', 'deleted_at', null)->where($coluna, $valor)->get();
     }
+
+    public function updateWithModel($sono, $atributos)
+    {
+        return $sono->update($atributos);
+    }
 }

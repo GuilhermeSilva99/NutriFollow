@@ -52,7 +52,7 @@ class ExercicioTest extends TestCase
             "data" => "2022/08/02", "duracao" => "03:10", "tipo" => "api exercicio",
             "descricao" => "desc api", "tipo_exercicio_id" => 1
         ];
-        $response = $this->postJson("/api/paciente/exercicio/" . $exercicio->id . "/atualizar", $dadosExercicio);
+        $response = $this->putJson("/api/paciente/exercicio/" . $exercicio->id . "/atualizar", $dadosExercicio);
 
         $response->assertStatus(200)->assertJson(['sucesso' => "Exercício atualizado com sucesso!"]);
     }

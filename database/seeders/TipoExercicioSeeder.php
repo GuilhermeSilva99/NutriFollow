@@ -15,6 +15,7 @@ class TipoExercicioSeeder extends Seeder
      */
     public function run()
     {
+        TipoExercicio::factory(1)->create(["nome" => "Outro"]);
         TipoExercicio::factory(10)->create();
     }
 }

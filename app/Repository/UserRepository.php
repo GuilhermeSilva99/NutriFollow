@@ -66,4 +66,9 @@ class UserRepository implements BaseRepositoryInterface
     {
         return User::onlyTrashed()->where('tipo_usuario', 2)->get();
     }
+
+    public function updateWithModel($objeto, $atributos)
+    {
+        return $objeto->update($atributos);
+    }
 }

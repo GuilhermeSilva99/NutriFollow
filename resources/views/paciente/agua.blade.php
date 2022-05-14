@@ -23,19 +23,17 @@
             <br><br><br><br><br>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Relatório de Dieta</a>
+                    <a class="nav-link disabled" href="#">Dieta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="/nutricionista/paciente/agua/{{ $id }}">Relatório de
-                        Consumo de Água</a>
+                    <a class="nav-link active" href="/nutricionista/paciente/agua/{{ $id }}">Consumo de Água</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/nutricionista/paciente/sono/{{ $id }}">Relatório de
-                        qualidade do Sono</a>
+                    <a class="nav-link" href="/nutricionista/paciente/sono/{{ $id }}">Qualidade do Sono</a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" href="/nutricionista/listar/pacientes">Listar Pascientes</a>
-                </li> --}}
+                </li>
             </ul>
 
             <div class="card shadow-sm">
@@ -43,34 +41,27 @@
                     <div id="container"></div>
                 </div>
             </div>
-
+           
+            <div>
+            <form class="form-inline" method="POST" action="{{ route('agua', $id) }}" style="justify-content: center; margin-top: 15px;">
+                @csrf
+                <div>Intervalo</div> 
+                <div class="form-group" style="margin: 3px;">
+                    <input type="date" class="form-control" name="inicio" autocomplete="off"/>
+                </div>
+                <span> A </span>
+                <div class="form-group" style="margin: 3px;">
+                    <input type="date" class="form-control" name="fim" autocomplete="off"/>
+                </div>
+                <button class="btn btn-success" type="submit">Filtrar</button>
+            </form>
         </div>
-      
+        
+        </div>
         
     </div>
-    <a class="nav-link" href="/nutricionista/listar/pacientes">Listar Pascientes</a>
-    <div>
-        <form  method="get">
-            @csrf
-            <button type="button" class="btn btn-outline-dark">Dark</button>
-            {{-- <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Listar</button> --}}
-        </form>
-    </div>
-
-    <div>
-        <form class="form-inline" method="POST" action="{{ route('agua', $id) }}" style="justify-content: center; margin-top: 15px;">
-            @csrf
-            <div>Intervalo</div> 
-            <div class="form-group" style="margin: 3px;">
-                <input type="date" class="form-control" name="inicio" autocomplete="off"/>
-            </div>
-            <span> A </span>
-            <div class="form-group" style="margin: 3px;">
-                <input type="date" class="form-control" name="fim" autocomplete="off"/>
-            </div>
-            <button class="btn btn-success" type="submit">Filtrar</button>
-        </form>
-    </div>
+    
+    
 
     
 </x-guest-layout>
