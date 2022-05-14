@@ -20,7 +20,11 @@ class DatabaseSeeder extends Seeder
             ConsumoAguaSeeder::class,
             SonoSeeder::class,
             TipoExercicioSeeder::class,
-            ExercicioSeeder::class
+            ExercicioSeeder::class,
+            DietaSeeder::class,
+            RefeicaoSeeder::class,
+            RefeicaoNutricionistaSeeder::class,
+            ComorbidadeSeeder::class
         ]);
     }
 }

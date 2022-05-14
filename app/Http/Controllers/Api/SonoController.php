@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSonoRequest;
+use App\Http\Requests\UpdateSonoRequest;
 use App\Services\SonoService;
 
 class SonoController extends Controller
@@ -19,13 +20,13 @@ class SonoController extends Controller
 
     public function listarSono(Request $request)
     {
-        return $this->sonoService->listarSono($request->user()->id);
+        return $this->sonoService->listarSono($request->user()->paciente->id);
     }
 
     public function criarSono(StoreSonoRequest $request)
     {
         $dados = $request->validated();
-        return $this->sonoService->criarSono($dados, $request->user()->id);
+        return $this->sonoService->criarSono($dados, $request->user()->paciente->id);
     }
 
     public function deletarSono(Request $request)

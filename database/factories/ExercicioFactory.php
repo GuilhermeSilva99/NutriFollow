@@ -21,7 +21,8 @@ class ExercicioFactory extends Factory
             "tipo" => "exercicio",
             "duracao" => "01:00",
             "descricao" => "descricao",
-            "data" => Carbon::now(),
+            "data" => now()->addDays(rand(1, 50)),
+            "observacoes" => "obs",
             "paciente_id" => 1,
             "tipo_exercicio_id" => rand(1, 10)
         ];

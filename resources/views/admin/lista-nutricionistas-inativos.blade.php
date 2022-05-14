@@ -3,8 +3,9 @@
         <h2 class="h4 font-weight-bold">
             {{ __('Dashboard Admin - Lista de Nutricionistas Inativos') }}
         </h2>
-        <a href="{{ route('admin.home') }}">Solicitações de cadastro </a>
-        <a href="{{ route('admin.listar.nutricionistas') }}">Nutricionistas cadastrados</a>
+        <a href="{{ route('admin.home') }}" style="text-decoration:none"> <input type="button" class="button-selecao" value="Solicitações de cadastro"> </a>
+        <a href="{{ route('admin.listar.nutricionistas') }}" style="text-decoration:none"> <input class="button-selecao" type="button" value="Nutricionistas cadastrados"> </a>
+        <a href="{{ route('admin.listar.nutricionistas.inativos') }}" style="text-decoration:none"> <input disabled="disabled" type="button" class="button-selecao" value="Nutricionistas inativos"> </a>
     </x-slot>
 
     <h1>Lista de Nutricionistas Inativos</h1>
@@ -23,7 +24,7 @@
                         <form action="{{ route('admin.reativar.cadastro.nutricionista', $user->id) }}" method="post">
                             @method('PUT')
                             @csrf
-                            <button class="button-reativar" type="submit" dusk="reativar-button-{{$user->id}}">Reativar</button>
+                            <button class="btn btn-success" type="submit" dusk="reativar-button-{{$user->id}}">Reativar</button>
                         </form>
                     </td>
                 </tr>

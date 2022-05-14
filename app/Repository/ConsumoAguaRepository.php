@@ -23,8 +23,7 @@ class ConsumoAguaRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $nutricionista = ConsumoAgua::create($atributos);
-        return $nutricionista->save();
+        return ConsumoAgua::create($atributos);
     }
 
     public function update($id, $atributos)
@@ -40,5 +39,20 @@ class ConsumoAguaRepository implements BaseRepositoryInterface
     public function softDelete($objeto)
     {
         return $objeto->delete();
+    }
+
+    public function findByPeriod($inicio, $fim, $paciente_id)
+    {
+        return ConsumoAgua::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->get();
+    }
+
+    public function updateWithModel($consumo, $atributos)
+    {
+        return $consumo->update($atributos);
+    }
+
+    public function findByColumnExceptConsumo($coluna, $valor, $id)
+    {
+        return ConsumoAgua::where($coluna, $valor)->where("id", "!=", $id)->get();
     }
 }

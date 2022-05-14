@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{AdminController};
+use App\Http\Controllers\AguaController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
@@ -20,6 +21,8 @@ use App\Http\Controllers\SonoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 
 Route::redirect('/', '/dashboard');
 
@@ -57,6 +60,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/nutricionista/editar-refeicao/{id}', [RefeicaoController::class, 'editarRefeicao'])->name('refeicao.editarRefeicao');
     Route::post('/nutricionista/editar-refeicao/{id}', [RefeicaoController::class, 'atualizarRefeicao'])->name('refeicao.atualizarRefeicao');
 
+    Route::get('/nutricionista/criar/comorbidade/paciente', [NutricionistaController::class, 'criarComorbidadePaciente'])->name('nutricionista.criar.comorbidade.paciente');
+    Route::post('/nutricionista/salvar/comorbidade/paciente', [NutricionistaController::class, 'salvarComorbidadePaciente'])->name('nutricionista.salvar.comorbidade.paciente');
+    Route::get('/nutricionista/listar/comorbidade/paciente/{id}', [NutricionistaController::class, 'listarComorbidadesPaciente'])->name('nutricionista.listar.comorbidade.paciente');
+    Route::get('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'editarComorbidadePaciente'])->name('nutricionista.editar.comorbidade.paciente');
+    Route::put('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'atualizarComorbidadePaciente'])->name('nutricionista.atualizar.comorbidade.paciente');
+    Route::delete('/nutricionista/deletar/comorbidade/paciente/{id}', [NutricionistaController::class, 'deletarComorbidadePaciente'])->name('nutricionista.deletar.comorbidade.paciente');
 
     Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
     Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');
@@ -66,8 +75,11 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/paciente/dieta/editar/{id}', [DietaController::class, 'editarDieta'])->name('dieta.editarDieta');
     Route::post('/paciente/dieta/editar/{id}', [DietaController::class, 'atualizarDieta'])->name('dieta.atualizarDieta');
 
-    Route::middleware('NutricionistaDoPaciente')->group(function(){
+    Route::middleware('NutricionistaDoPaciente')->group(function () {
         Route::get('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono');
         Route::post('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono.filtrar');
+        Route::get('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua');
+        Route::post('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua.filtrar');
+        Route::get('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes'])->name('dieta.relatorio');
     });
 });

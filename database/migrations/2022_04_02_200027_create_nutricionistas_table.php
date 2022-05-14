@@ -17,10 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string("crn", 45)->unique();
             $table->string("uf", 2);
-
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();
-
             $table->timestamps();
         });
     }

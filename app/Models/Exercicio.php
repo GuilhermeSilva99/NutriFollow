@@ -9,7 +9,7 @@ class Exercicio extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["tipo", "duracao", "descricao", "data", "paciente_id", "tipo_exercicio_id"];
+    protected $fillable = ["tipo", "duracao", "descricao", "data", "observacoes", "paciente_id", "tipo_exercicio_id"];
 
     public function tipoExercicio()
     {

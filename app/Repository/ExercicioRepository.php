@@ -24,8 +24,7 @@ class ExercicioRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $exercicio = Exercicio::create($atributos);
-        return $exercicio->save();
+        return Exercicio::create($atributos);
     }
 
     public function update($id, $atributos)
@@ -41,5 +40,15 @@ class ExercicioRepository implements BaseRepositoryInterface
     public function softDelete($objeto)
     {
         return $objeto->delete();
+    }
+
+    public function updateWithModel($objeto, $atributos)
+    {
+        return $objeto->update($atributos);
+    }
+
+    public function findByColumnExceptConsumo($coluna, $valor, $id)
+    {
+        return Exercicio::where($coluna, $valor)->where("id", "!=", $id)->get();
     }
 }

@@ -2,30 +2,41 @@
 
 namespace App\Services;
 
-use App\Repository\{ExercicioRepository, UserRepository};
+use App\Repository\{ExercicioRepository};
+use Carbon\Carbon;
 
 class ExercicioService
 {
     private $exercicioRepository;
-    private $userRepository;
 
-    public function __construct(UserRepository $userRepository, ExercicioRepository $exercicioRepository)
+    public function __construct(ExercicioRepository $exercicioRepository)
     {
-        $this->userRepository = $userRepository;
         $this->exercicioRepository = $exercicioRepository;
     }
 
-    public function listarExercicios($usuarioID)
+    public function listarExercicios($pacienteId)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        return $this->exercicioRepository->findByColumn("paciente_id", $usuarioPaciente->paciente->id);
+        return $this->exercicioRepository->findByColumn("paciente_id", $pacienteId);
     }
 
-    public function criarExercicio($dadosExercicio, $usuarioID)
+    public function criarExercicio($dadosExercicio, $pacienteId)
     {
-        $usuarioPaciente = $this->userRepository->find($usuarioID);
-        $dadosExercicio['paciente_id'] = $usuarioPaciente->paciente->id;
+        $data = Carbon::parse($dadosExercicio["data"]);
+        $sono = $this->exercicioRepository->findByColumn("data", $data);
+
+        if (count($sono) >= 1)
+            return response()->json(["erro" => "Já existe um exercício cadastrado nessa data"], 400);
+
+        $dadosExercicio['paciente_id'] = $pacienteId;
+
+        if (
+            !array_key_exists("tipo_exercicio_id", $dadosExercicio) ||
+            $dadosExercicio["tipo_exercicio_id"] == null
+        )
+            $dadosExercicio["tipo_exercicio_id"] = 1;
+
         $this->exercicioRepository->save($dadosExercicio);
+
         return response()->json(["sucesso" => "Exercício cadastrado com sucesso!"], 200);
     }
 
@@ -35,9 +46,9 @@ class ExercicioService
         if ($exercicio) {
             $this->exercicioRepository->softDelete($exercicio);
             return response()->json(["sucesso" => "Exercício deletado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Exercício não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Exercício não encontrado"], 400);
     }
 
     public function recuperarExercicio($exercicioId)
@@ -45,18 +56,25 @@ class ExercicioService
         $exercicio = $this->exercicioRepository->find($exercicioId);
         if ($exercicio)
             return $exercicio;
-        else
-            return response()->json(["erro" => "Exercício não encontrado"], 400);
+
+        return response()->json(["erro" => "Exercício não encontrado"], 400);
     }
 
     public function atualizarExercicio($dadosExercicio, $exercicioId)
     {
         $exercicio = $this->exercicioRepository->find($exercicioId);
+
         if ($exercicio) {
-            $this->exercicioRepository->update($exercicioId, $dadosExercicio);
+            $data = Carbon::parse($dadosExercicio["data"] ?? $exercicio->data);
+            $listaExercicio = $this->exercicioRepository->findByColumnExceptConsumo("data", $data, $exercicio->id);
+
+            if (count($listaExercicio) >= 1)
+                return response()->json(["erro" => "Já existe um exercício cadastrado nessa data"], 400);
+
+            $this->exercicioRepository->updateWithModel($exercicio, $dadosExercicio);
             return response()->json(["sucesso" => "Exercício atualizado com sucesso!"], 200);
-        } else {
-            return response()->json(["erro" => "Exercício não encontrado"], 400);
         }
+
+        return response()->json(["erro" => "Exercício não encontrado"], 400);
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date("data");
             $table->time("duracao");
             $table->string("avaliacao");
+            $table->string("observacoes")->nullable();
             $table->unsignedBigInteger('paciente_id');
             $table->foreign('paciente_id')->references('id')->on('pacientes');
             $table->timestamps();

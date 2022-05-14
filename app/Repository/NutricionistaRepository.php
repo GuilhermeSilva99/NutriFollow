@@ -24,8 +24,7 @@ class NutricionistaRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $nutricionista = Nutricionista::create($atributos);
-        return $nutricionista->save();
+        return Nutricionista::create($atributos);
     }
 
     public function update($id, $atributos)

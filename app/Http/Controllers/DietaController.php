@@ -18,7 +18,7 @@ class DietaController extends Controller
         try {
             $user_id = auth()->user()->id;
             $nutricionista = Nutricionista::where('user_id', Auth::user()->id)->first();
-            $pacientes = Paciente::with("user")->where('nutricionista_id', $nutricionista->id)->get();
+            $pacientes = Paciente::whereRelation('user', 'deleted_at', null)->where('nutricionista_id', $nutricionista->id)->get();
             return view('dieta.cadastro-dieta', ['pacientes' => $pacientes]);
         } catch (\Illuminate\Database\QueryException $th) {
             echo "Erro de conexão com o Banco de Dados";
