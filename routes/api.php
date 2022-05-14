@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post("/paciente/refeicao-paciente/criar", [RefeicaoPacienteController::class, "criarRefeicaoPaciente"])->name("paciente.refeicao-paciente.criar");
     Route::get("/paciente/refeicao-paciente/{id}", [RefeicaoPacienteController::class, "recuperarRefeicaoPaciente"])->name("paciente.refeicao-paciente.recuperar");
     Route::put("/paciente/refeicao-paciente/{id}/atualizar", [RefeicaoPacienteController::class, "atualizarRefeicaoPaciente"])->name("paciente.refeicao-paciente.atualizar");
+    Route::delete("/paciente/refeicao-paciente/{id}/deletar", [RefeicaoPacienteController::class, "deletarRefeicaoPaciente"])->name("paciente.refeicao-paciente.deletar");
 
     Route::get("/paciente/informacoes", [PacienteController::class, "minhasInformacoes"])->name("paciente.informacoes");
     Route::put("/paciente/atualizar", [PacienteController::class, "atualizarInformacoes"])->name("paciente.atualizar");

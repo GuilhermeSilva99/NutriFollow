@@ -34,7 +34,7 @@ class StoreRefeicaoRequest extends FormRequest
             "data"                      => ["required", "date_format:Y/m/d"],
             "dieta_id"                  => ["required", "numeric"],
             "dia_da_semana"             => ["nullable", "min:1", "max:45"],
-            "foto"                      => ["nullable", "min:1", "max:255"],
+            "foto"                      => ["nullable", "min:1"],
             "observacoes"               => ["nullable", "min:1", "max:255"],
             "refeicao_referencia_id"    => ["required", "numeric"]
         ];
@@ -64,7 +64,6 @@ class StoreRefeicaoRequest extends FormRequest
             "dia_da_semana.min"                         => "O campo dia da semana deve ter no mínimo :min caracteres",
             "dia_da_semana.max"                         => "O campo dia da semana deve ter no máximo :max caracteres",
             'foto.min'                                  => 'O campo foto deve ter no mínimo :min caracteres',
-            'foto.max'                                  => 'O campo foto deve ter no máximo :max caracteres',
             'observacoes.min'                           => 'O campo observação deve ter no mínimo :min caracteres',
             'observacoes.max'                           => 'O campo observação deve ser no máximo :max caracteres',
         ];

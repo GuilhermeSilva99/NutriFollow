@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Repository\{DietaRepository, RefeicaoNutricionistaRepository, RefeicaoPacienteRepository, RefeicaoRepository};
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RefeicaoPacienteService
 {
@@ -42,6 +44,14 @@ class RefeicaoPacienteService
     {
         $dadosRefeicao["paciente_id"] = $pacienteID;
 
+        $extensaoImagem = explode('/', mime_content_type($dadosRefeicao["foto"]))[1];
+        $imagem = base64_decode(explode(";base64,", $dadosRefeicao["foto"])[1]);
+        $caminhoImagem = "/refeicoes/paciente/" . $pacienteID . "/" . Str::uuid()->toString() . "." . $extensaoImagem;
+
+        Storage::put("public" . $caminhoImagem, $imagem);
+
+        $dadosRefeicao["foto"] = $caminhoImagem;
+
         $refeicao = $this->refeicaoRepostiory->save($dadosRefeicao);
         $this->refeicaoPacienteRepostiory->save([
             "paciente_id" => $pacienteID, "refeicao_id" => $refeicao->id,
@@ -61,16 +71,39 @@ class RefeicaoPacienteService
         return response()->json(["erro" => "Refeição não encontrada"], 400);
     }
 
-    public function atualizarRefeicaoPaciente($dadosRefeicao, $refeicaoPacienteId)
+    public function atualizarRefeicaoPaciente($dadosRefeicao, $refeicaoId)
     {
-        $refeicaoPaciente = $this->refeicaoPacienteRepostiory->findByColumn("refeicao_id", $refeicaoPacienteId)->first();
+        $refeicaoPaciente = $this->refeicaoPacienteRepostiory->findByColumn("refeicao_id", $refeicaoId)->first();
         if ($refeicaoPaciente) {
-            $refeicao = $this->refeicaoRepostiory->find($refeicaoPacienteId);
+            $refeicao = $this->refeicaoRepostiory->find($refeicaoId);
+
+            $extensaoImagem = explode('/', mime_content_type($dadosRefeicao["foto"]))[1];
+            $imagem = base64_decode(explode(";base64,", $dadosRefeicao["foto"])[1]);
+            $caminhoImagem = "/refeicoes/paciente/" . $refeicaoPaciente->paciente_id . "/" . Str::uuid()->toString() . "." . $extensaoImagem;
+
+            Storage::delete('public/' . $refeicaoPaciente->foto);
+            Storage::put("public" . $caminhoImagem, $imagem);
+
+            $dadosRefeicao["foto"] = $caminhoImagem;
+
             $this->refeicaoRepostiory->updateWithModel($refeicao, $dadosRefeicao);
             $this->refeicaoPacienteRepostiory->updateWithModel($refeicaoPaciente, $dadosRefeicao);
             return response()->json(["sucesso" => "Refeição atualizada com sucesso!"], 200);
         }
 
-        return response()->json(["erro" => "Refeição não encontrado"], 400);
+        return response()->json(["erro" => "Refeição não encontrada"], 400);
+    }
+
+    public function deletarRefeicaoPaciente($refeicaoId)
+    {
+        $refeicaoPaciente = $this->refeicaoPacienteRepostiory->findByColumn("refeicao_id", $refeicaoId)->first();
+        if ($refeicaoPaciente) {
+            Storage::delete('public/' . $refeicaoPaciente->foto);
+            $this->refeicaoPacienteRepostiory->deleteById($refeicaoPaciente->id);
+            $this->refeicaoRepostiory->deleteById($refeicaoPaciente->refeicao_id);
+            return response()->json(["sucesso" => "Refeição deletada com sucesso!"], 200);
+        }
+
+        return response()->json(["erro" => "Refeição não encontrada"], 400);
     }
 }
