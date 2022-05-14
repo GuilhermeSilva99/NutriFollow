@@ -18,7 +18,7 @@ class PacienteController extends Controller
 
     public function minhasInformacoes(Request $request)
     {
-        return $request->user();
+        return $this->pacienteService->minhasInformacoes($request->user()->paciente->id);
     }
 
     public function atualizarInformacoes(UpdatePacienteAPIRequest $request)

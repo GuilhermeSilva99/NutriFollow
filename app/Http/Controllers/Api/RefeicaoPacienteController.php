@@ -44,4 +44,9 @@ class RefeicaoPacienteController extends Controller
         $dados = $request->validated();
         return $this->refeicaoPacienteService->atualizarRefeicaoPaciente($dados, $request->id);
     }
+
+    public function deletarRefeicaoPaciente(Request $request)
+    {
+        return $this->refeicaoPacienteService->deletarRefeicaoPaciente($request->id);
+    }
 }
