@@ -35,7 +35,11 @@
                             @csrf
                             <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Detalhes</button>
                         </form>
-                        
+
+                        <form method="get" action="{{ route('dieta.editarDieta', $dieta->id) }}" >
+                            @csrf
+                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Editar</button>
+                        </form>
                     </div>
                     
                 </div>
