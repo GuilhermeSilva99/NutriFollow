@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Refeicao;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class RefeicaoSeeder extends Seeder
@@ -15,7 +16,7 @@ class RefeicaoSeeder extends Seeder
     public function run()
     {
         for ($i = 1; $i <= 10; $i++) {
-            Refeicao::factory(1)->create(["data" => now()->addDays($i)]);
+            Refeicao::factory(1)->create(["data" => Carbon::now()->addDays($i)]);
         }
     }
 }
