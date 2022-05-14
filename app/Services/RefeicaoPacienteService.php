@@ -2,53 +2,60 @@
 
 namespace App\Services;
 
-use App\Repository\{DietaRepository, RefeicaoPacienteRepository, RefeicaoRepository};
+use App\Repository\{DietaRepository, RefeicaoNutricionistaRepository, RefeicaoPacienteRepository, RefeicaoRepository};
 use Carbon\Carbon;
 
 class RefeicaoPacienteService
 {
-    private $refeicaoPacienteRepository;
+    private $refeicaoRepostiory;
+    private $refeicaoPacienteRepostiory;
+    private $refeicaoNutricionistaRepostiory;
     private $dietaRepository;
 
     public function __construct(
-        RefeicaoPacienteRepository $refeicaoPacienteRepository,
         RefeicaoRepository $refeicaoRepostiory,
+        RefeicaoPacienteRepository $refeicaoPacienteRepostiory,
+        RefeicaoNutricionistaRepository $refeicaoNutricionistaRepostiory,
         DietaRepository $dietaRepository
     ) {
-        $this->refeicaoPacienteRepository = $refeicaoPacienteRepository;
         $this->refeicaoRepostiory = $refeicaoRepostiory;
+        $this->refeicaoPacienteRepostiory = $refeicaoPacienteRepostiory;
+        $this->refeicaoNutricionistaRepostiory = $refeicaoNutricionistaRepostiory;
         $this->dietaRepository = $dietaRepository;
+    }
+
+    public function listarRefeicaoDoNutricionista($pacienteID)
+    {
+        $dataAtual = Carbon::now()->toDateString();
+        $dieta = $this->dietaRepository->findByPeriodPaciente($pacienteID, $dataAtual);
+        return $this->refeicaoNutricionistaRepostiory->findRefeicoesByDietaId($dieta->id);
     }
 
     public function listarRefeicaoDoPaciente($pacienteID)
     {
         $dataAtual = Carbon::now()->toDateString();
         $dieta = $this->dietaRepository->findByPeriodPaciente($pacienteID, $dataAtual);
-        return $this->refeicaoRepostiory
-            ->findByColumnWithFields("dieta_id", $dieta->id, ["id", "nome_refeicao", "horario", "descricao_refeicao"]);
+        return $this->refeicaoPacienteRepostiory->findRefeicoesByDietaId($dieta->id, $pacienteID);
     }
 
     public function criarRefeicaoPaciente($dadosRefeicao, $pacienteID)
     {
-        $dadosRefeicao['paciente_id'] = $pacienteID;
-        $this->refeicaoPacienteRepository->save($dadosRefeicao);
+        $dadosRefeicao["paciente_id"] = $pacienteID;
+
+        $refeicao = $this->refeicaoRepostiory->save($dadosRefeicao);
+        $this->refeicaoPacienteRepostiory->save([
+            "paciente_id" => $pacienteID, "refeicao_id" => $refeicao->id,
+            "refeicao_referencia_id" => $dadosRefeicao["refeicao_referencia_id"],
+            "foto" => $dadosRefeicao["foto"], "observacoes" => $dadosRefeicao["observacoes"]
+        ]);
 
         return response()->json(["sucesso" => "Refeição cadastrada com sucesso!"], 200);
     }
 
-    public function recuperarRefeicaoDoPaciente($refeicaoDoPacienteId)
+    public function recuperarRefeicaoPaciente($refeicaoId)
     {
-        $refeicao = $this->refeicaoRepostiory->find($refeicaoDoPacienteId);
-        if ($refeicao)
-            return $refeicao;
-
-        return response()->json(["erro" => "Refeição não encontrada"], 400);
-    }
-
-    public function recuperarRefeicaoPaciente($refeicaoPacienteId)
-    {
-        $refeicao = $this->refeicaoPacienteRepository->find($refeicaoPacienteId);
-        if ($refeicao)
+        $refeicao = $this->refeicaoPacienteRepostiory->findRefeicaoByPacienteId($refeicaoId);
+        if (count($refeicao) >= 1)
             return $refeicao;
 
         return response()->json(["erro" => "Refeição não encontrada"], 400);
@@ -56,9 +63,11 @@ class RefeicaoPacienteService
 
     public function atualizarRefeicaoPaciente($dadosRefeicao, $refeicaoPacienteId)
     {
-        $refeicaoPaciente = $this->refeicaoPacienteRepository->find($refeicaoPacienteId);
+        $refeicaoPaciente = $this->refeicaoPacienteRepostiory->findByColumn("refeicao_id", $refeicaoPacienteId)->first();
         if ($refeicaoPaciente) {
-            $this->refeicaoPacienteRepository->updateWithModel($refeicaoPaciente, $dadosRefeicao);
+            $refeicao = $this->refeicaoRepostiory->find($refeicaoPacienteId);
+            $this->refeicaoRepostiory->updateWithModel($refeicao, $dadosRefeicao);
+            $this->refeicaoPacienteRepostiory->updateWithModel($refeicaoPaciente, $dadosRefeicao);
             return response()->json(["sucesso" => "Refeição atualizada com sucesso!"], 200);
         }
 

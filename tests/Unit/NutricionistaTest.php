@@ -7,6 +7,7 @@ use App\Services\GeradorCPF;
 use App\Models\Nutricionista;
 use App\Models\User;
 use App\Models\Paciente;
+use App\Repository\ComorbidadeRepository;
 use App\Repository\NutricionistaRepository;
 use App\Repository\UserRepository;
 use App\Repository\PacienteRepository;
@@ -127,7 +128,8 @@ class AprovacaoNutriTest extends TestCase
         $userRepository = new UserRepository();
         $pacienteRepository = new PacienteRepository();
         $nutricionistaRepository = new NutricionistaRepository();
-        $nutricionistaService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository);
+        $comorbidadeRepository = new ComorbidadeRepository();
+        $nutricionistaService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository);
 
         $nutricionistaService->inativarPaciente($paciente->id);
 

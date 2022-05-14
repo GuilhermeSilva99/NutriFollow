@@ -58,6 +58,13 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
 
     Route::post('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'store'])->name('refeicao.cadastroRefeicao.post');
 
+    Route::get('/nutricionista/criar/comorbidade/paciente', [NutricionistaController::class, 'criarComorbidadePaciente'])->name('nutricionista.criar.comorbidade.paciente');
+    Route::post('/nutricionista/salvar/comorbidade/paciente', [NutricionistaController::class, 'salvarComorbidadePaciente'])->name('nutricionista.salvar.comorbidade.paciente');
+    Route::get('/nutricionista/listar/comorbidade/paciente/{id}', [NutricionistaController::class, 'listarComorbidadesPaciente'])->name('nutricionista.listar.comorbidade.paciente');
+    Route::get('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'editarComorbidadePaciente'])->name('nutricionista.editar.comorbidade.paciente');
+    Route::put('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'atualizarComorbidadePaciente'])->name('nutricionista.atualizar.comorbidade.paciente');
+    Route::delete('/nutricionista/deletar/comorbidade/paciente/{id}', [NutricionistaController::class, 'deletarComorbidadePaciente'])->name('nutricionista.deletar.comorbidade.paciente');
+
     Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
     Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');
     Route::get('/paciente/cadastro-dieta/{id}', [DietaController::class, 'view'])->name('dieta.view-dieta');
@@ -69,7 +76,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono.filtrar');
         Route::get('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua');
         Route::post('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua.filtrar');
+        Route::get('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes'])->name('dieta.relatorio');
     });
-
-    
 });

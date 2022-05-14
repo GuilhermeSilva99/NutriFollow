@@ -15,48 +15,66 @@
     @extends('home')
     @section('content')
     <body class="antialiased">
-        <br><br>
-        <h1>Pacientes</h1>
-        <ul>
-            @foreach ($pacientes as $paciente)
-            <div class = "bd-example bd-example-row">
-                <div class="container">
-                    <div class = "row" >
-                        <div class = "col-3">                            
-                            {{$paciente->user->nome}} {{$paciente->user->email}} {{$paciente->user->telefone_1}} {{$paciente->user->telefone_2}}
-                        </div>
-                        <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/editar/paciente/{{$paciente->user->id}}'">Editar</button>
-                        </div>
-                        
-                        <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/nutricionista/exibir/paciente/{{$paciente->user->id}}'">Visualiza</button>
-                        </div>
-                        
-                        <div class = "col-2">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/nutricionista/paciente/senha/{{$paciente->user->id}}'">Reset Password</button>
-                        </div>
-                        <form action="{{ route('nutricionista.paciente.inativar', $paciente->id) }}" method="post">
-                            @method('DELETE')
-                            @csrf
-                            <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
-                        </form>
-                        <form action="{{ route('agua',[$paciente->user->id]) }}" method="get">
-                            @csrf
-                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relátorios</button>
-                        </form>
-                        <form action="{{ route('dieta.dietas',[$paciente->id]) }}" method="get">
-                            @csrf
-                            <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Dieta</button>
-                        </form>
-                    </div>
-                    
+        <div class="row card justify-content-center pt-4">
+            <div class="col">
+                <div class="card-header"><h1>Lista de Pacientes</h1></div>
+                <div class="card-body">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/register-paciente'">Cadastar Paciente</button>
+                    <table class="table align-middle table-sm">
+                        <thead>
+                          <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pacientes as $paciente)
+                            <tr>
+                                <th scope="row">{{$paciente->user->nome}}</th>
+                                <td>
+                                    <form action="{{ route('nutricionista.listar.comorbidade.paciente', $paciente->id) }}" method="get">
+                                        @csrf
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Comorbidade</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="{{ route('dieta.dietas',[$paciente->id]) }}" method="get">
+                                        @csrf
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Dieta</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="{{ route('agua',[$paciente->user->id]) }}" method="get">
+                                        @csrf
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relátorios</button>
+                                    </form>
+                                </td>
+                                <td><button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/nutricionista/exibir/paciente/{{$paciente->user->id}}'">Visualiza</button></td>
+                                <td><button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/editar/paciente/{{$paciente->user->id}}'">Editar</button></td>
+                                <td><button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/nutricionista/paciente/senha/{{$paciente->user->id}}'">Alterar Senha</button></td>
+                                <td>
+                                    <form action="{{ route('nutricionista.paciente.inativar', $paciente->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @endforeach
-        </ul>
-        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/register-paciente'">Cadastar Novo</button>
-        {{-- <button  onclick="document.location='/nutricionista/register-paciente'"> Cadastrar </button> --}}
+        </div>
+        <div class="d-flex justify-content-center">
+            {!! $pacientes->links() !!}
+        </div>
     </body>
     @endsection
 </html>

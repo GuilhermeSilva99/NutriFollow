@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pacientes', function (Blueprint $table) {
+        Schema::create('comorbidades', function (Blueprint $table) {
             $table->id();
-            $table->string("sexo");
-            $table->string("observacoes", 100)->nullable();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('nutricionista_id')->constrained('nutricionistas')->onDelete('cascade')->onUpdate('cascade');
+            $table->string("nome");
+            $table->string("descricao");
+            $table->date("data_diagnostico");
+            $table->foreignId("paciente_id")->references("id")->on("pacientes");
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pacientes');
+        Schema::dropIfExists('comorbidades');
     }
 };

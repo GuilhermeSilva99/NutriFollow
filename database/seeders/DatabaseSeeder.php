@@ -22,7 +22,9 @@ class DatabaseSeeder extends Seeder
             TipoExercicioSeeder::class,
             ExercicioSeeder::class,
             DietaSeeder::class,
-            RefeicaoSeeder::class
+            RefeicaoSeeder::class,
+            RefeicaoNutricionistaSeeder::class,
+            ComorbidadeSeeder::class
         ]);
     }
 }

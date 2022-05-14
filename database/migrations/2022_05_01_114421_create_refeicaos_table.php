@@ -21,7 +21,7 @@ return new class extends Migration
             $table->time("horario");
             $table->string("nome_refeicao");
             $table->date("data")->nullable();
-            $table->foreignId('dieta_id')->references('id')->on('dietas');
+            $table->foreignId('dieta_id')->constrained('dietas');
             $table->timestamps();
         });
     }

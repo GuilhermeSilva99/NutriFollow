@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRefeicaoPacienteRequest;
-use App\Http\Requests\UpdateRefeicaoPacienteRequest;
+use App\Http\Requests\StoreRefeicaoRequest;
 use App\Services\RefeicaoPacienteService;
 
 class RefeicaoPacienteController extends Controller
@@ -19,20 +18,20 @@ class RefeicaoPacienteController extends Controller
         $this->refeicaoPacienteService = $refeicaoPacienteService;
     }
 
+    public function listarRefeicaoDoNutricionista(Request $request)
+    {
+        return $this->refeicaoPacienteService->listarRefeicaoDoNutricionista($request->user()->paciente->id);
+    }
+
     public function listarRefeicaoDoPaciente(Request $request)
     {
         return $this->refeicaoPacienteService->listarRefeicaoDoPaciente($request->user()->paciente->id);
     }
 
-    public function criarRefeicaoPaciente(StoreRefeicaoPacienteRequest $request)
+    public function criarRefeicaoPaciente(StoreRefeicaoRequest $request)
     {
         $dados = $request->validated();
         return $this->refeicaoPacienteService->criarRefeicaoPaciente($dados, $request->user()->paciente->id);
-    }
-
-    public function recuperarRefeicaoDoPaciente(Request $request)
-    {
-        return $this->refeicaoPacienteService->recuperarRefeicaoDoPaciente($request->id);
     }
 
     public function recuperarRefeicaoPaciente(Request $request)
@@ -40,7 +39,7 @@ class RefeicaoPacienteController extends Controller
         return $this->refeicaoPacienteService->recuperarRefeicaoPaciente($request->id);
     }
 
-    public function atualizarRefeicaoPaciente(UpdateRefeicaoPacienteRequest $request)
+    public function atualizarRefeicaoPaciente(StoreRefeicaoRequest $request)
     {
         $dados = $request->validated();
         return $this->refeicaoPacienteService->atualizarRefeicaoPaciente($dados, $request->id);

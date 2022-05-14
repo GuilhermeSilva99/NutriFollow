@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\RefeicaoPaciente;
+use Illuminate\Support\Facades\DB;
 
 class RefeicaoPacienteRepository implements BaseRepositoryInterface
 {
@@ -23,8 +24,7 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
 
     public function save($atributos)
     {
-        $refeicaoPaciente = RefeicaoPaciente::create($atributos);
-        return $refeicaoPaciente->save();
+        return RefeicaoPaciente::create($atributos);
     }
 
     public function update($id, $atributos)
@@ -45,5 +45,32 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
     public function updateWithModel($objeto, $atributos)
     {
         return $objeto->update($atributos);
+    }
+
+    public function findByColumnWithRefeicao($coluna, $valor)
+    {
+        return RefeicaoPaciente::with('refeicao')->where($coluna, $valor)->get();
+    }
+
+    public function findRefeicoesByDietaId($dietaId, $pacienteId)
+    {
+        return DB::table("refeicao_pacientes")
+            ->join("refeicaos", "refeicao_pacientes.refeicao_id", "=", "refeicaos.id")
+            ->select("refeicaos.*", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->where("refeicaos.dieta_id", "=", $dietaId)
+            ->where("refeicao_pacientes.id", "=", $pacienteId)
+            ->groupBy("refeicaos.id", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->get();
+    }
+
+    public function findRefeicaoByPacienteId($refeicaoId)
+    {
+        return DB::table("refeicao_pacientes")
+            ->join("refeicaos", "refeicao_pacientes.refeicao_id", "=", "refeicaos.id")
+            ->select("refeicaos.*", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->where("refeicao_pacientes.refeicao_id", $refeicaoId)
+            ->where("refeicaos.id", $refeicaoId)
+            ->groupBy("refeicaos.id", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+            ->get();
     }
 }

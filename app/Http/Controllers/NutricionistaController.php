@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ResetPasswordRequest;
+use App\Http\Requests\StoreComorbidadeRequest;
 use App\Http\Requests\StorePacienteRequest;
+use App\Http\Requests\UpdateComorbidadeRequest;
 use App\Http\Requests\UpdatePacienteRequest;
+use App\Models\Paciente;
 use App\Services\NutricionistaService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class NutricionistaController extends Controller
 {
@@ -108,5 +113,47 @@ class NutricionistaController extends Controller
     {
         $this->nutricionistaService->inativarPaciente($id);
         return redirect()->route('nutricionista.listar.pacientes');
+    }
+
+    //Comorbidade
+
+    public function criarComorbidadePaciente()
+    {
+        $pacientes = $this->nutricionistaService->listarPacientes();
+        return view('comorbidade.cadastro-comorbidade-paciente', ["pacientes" => $pacientes]);
+    }
+
+    public function salvarComorbidadePaciente(StoreComorbidadeRequest $request)
+    {
+        $dados = $request->validated();
+        $this->nutricionistaService->salvarComorbidadePaciente($dados);
+        return redirect()->route('nutricionista.listar.comorbidade.paciente', $dados["paciente_id"]);
+    }
+
+    public function listarComorbidadesPaciente(Request $request)
+    {
+        $comorbidades = $this->nutricionistaService->listarComorbidades($request->id);
+        return view('comorbidade.lista-comorbidades-paciente', ['comorbidades' => $comorbidades]);
+    }
+
+    public function editarComorbidadePaciente($comorbidadeID)
+    {
+        $comorbidade = $this->nutricionistaService->recuperarComorbidade($comorbidadeID);
+        return view('comorbidade.edita-comorbidade-paciente', ["comorbidade" => $comorbidade]);
+    }
+
+    public function atualizarComorbidadePaciente(UpdateComorbidadeRequest $request)
+    {
+        $dados = $request->validated();
+        $this->nutricionistaService->atualizarComorbidadePaciente($dados, $request->id);
+        $comorbidade = $this->nutricionistaService->recuperarComorbidadePaciente($request->id);
+        return redirect()->route('nutricionista.listar.comorbidade.paciente', $comorbidade->paciente_id);
+    }
+
+    public function deletarComorbidadePaciente($comorbidadeID)
+    {
+        $comorbidade = $this->nutricionistaService->recuperarComorbidadePaciente($comorbidadeID);
+        $this->nutricionistaService->deletarComorbidadePaciente($comorbidadeID);
+        return redirect()->route('nutricionista.listar.comorbidade.paciente', $comorbidade->paciente_id);
     }
 }

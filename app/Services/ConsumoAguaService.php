@@ -58,7 +58,14 @@ class ConsumoAguaService
     public function atualizarConsumoAgua($dadosConsumo, $consumoId)
     {
         $consumo = $this->consumoAguaRepository->find($consumoId);
+
         if ($consumo) {
+            $data = Carbon::parse($dadosConsumo["data"] ?? $consumo->data);
+            $listaConsumoAgua = $this->consumoAguaRepository->findByColumnExceptConsumo("data", $data, $consumo->id);
+
+            if (count($listaConsumoAgua) >= 1)
+                return response()->json(["erro" => "Já existe um consumo de água cadastrado nessa data"], 400);
+
             $this->consumoAguaRepository->updateWithModel($consumo, $dadosConsumo);
             return response()->json(["sucesso" => "Consumo de água atualizado com sucesso!"], 200);
         }
@@ -69,11 +76,10 @@ class ConsumoAguaService
     public function listarConsumoAguaPorPeriodo($inicio, $fim, $usuarioID)
     {
         Carbon::setlocale('pt-BR');
-        if($inicio == null || $fim == null)
-        {
+        if ($inicio == null || $fim == null) {
             $fim = Carbon::now();
             $inicio = Carbon::now()->sub(30, 'days');
-        }        
+        }
 
         $usuarioPaciente = $this->userRepository->find($usuarioID);
         return $this->consumoAguaRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
