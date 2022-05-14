@@ -13,6 +13,6 @@ class Exercicio extends Model
 
     public function tipoExercicio()
     {
-        return $this->hasOne(TipoExercicio::class);
+        return $this->belongsTo(TipoExercicio::class);
     }
 }
