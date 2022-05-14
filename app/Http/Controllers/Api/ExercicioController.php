@@ -43,4 +43,14 @@ class ExercicioController extends Controller
         $dados = $request->validated();
         return $this->exercicioService->atualizarExercicio($dados, $request->id);
     }
+
+    public function index(Request $request, $id)
+    {
+        $registros_exercicio = $this->exercicioService->listarExercicioPorPeriodo($request->inicio, $request->fim, $id);
+        //dd($registros_exercicio);
+        return view('paciente.exercicio', [
+            'exercicios' => $registros_exercicio,
+            'id' => $id
+        ]);
+    }
 }

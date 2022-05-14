@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{AdminController};
 use App\Http\Controllers\AguaController;
+use App\Http\Controllers\Api\ExercicioController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
@@ -70,6 +71,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua');
         Route::post('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua.filtrar');
         Route::get('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes'])->name('dieta.relatorio');
+        Route::get('/nutricionista/paciente/exercicio/{id}', [ExercicioController::class, 'index'])->name('exercicio');
+        Route::post('/nutricionista/paciente/exercicio/{id}', [ExercicioController::class, 'index'])->name('exercicio.filtrar');
     });
 
     

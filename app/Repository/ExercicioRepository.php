@@ -51,4 +51,9 @@ class ExercicioRepository implements BaseRepositoryInterface
     {
         return Exercicio::where($coluna, $valor)->where("id", "!=", $id)->get();
     }
+
+    public function findByPeriod($inicio, $fim, $paciente_id)
+    {
+        return Exercicio::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->get();
+    }
 }
