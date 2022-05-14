@@ -129,37 +129,41 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script>
     Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
+
+    title: {
+        text: 'Calorias Consumidas no Periodo'
+    },
+
+    yAxis: {
         title: {
-            text: 'Relatório de Calorias Consumidas Pelo Paciente'
-        },
-        xAxis: {
-            categories: [1],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Calorias'
+            text: 'Calorias por data'
+        }
+    },
+
+    xAxis: {
+    	categories: <?= $datas ?>,
+        crosshair: true
+    },
+
+    series: [{
+        name: 'Calorias',
+        data: <?= $calorias ?>
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
             }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [[1, 2, 3, 4]]
-    
+        }]
+    }
+
     });
 </script>

@@ -43,23 +43,31 @@ class RefeicaoController extends Controller
     {
         $paciente = $this->pacienteService->findByUserID($usuario_id);
         $refeicoes = $this->refeicaoPacienteService->listarRefeicaoDoPacienteByUserId($usuario_id);
-        $dias = [];
-
+        $refeicoes_por_dia = [];
+        $caloria_por_dia = [];
+            
         foreach ($refeicoes as $refeicao)
         {
             $dia = date('d-m-y', strtotime($refeicao->data));
             $refeicao->data = $dia;
 
-            if(array_key_exists($dia, $dias))
+            if(array_key_exists($dia, $refeicoes_por_dia))
             {
-                array_push($dias[$dia], $refeicao);
+                array_push($refeicoes_por_dia[$dia], $refeicao);
+                $caloria_por_dia[$dia] += $refeicao->caloria;
             }
             else
             {
-                $dias[$dia] = [$refeicao];
+                $refeicoes_por_dia[$dia] = [$refeicao];
+                $caloria_por_dia[$dia] = $refeicao->caloria;
             }
         }
 
-        return view('paciente.relatorio-dieta', ['id' => $usuario_id, 'paciente' => $paciente, 'refeicoes' => $dias]);
+        return view('paciente.relatorio-dieta', [   'id' => $usuario_id, 
+                                                    'paciente' => $paciente,
+                                                    'refeicoes' => $refeicoes_por_dia,
+                                                    'inicio'=>array_key_first($refeicoes_por_dia),
+                                                    'datas' => json_encode(array_keys($refeicoes_por_dia)),
+                                                    'calorias' => json_encode(array_values($caloria_por_dia))]);
     }
 }
