@@ -26,10 +26,10 @@
                             {{$dieta->descricao}}
                         </div>
                         <div class = "col-3">                            
-                            {{$dieta->data_inicio}}
+                            {{ date('d-m-y', strtotime($dieta->data_inicio)) }}
                         </div>
                         <div class = "col-3">                            
-                            {{$dieta->data_fim}}
+                            {{ date('d-m-y', strtotime($dieta->data_fim)) }}
                         </div>
                         <form action="{{ route('dieta.view-dieta',[$dieta->id]) }}" method="get">
                             @csrf
