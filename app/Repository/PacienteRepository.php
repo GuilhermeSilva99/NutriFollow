@@ -16,6 +16,11 @@ class PacienteRepository implements BaseRepositoryInterface
         return Paciente::find($id);
     }
 
+    public function findByUserID($id)
+    {
+        return Paciente::whereRelation('user', 'deleted_at', null)->where('user_id', $id)->first();
+    }
+
     public function findByColumn($coluna, $valor)
     {
         return Paciente::where($coluna, $valor)->get();

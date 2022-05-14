@@ -58,7 +58,7 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
             ->join("refeicaos", "refeicao_pacientes.refeicao_id", "=", "refeicaos.id")
             ->select("refeicaos.*", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
             ->where("refeicaos.dieta_id", "=", $dietaId)
-            ->where("refeicao_pacientes.id", "=", $pacienteId)
+            ->where("refeicao_pacientes.paciente_id", "=", $pacienteId)
             ->groupBy("refeicaos.id", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
             ->get();
     }
