@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StoreComorbidadeRequest;
+use App\Http\Requests\StoreExameRequest;
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Requests\UpdateComorbidadeRequest;
 use App\Http\Requests\UpdatePacienteRequest;
@@ -155,5 +156,25 @@ class NutricionistaController extends Controller
         $comorbidade = $this->nutricionistaService->recuperarComorbidadePaciente($comorbidadeID);
         $this->nutricionistaService->deletarComorbidadePaciente($comorbidadeID);
         return redirect()->route('nutricionista.listar.comorbidade.paciente', $comorbidade->paciente_id);
+    }
+
+    public function consulta()
+    {
+        $pacientes = $this->nutricionistaService->listarPacientes();
+        return view('consulta.selecionar-paciente', ["pacientes" => $pacientes]);
+    }
+
+    public function cadastrarExamePaciente(Request $request)
+    {
+        
+        return view('consulta.cadastro-exame-paciente', ["id" => $request->paciente_id]);
+    }
+
+    public function salvarExamePaciente(StoreExameRequest $request)
+    {
+        $dados = $request->validated();
+        $this->nutricionistaService->salvarExamePaciente($dados);
+
+        return view('consulta.cadastro-exame-paciente', ["id" => $request->paciente_id]);
     }
 }

@@ -64,6 +64,10 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'editarComorbidadePaciente'])->name('nutricionista.editar.comorbidade.paciente');
     Route::put('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'atualizarComorbidadePaciente'])->name('nutricionista.atualizar.comorbidade.paciente');
     Route::delete('/nutricionista/deletar/comorbidade/paciente/{id}', [NutricionistaController::class, 'deletarComorbidadePaciente'])->name('nutricionista.deletar.comorbidade.paciente');
+    
+    Route::post('/nutricionista/cadastrar/exame/paciente/', [NutricionistaController::class, 'cadastrarExamePaciente'])->name('nutricionista.cadastrar.exame.paciente');
+    Route::post('/nutricionista/salvar/exame/paciente/', [NutricionistaController::class, 'salvarExamePaciente'])->name('nutricionista.salvar.exame.paciente');
+    Route::get('/nutricionista/realizar-consulta', [NutricionistaController::class, 'consulta'])->name('realizar.consulta'); //rota teste
 
     Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
     Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');
@@ -78,4 +82,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua.filtrar');
         Route::get('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes'])->name('dieta.relatorio');
     });
+
+    
 });

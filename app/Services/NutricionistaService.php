@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Repository\ComorbidadeRepository;
+use App\Repository\ExameRepository;
 use App\Repository\NutricionistaRepository;
 use App\Repository\PacienteRepository;
 use App\Repository\UserRepository;
@@ -16,17 +17,20 @@ class NutricionistaService
     private $userRepository;
 
     private $comorbidadeRepository;
+    private $exameRepository;
 
     public function __construct(
         PacienteRepository $pacienteRepository,
         NutricionistaRepository $nutricionistaRepository,
         UserRepository $userRepository,
-        ComorbidadeRepository $comorbidadeRepository
+        ComorbidadeRepository $comorbidadeRepository, 
+        ExameRepository $exameRepository
     ) {
         $this->pacienteRepository = $pacienteRepository;
         $this->nutricionistaRepository = $nutricionistaRepository;
         $this->userRepository = $userRepository;
         $this->comorbidadeRepository = $comorbidadeRepository;
+        $this->exameRepository = $exameRepository;
     }
 
     public function save($atributosPaciente)
@@ -129,5 +133,11 @@ class NutricionistaService
     public function deletarComorbidadePaciente($comorbidadeId)
     {
         return $this->comorbidadeRepository->delete($comorbidadeId);
+    }
+
+    //exames
+    public function salvarExamePaciente($dadosExame)
+    {
+        return $this->exameRepository->save($dadosExame);
     }
 }
