@@ -102,6 +102,8 @@ class RefeicaoPacienteService
             if (array_key_exists("foto", $dadosRefeicao) && !is_null($dadosRefeicao["foto"])) {
                 $dadosRefeicao["foto"] = $this->salvarFotoPaciente($dadosRefeicao["foto"], $refeicaoPaciente->paciente_id);
                 Storage::delete('public/' . $refeicaoPaciente->foto);
+            } else if (array_key_exists("foto", $dadosRefeicao) && is_null($dadosRefeicao["foto"])) {
+                unset($dadosRefeicao["foto"]);
             }
 
             $this->refeicaoRepostiory->updateWithModel($refeicao, $dadosRefeicao);
