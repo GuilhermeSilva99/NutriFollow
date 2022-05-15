@@ -1,6 +1,25 @@
 @extends('home')
 @section('content')
     <body class="antialiased">
+        <div class="mx-auto" style="width: 680px;">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <form method="POST" action="{{route('nutricionista.cadastrar.exame.paciente') }}">
+                        @csrf
+                        <input type="hidden" name="paciente_id" value="{{$id}}"/>
+                        <div class="mb-3">
+                            <button type="submit" class="nav-link active">Exame</button>
+                        </div>
+                    </form>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link disabled" href="/nutricionista/paciente/agua/{{$id}}">Relatório de Consumo de Água</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link disabled" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
+                </li>
+            </ul>
+        </div>
         <div class="card-body">
             <form method="POST" action="{{route('nutricionista.salvar.exame.paciente') }}">
                 @csrf
