@@ -19,4 +19,9 @@ class MedidaService
         return $this->medidaRepository->findByUserId($user_id);
     }
 
+    public function delete($id)
+    {
+        return $this->medidaRepository->deleteById($id);
+    }
+
 }

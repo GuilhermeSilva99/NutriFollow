@@ -16,6 +16,12 @@ class MedidaController extends Controller
     public function index($id)
     {
         $medidas = $this->medidaService->listarMedidas($id);
-        return view("medida.list-medidas", ['medidas' => $medidas]);
+        return view("medida.list-medidas", ['id'=>$id, 'medidas' => $medidas]);
+    }
+
+    public function delete($paciente_id, $id)
+    {
+        $this->medidaService->delete($id);
+        return redirect()->route('medida', $paciente_id);
     }
 }

@@ -41,12 +41,12 @@
                                         <div style="display: flex;">
                                             <form action="#" method="get" style="margin-right: 10px">
                                                 @csrf
-                                                <button class="btn btn-sm btn-outline-secondary" type="submit" id="button-relatorios">Editar</button>
+                                                <button class="btn btn-sm btn-outline-secondary" type="submit" id="button-editar">Editar</button>
                                             </form>
-                                            <form action="#" method="post">
+                                            <form action="/nutricionista/paciente/deletar/medida/{{$id}}/{{$medida->id}}" method="post">
                                                 @csrf
                                                 @method("DELETE")
-                                                <button class="btn btn-sm btn-outline-danger" type="submit" id="button-relatorios">Deletar</button>
+                                                <button class="btn btn-sm btn-outline-danger" type="submit" id="button-deletar">Deletar</button>
                                             </form>
                                         </div>
                                     </td>
