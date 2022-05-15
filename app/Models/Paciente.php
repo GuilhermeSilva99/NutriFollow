@@ -30,4 +30,9 @@ class Paciente extends Model
     {
         return $this->hasMany(ConsumoAgua::class);
     }
+
+    public function comorbidades()
+    {
+        return $this->hasMany(Comorbidade::class);
+    }
 }

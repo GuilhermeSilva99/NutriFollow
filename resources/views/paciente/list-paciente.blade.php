@@ -30,13 +30,19 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-
+                            <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
                             @foreach ($pacientes as $paciente)
                             <tr>
                                 <th scope="row">{{$paciente->user->nome}}</th>
+                                <td>
+                                    <form action="{{ route('nutricionista.listar.comorbidade.paciente', $paciente->id) }}" method="get">
+                                        @csrf
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Comorbidade</button>
+                                    </form>
+                                </td>
                                 <td>
                                     <form action="{{ route('dieta.dietas',[$paciente->id]) }}" method="get">
                                         @csrf

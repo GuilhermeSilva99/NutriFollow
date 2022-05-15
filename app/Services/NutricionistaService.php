@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Repository\ComorbidadeRepository;
 use App\Repository\NutricionistaRepository;
 use App\Repository\PacienteRepository;
 use App\Repository\UserRepository;
@@ -14,11 +15,18 @@ class NutricionistaService
     private $nutricionistaRepository;
     private $userRepository;
 
-    public function __construct(PacienteRepository $pacienteRepository, NutricionistaRepository $nutricionistaRepository, UserRepository $userRepository)
-    {
+    private $comorbidadeRepository;
+
+    public function __construct(
+        PacienteRepository $pacienteRepository,
+        NutricionistaRepository $nutricionistaRepository,
+        UserRepository $userRepository,
+        ComorbidadeRepository $comorbidadeRepository
+    ) {
         $this->pacienteRepository = $pacienteRepository;
         $this->nutricionistaRepository = $nutricionistaRepository;
         $this->userRepository = $userRepository;
+        $this->comorbidadeRepository = $comorbidadeRepository;
     }
 
     public function save($atributosPaciente)
@@ -89,5 +97,37 @@ class NutricionistaService
     {
         $paciente = $this->pacienteRepository->find($id);
         $this->pacienteRepository->softDelete($paciente);
+    }
+
+    //Comorbidade
+
+    public function salvarComorbidadePaciente($dadosComorbidade)
+    {
+        return $this->comorbidadeRepository->save($dadosComorbidade);
+    }
+
+    public function listarComorbidades($pacienteId)
+    {
+        return $this->comorbidadeRepository->findByColumn('paciente_id', $pacienteId);
+    }
+
+    public function recuperarComorbidade($comorbidadeId)
+    {
+        return $this->comorbidadeRepository->find($comorbidadeId);
+    }
+
+    public function atualizarComorbidadePaciente($dadosComorbidade, $comorbidadeId)
+    {
+        return $this->comorbidadeRepository->update($comorbidadeId, $dadosComorbidade);
+    }
+
+    public function recuperarComorbidadePaciente($comorbidadeId)
+    {
+        return $this->comorbidadeRepository->find($comorbidadeId);
+    }
+
+    public function deletarComorbidadePaciente($comorbidadeId)
+    {
+        return $this->comorbidadeRepository->delete($comorbidadeId);
     }
 }

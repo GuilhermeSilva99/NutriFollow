@@ -29,6 +29,9 @@
                         <li class="nav-item">
                         <a class="nav-link" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/nutricionista/paciente/exercicio/{{$id}}" >Relatório de Exercício</a>
+                        </li>
                     </ul>
                 </div>
     

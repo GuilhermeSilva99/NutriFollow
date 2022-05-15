@@ -13,6 +13,6 @@ class TipoExercicio extends Model
 
     public function exercicio()
     {
-        return $this->belongsToMany(Exercicio::class);
+        return $this->hasMany(Exercicio::class);
     }
 }

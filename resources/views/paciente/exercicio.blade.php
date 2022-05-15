@@ -26,24 +26,47 @@
                         <a class="nav-link" href="/nutricionista/paciente/agua/{{$id}}">Relatório de Consumo de Água</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
+                        <a class="nav-link" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/nutricionista/paciente/exercicio/{{$id}}" >Relatório de Exercício</a>
+                            <a class="nav-link active" href="/nutricionista/paciente/exercicio/{{$id}}" >Relatório de Exercício</a>
                         </li>
                     </ul>
                 </div>
     
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <div id="container"></div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col-3">Data</th>
+                                    <th scope="col-3">Exercício</th>
+                                    <th scope="col-3">Duração</th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($exercicios as $exercicio)
+                                <tr scope="row">
+                                    <td>
+                                        {{ date('d-m-y', strtotime($exercicio->data)) }}
+                                    </td>
+                                    <td>
+                                        {{$exercicio->tipoExercicio->nome}}
+                                    </td>
+                                    <td>
+                                        {{$exercicio->duracao}}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                     <div class="col align-self-end " style="width: 150px;">
                         <a href="/nutricionista/listar/pacientes" class="btn btn-outline-secondary btn-sm">Listar Pascientes</a>
                     </div>
                     <br>
                 </div>
-                <form method="POST" action="{{ route('sono', $id) }}">
+                <form method="POST" action="{{ route('exercicio', $id) }}">
                     @csrf
                     <div class="container mt-5" style="max-width: 450px">
                         <div class="row form-group">       
@@ -62,47 +85,3 @@
     </x-guest-layout>
     
 </html>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script>
-    Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Relatório de sono do Paciente'
-        },
-        subtitle: {
-            text: 'Quantidade e qualidade de sono do paciente no período'
-        },
-        xAxis: {
-            categories: <?= $dias ?>,
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Sono'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [<?= $duracao ?>, <?= $qualidade ?>]
-    
-    });
-</script>

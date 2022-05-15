@@ -83,7 +83,7 @@
           <div class="app-brand demo">
             <a href="/" class="app-brand-link">
               <span class="app-brand-logo demo">
-                <img src="/images/logo.png" height="40" width="40">
+                <img src="{{ asset("storage/refeicoes/paciente/1/0f1bfaa6-f011-4a2b-b4f0-487eead4b35d.jpeg") }}" height="40" width="40">
               </span>
               <span class="app-brand-text demo menu-text fw-bolder ms-2">Nutri Follow</span>
             </a>
@@ -122,6 +122,11 @@
                 <li class="menu-item">
                   <a href="/paciente/cadastro-dieta" class="menu-link">
                     <div>Atribuir Dieta</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{{ route("nutricionista.criar.comorbidade.paciente") }}" class="menu-link">
+                    <div>Atribuir Comorbidade</div>
                   </a>
                 </li>
               </ul>
