@@ -44,15 +44,11 @@ class RefeicaoPacienteService
     {
         $dadosRefeicao["paciente_id"] = $pacienteID;
 
-        $extensaoImagem = explode('/', mime_content_type($dadosRefeicao["foto"]))[1];
-        $imagem = base64_decode(explode(";base64,", $dadosRefeicao["foto"])[1]);
-        $caminhoImagem = "/refeicoes/paciente/" . $pacienteID . "/" . Str::uuid()->toString() . "." . $extensaoImagem;
-
-        Storage::put("public" . $caminhoImagem, $imagem);
-
-        $dadosRefeicao["foto"] = $caminhoImagem;
+        if (array_key_exists("foto", $dadosRefeicao) && !is_null($dadosRefeicao["foto"]))
+            $dadosRefeicao["foto"] = $this->salvarFotoPaciente($dadosRefeicao["foto"], $pacienteID);
 
         $refeicao = $this->refeicaoRepostiory->save($dadosRefeicao);
+
         $this->refeicaoPacienteRepostiory->save([
             "paciente_id" => $pacienteID, "refeicao_id" => $refeicao->id,
             "refeicao_referencia_id" => $dadosRefeicao["refeicao_referencia_id"],
@@ -77,14 +73,10 @@ class RefeicaoPacienteService
         if ($refeicaoPaciente) {
             $refeicao = $this->refeicaoRepostiory->find($refeicaoId);
 
-            $extensaoImagem = explode('/', mime_content_type($dadosRefeicao["foto"]))[1];
-            $imagem = base64_decode(explode(";base64,", $dadosRefeicao["foto"])[1]);
-            $caminhoImagem = "/refeicoes/paciente/" . $refeicaoPaciente->paciente_id . "/" . Str::uuid()->toString() . "." . $extensaoImagem;
-
-            Storage::delete('public/' . $refeicaoPaciente->foto);
-            Storage::put("public" . $caminhoImagem, $imagem);
-
-            $dadosRefeicao["foto"] = $caminhoImagem;
+            if (array_key_exists("foto", $dadosRefeicao) && !is_null($dadosRefeicao["foto"])) {
+                $dadosRefeicao["foto"] = $this->salvarFotoPaciente($dadosRefeicao["foto"], $refeicaoPaciente->paciente_id);
+                Storage::delete('public/' . $refeicaoPaciente->foto);
+            }
 
             $this->refeicaoRepostiory->updateWithModel($refeicao, $dadosRefeicao);
             $this->refeicaoPacienteRepostiory->updateWithModel($refeicaoPaciente, $dadosRefeicao);
@@ -105,5 +97,16 @@ class RefeicaoPacienteService
         }
 
         return response()->json(["erro" => "Refeição não encontrada"], 400);
+    }
+
+    public function salvarFotoPaciente($foto, $pacienteID)
+    {
+        $extensaoImagem = explode('/', mime_content_type($foto))[1];
+        $imagem = base64_decode(explode(";base64,", $foto)[1]);
+        $caminhoImagem = "/refeicoes/paciente/" . $pacienteID . "/" . Str::uuid()->toString() . "." . $extensaoImagem;
+
+        Storage::put("public" . $caminhoImagem, $imagem);
+
+        return $caminhoImagem;
     }
 }
