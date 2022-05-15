@@ -15,6 +15,19 @@ class PacienteService
         $this->pacienteRepository = $pacienteRepository;
     }
 
+    public function minhasInformacoes($pacienteId)
+    {
+        $paciente = $this->pacienteRepository->find($pacienteId);
+        if ($paciente) {
+            $dados = $paciente->user;
+            $dados["sexo"] = $paciente->sexo;
+            $dados["observacoes"] = $paciente->observacoes;
+            return $dados;
+        }
+
+        return response()->json(["erro" => "Paciente não encontrado"], 400);
+    }
+
     public function atualizarInformacoes($dadosPaciente, $pacienteId)
     {
         $paciente = $this->pacienteRepository->find($pacienteId);
@@ -30,5 +43,10 @@ class PacienteService
         }
 
         return response()->json(["erro" => "Paciente não encontrado"], 400);
+    }
+
+    public function findByUserID($userID)
+    {
+        return $this->pacienteRepository->findByUserID($userID);
     }
 }

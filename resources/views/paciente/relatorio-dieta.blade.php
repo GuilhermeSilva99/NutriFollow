@@ -12,11 +12,12 @@
             }
         </style>
     </head>
+
     @extends('home')
     <x-guest-layout>
         <div class="row cards justify-content-center pt-4">
             <div class="col-6">
-                <br><br><br>
+                <br><h2>{{$paciente->user->nome}} - Relatórios</h2><br><br>
                 <div class="mx-auto" style="width: 680px;">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -27,6 +28,9 @@
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/nutricionista/paciente/exercicio/{{$id}}" >Relatório de Exercício</a>
                         </li>
                     </ul>
                 </div>
@@ -40,25 +44,84 @@
                     </div>
                     <br>
                 </div>
+                <form method="POST" action="{{ route('dieta.relatorio', $id) }}">
+                    @csrf
+                    <div class="container mt-5" style="max-width: 450px">
+                        <div class="row form-group">       
+                            <label class="col-sm-5 col-form-label">Início</label> 
+                            <label class="col-sm-1 col-form-label">Fim</label>                        
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="date" class="input-sm form-control" name="inicio" autocomplete="off"/>
+                                <input type="date" class="input-sm form-control" name="fim" autocomplete="off"/>
+                                <button class="btn btn-success" type="submit">Filtrar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                
+                <table class="table align-middle table-sm">
+                    <thead>
+                      <tr>
+                        <th scope="col">Data</th>
+                        <th scope="col">Horário</th>
+                        <th scope="col">Calorias</th> 
+                        <th scope="col">Visualizar</th>       
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($refeicoes as $data)
+                            <tr scope="row">
+                                <th scope="col">{{array_keys($refeicoes, $data)[0]}}</th>
+                                <th>
+                                @foreach ($data as $refeicao)                                  
+                                        {{$refeicao->horario}}<br>
+                                @endforeach
+                                </th>
+                                <th>
+                                @foreach ($data as $refeicao)
+                                    {{$refeicao->caloria}}<br> 
+                                @endforeach
+                                </th>
+                                <th><button class="btn btn-sm btn-outline-info"  data-bs-toggle="modal" data-bs-target="#modal-dieta-{{$data[0]->data}}">Visualizar Detalhes</button></th>       
+                            </tr>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="modal-dieta-{{$data[0]->data}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel"><h4>Detalhes de refeições - {{$data[0]->dia_da_semana}} - {{$data[0]->data}}</h4></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @foreach ($data as $refeicao)
+                                                <br>
+                                                <div class="col mx-auto text-center">
+                                                    <img class="img-responsive" src="{{$refeicao->foto}} height="500" width="500"">
+                                                </div>
+                                                <p class="text-center">Refeição: {{$refeicao->nome_refeicao}}</p>
+                                                <p>Horário: {{$refeicao->horario}}</p>
+                                                <p>Calorias: {{$refeicao->caloria}}</p>
+                                                <p>
+                                                Descrição: {{$refeicao->descricao_refeicao}}
+                                                </p>
+                                            <br><hr><br>
+                                            @endforeach
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fechar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-        <table class="table align-middle table-sm">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-
-              </tr>
-            </thead>
-            <tbody>
-                
-            </tbody>
-        </table>
     </x-guest-layout>
     
 </html>
@@ -69,37 +132,41 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script>
     Highcharts.chart('container', {
-        chart: {
-            type: 'column'
-        },
+
+    title: {
+        text: 'Calorias Consumidas no Periodo'
+    },
+
+    yAxis: {
         title: {
-            text: 'Relatório de Calorias Consumidas Pelo Paciente'
-        },
-        xAxis: {
-            categories: [1],
-            crosshair: true
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Calorias'
+            text: 'Calorias por data'
+        }
+    },
+
+    xAxis: {
+    	categories: <?= $datas ?>,
+        crosshair: true
+    },
+
+    series: [{
+        name: 'Calorias',
+        data: <?= $calorias ?>
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
             }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        series: [[1, 2, 3, 4]]
-    
+        }]
+    }
+
     });
 </script>

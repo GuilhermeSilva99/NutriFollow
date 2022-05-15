@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{AdminController};
 use App\Http\Controllers\AguaController;
+use App\Http\Controllers\Api\ExercicioController;
 use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
@@ -57,6 +58,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::delete('/nutricionista/paciente/inativar/{id}', [NutricionistaController::class, 'inativarPaciente'])->name('nutricionista.paciente.inativar');
 
     Route::post('/nutricionista/cadastro-refeicao', [RefeicaoController::class, 'store'])->name('refeicao.cadastroRefeicao.post');
+    Route::get('/nutricionista/editar-refeicao/{id}', [RefeicaoController::class, 'editarRefeicao'])->name('refeicao.editarRefeicao');
+    Route::post('/nutricionista/editar-refeicao/{id}', [RefeicaoController::class, 'atualizarRefeicao'])->name('refeicao.atualizarRefeicao');
 
     Route::get('/nutricionista/criar/comorbidade/paciente', [NutricionistaController::class, 'criarComorbidadePaciente'])->name('nutricionista.criar.comorbidade.paciente');
     Route::post('/nutricionista/salvar/comorbidade/paciente', [NutricionistaController::class, 'salvarComorbidadePaciente'])->name('nutricionista.salvar.comorbidade.paciente');
@@ -74,6 +77,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/paciente/cadastro-dieta/{id}', [DietaController::class, 'view'])->name('dieta.view-dieta');
     Route::get('/nutricionista/cadastro-refeicao/{id}', [DietaController::class, 'adicionarRefeicao'])->name('refeicao.PrepDietaRef');
     Route::get('/paciente/dietas/{id}', [DietaController::class, 'listarDietas'])->name('dieta.dietas');
+    Route::get('/paciente/dieta/editar/{id}', [DietaController::class, 'editarDieta'])->name('dieta.editarDieta');
+    Route::post('/paciente/dieta/editar/{id}', [DietaController::class, 'atualizarDieta'])->name('dieta.atualizarDieta');
 
     Route::middleware('NutricionistaDoPaciente')->group(function () {
         Route::get('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono');
@@ -81,6 +86,9 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua');
         Route::post('/nutricionista/paciente/agua/{id}', [AguaController::class, 'index'])->name('agua.filtrar');
         Route::get('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes'])->name('dieta.relatorio');
+        Route::post('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes']);
+        Route::get('/nutricionista/paciente/exercicio/{id}', [ExercicioController::class, 'index'])->name('exercicio');
+        Route::post('/nutricionista/paciente/exercicio/{id}', [ExercicioController::class, 'index'])->name('exercicio.filtrar');
     });
 
     

@@ -63,4 +63,35 @@ class DietaController extends Controller
         return view('dieta.list-dietas',['dietas' => $dietas]);
     }
 
+    public function editarDieta($id){
+        try {
+            $dieta = Dieta::find($id);
+            return view('dieta.edit-dieta',['dieta' => $dieta]);
+        } catch (\Illuminate\Database\QueryException $th) {
+            echo "Erro de conexão com o Banco de Dados";
+        }
+    }
+
+    public function atualizarDieta(Request $request, $id){
+        try {
+            $validated = $request->validate([
+                'descricao' => 'required',
+                'data_inicio' => 'required',
+                'data_fim' => 'required'
+            ]);
+
+            $dados = $request->all();
+            $dieta = Dieta::find($id);
+            $dieta->descricao = $dados['descricao'];
+            $dieta->data_inicio = $dados['data_inicio'];
+            $dieta->data_fim = $dados['data_fim'];
+    
+            $dieta->save();
+            return redirect()->back();
+
+        } catch (\Illuminate\Database\QueryException $th) {
+            echo "Erro de conexão com o Banco de Dados";
+        }
+    }
+
 }

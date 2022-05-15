@@ -28,12 +28,22 @@
                     <div class="container">
                         
                         <div class = "row" >
-                            <div class = "col-3">                            
-                                {{$refeicao->descricao_refeicao}} {{$refeicao->caloria}} {{$refeicao->horario}} {{$refeicao->nome_refeicao}}
+                            <div class = "col-2">                            
+                                {{$refeicao->descricao_refeicao}}
                             </div>
-                            <div class = "col-1">
+                            <div class = "col-2">                            
+                                {{$refeicao->caloria}}
                             </div>
-
+                            <div class = "col-2">                            
+                                {{$refeicao->horario}}
+                            </div>
+                            <div class = "col-2">                            
+                               {{$refeicao->nome_refeicao}}
+                            </div>
+                            <form method="get" action="{{ route('refeicao.editarRefeicao', $refeicao->id) }}" >
+                            @csrf
+                                <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Editar</button>
+                            </form>
                         </div>
                         
                     </div>

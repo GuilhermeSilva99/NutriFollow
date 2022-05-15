@@ -2,16 +2,18 @@
 
 namespace App\Services;
 
-use App\Repository\{ExercicioRepository};
+use App\Repository\{ExercicioRepository, UserRepository};
 use Carbon\Carbon;
 
 class ExercicioService
 {
     private $exercicioRepository;
+    private $userRepository;
 
-    public function __construct(ExercicioRepository $exercicioRepository)
+    public function __construct(ExercicioRepository $exercicioRepository, UserRepository $userRepository)
     {
         $this->exercicioRepository = $exercicioRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function listarExercicios($pacienteId)
@@ -76,5 +78,17 @@ class ExercicioService
         }
 
         return response()->json(["erro" => "Exercício não encontrado"], 400);
+    }
+
+    public function listarExercicioPorPeriodo($inicio, $fim, $usuarioID)
+    {
+        Carbon::setlocale('pt-BR');
+        if ($inicio == null || $fim == null) {
+            $fim = Carbon::now();
+            $inicio = Carbon::now()->sub(30, 'days');
+        }
+
+        $usuarioPaciente = $this->userRepository->find($usuarioID);
+        return $this->exercicioRepository->findByPeriod($inicio, $fim, $usuarioPaciente->paciente->id);
     }
 }

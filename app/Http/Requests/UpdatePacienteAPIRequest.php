@@ -27,6 +27,7 @@ class UpdatePacienteAPIRequest extends FormRequest
     public function rules()
     {
         return [
+            'nome'          => ['required', 'string', 'min:5', 'max:255'],
             'telefone_1'    => ['required', 'celular_com_ddd'],
             'telefone_2'    => ['nullable', 'celular_com_ddd'],
             'sexo-select'   => ["nullable", 'string', 'min:3', 'max:100'],
@@ -38,6 +39,9 @@ class UpdatePacienteAPIRequest extends FormRequest
     public function messages()
     {
         return [
+            "nome.required"                     => "O campo nome é obrigatório",
+            'nome.min'                          => 'O campo Nome deve conter no mínimo :min caracteres',
+            'nome.max'                          => 'O campo Nome deve conter no máximo :max caracteres',
             'sexo-select.min'                   => 'O campo Sexo deve conter no mínimo :min caracteres',
             'sexo-select.max'                   => 'O campo Sexo deve conter no máximo :max caracteres',
             'sexo-input.required_without'       => 'O campo Sexo é obrigatório',
