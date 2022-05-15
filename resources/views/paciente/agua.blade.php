@@ -61,8 +61,16 @@
                 </form>
             </div>       
         </div>
-    </x-guest-layout>
+        
+        </div>
+        
+    </div>
     
+    
+
+    
+</x-guest-layout>
+
 </html>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -102,6 +110,6 @@
             }
         },
         series: [<?= $quantidade ?>]
-    
+
     });
 </script>

@@ -35,4 +35,9 @@ class Paciente extends Model
     {
         return $this->hasMany(Comorbidade::class);
     }
+
+    public function exames()
+    {
+        return $this->hasMany(Exame::class);
+    }
 }

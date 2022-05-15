@@ -4,12 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\{AdminController};
 use App\Http\Controllers\AguaController;
 use App\Http\Controllers\Api\ExercicioController;
-use App\Http\Controllers\Api\PacienteController;
 use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RefeicaoController;
 use App\Http\Controllers\DietaController;
-use App\Models\Paciente;
 use App\Http\Controllers\SonoController;
 
 /*
@@ -61,12 +59,20 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/nutricionista/editar-refeicao/{id}', [RefeicaoController::class, 'editarRefeicao'])->name('refeicao.editarRefeicao');
     Route::post('/nutricionista/editar-refeicao/{id}', [RefeicaoController::class, 'atualizarRefeicao'])->name('refeicao.atualizarRefeicao');
 
-    Route::get('/nutricionista/criar/comorbidade/paciente', [NutricionistaController::class, 'criarComorbidadePaciente'])->name('nutricionista.criar.comorbidade.paciente');
+    Route::get('/nutricionista/criar/comorbidade/paciente/{id}', [NutricionistaController::class, 'criarComorbidadePaciente'])->name('nutricionista.criar.comorbidade.paciente');
     Route::post('/nutricionista/salvar/comorbidade/paciente', [NutricionistaController::class, 'salvarComorbidadePaciente'])->name('nutricionista.salvar.comorbidade.paciente');
     Route::get('/nutricionista/listar/comorbidade/paciente/{id}', [NutricionistaController::class, 'listarComorbidadesPaciente'])->name('nutricionista.listar.comorbidade.paciente');
     Route::get('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'editarComorbidadePaciente'])->name('nutricionista.editar.comorbidade.paciente');
     Route::put('/nutricionista/editar/comorbidade/paciente/{id}', [NutricionistaController::class, 'atualizarComorbidadePaciente'])->name('nutricionista.atualizar.comorbidade.paciente');
     Route::delete('/nutricionista/deletar/comorbidade/paciente/{id}', [NutricionistaController::class, 'deletarComorbidadePaciente'])->name('nutricionista.deletar.comorbidade.paciente');
+
+    Route::get('/nutricionista/cadastrar/exame/paciente/{id}', [NutricionistaController::class, 'cadastrarExamePaciente'])->name('nutricionista.cadastrar.exame.paciente');
+    Route::get('/nutricionista/listar/exame/paciente/{id}', [NutricionistaController::class, 'listarExamePaciente'])->name('nutricionista.listar.exame.paciente');
+    Route::post('/nutricionista/salvar/exame/paciente/', [NutricionistaController::class, 'salvarExamePaciente'])->name('nutricionista.salvar.exame.paciente');
+    Route::get('/nutricionista/editar/exame/paciente/{id}', [NutricionistaController::class, 'editarExamePaciente'])->name('nutricionista.editar.exame.paciente');
+    Route::put('/nutricionista/editar/exame/paciente/{id}', [NutricionistaController::class, 'atualizarExamePaciente'])->name('nutricionista.atualizar.exame.paciente');
+    Route::delete('/nutricionista/deletar/exame/paciente/{id}', [NutricionistaController::class, 'deletarExamePaciente'])->name('nutricionista.deletar.exame.paciente');
+    Route::get('/nutricionista/realizar-consulta', [NutricionistaController::class, 'consulta'])->name('realizar.consulta'); //rota teste
 
     Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
     Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');

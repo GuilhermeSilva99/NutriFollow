@@ -100,7 +100,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <i class="menu-icon tf-icons bx bx-user"></i>
                 <div>Paciente</div>
               </a>
               <ul class="menu-sub">
@@ -119,13 +119,13 @@
                     <div>Atribuir Dieta</div>
                   </a>
                 </li>
+                
                 <li class="menu-item">
-                  <a href="{{ route("nutricionista.criar.comorbidade.paciente") }}" class="menu-link">
-                    <div>Atribuir Comorbidade</div>
-                  </a>
+                  
                 </li>
               </ul>
             </li>
+            
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>

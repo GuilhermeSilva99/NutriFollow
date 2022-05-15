@@ -1,6 +1,23 @@
 @extends('home')
 @section('content')
-    <h1>Comorbidades</h1>
+    <div class="mx-auto" style="width: 680px;">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link"
+                    href="{{ route('nutricionista.listar.exame.paciente', $id) }}">Exame</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active"
+                    href="{{ route('nutricionista.listar.comorbidade.paciente', $id) }}">Cormobidade</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="#">Suplemento</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="#">Medidas</a>
+            </li>
+        </ul>
+    </div>
     <div class="container">
         <table class="table table-responsive">
             <thead>
@@ -35,5 +52,6 @@
             </tbody>
         </table>
     </div>
-    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='{{ route('nutricionista.criar.comorbidade.paciente') }}'">Cadastar Novo</button>
+    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='{{ route('nutricionista.listar.pacientes') }}'">Listar Pacientes</button>
+    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='{{ route('nutricionista.criar.comorbidade.paciente', $id) }}'">Cadastar Nova Cormobidade</button>
 @endsection
