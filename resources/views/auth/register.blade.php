@@ -35,7 +35,7 @@
                         <div class="mb-3">
                             <x-jet-label value="{{ __('CPF') }}" />
 
-                            <x-jet-input class="{{ $errors->has('cpf') ? 'is-invalid' : '' }}" type="string" name="cpf"
+                            <x-jet-input class="{{ $errors->has('cpf') ? 'is-invalid' : '' }}" type="string" id="cpf" name="cpf"
                                         :value="old('cpf')" required />
                             <x-jet-input-error for="cpf"></x-jet-input-error>
                         </div>
@@ -43,13 +43,13 @@
                         <div class="mb-3">
                             <x-jet-label value="{{ __('Telefone 1') }}" />
 
-                            <x-jet-input class="{{ $errors->has('telefone_1') ? 'is-invalid' : '' }}" type="text" name="telefone_1"
+                            <x-jet-input class="{{ $errors->has('telefone_1') ? 'is-invalid' : '' }}" type="text" id="telefone1" name="telefone_1"
                                         :value="old('telefone_1')" required />
                             <x-jet-input-error for="telefone_1"></x-jet-input-error>
                         </div>
                         <div class="mb-3">
 
-                            <x-jet-input class="{{ $errors->has('telefone_2') ? 'is-invalid' : '' }}" type="text" name="telefone_2"
+                            <x-jet-input class="{{ $errors->has('telefone_2') ? 'is-invalid' : '' }}" type="text" id="telefone2" name="telefone_2"
                                         :value="old('telefone_2')" />
                             <x-jet-input-error for="telefone_2"></x-jet-input-error>
                         </div>
@@ -117,20 +117,6 @@
                             <x-jet-input class="form-control" type="password" name="password_confirmation" required autocomplete="new-password" />
                         </div>
 
-                        @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-                            <div class="mb-3">
-                                <div class="custom-control custom-checkbox">
-                                    <x-jet-checkbox id="terms" name="terms" />
-                                    <label class="custom-control-label" for="terms">
-                                        {!! __('I agree to the :terms_of_service and :privacy_policy', [
-                                                    'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'">'.__('Terms of Service').'</a>',
-                                                    'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'">'.__('Privacy Policy').'</a>',
-                                            ]) !!}
-                                    </label>
-                                </div>
-                            </div>
-                        @endif
-
                         <div class="mb-0 rodape-form-registo">
                             <div class="d-flex justify-content-end align-items-baseline">
                                 <a class="text-muted me-3 text-decoration-none" href="{{ route('login') }}">
@@ -148,3 +134,19 @@
         </div>
     </div>
 </x-guest-layout>
+
+<script>
+    $(document).ready(function($) {
+        $('#cpf').mask('000.000.000-00');
+        var SPMaskBehavior = function(val) {
+                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+            },
+            spOptions = {
+                onKeyPress: function(val, e, field, options) {
+                    field.mask(SPMaskBehavior.apply({}, arguments), options);
+                }
+            };
+        $('#telefone1').mask(SPMaskBehavior, spOptions);
+        $('#telefone2').mask(SPMaskBehavior, spOptions);
+    });
+</script>
