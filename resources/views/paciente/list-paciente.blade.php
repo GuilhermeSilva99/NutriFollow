@@ -40,7 +40,7 @@
                                 <td>
                                     <form action="{{ route('nutricionista.listar.comorbidade.paciente', $paciente->id) }}" method="get">
                                         @csrf
-                                        <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Comorbidade</button>
+                                        <button class="btn btn-outline-secondary" type="submit" id="button-dieta">Realizar Consulta</button>
                                     </form>
                                 </td>
                                 <td>
@@ -55,25 +55,16 @@
                                         <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Relátorios</button>
                                     </form>
                                 </td>
-                                {{-- <td><button class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="document.location='/nutricionista/exibir/paciente/{{$paciente->user->id}}'">Visualiza</button></td>
-                                <td><button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/editar/paciente/{{$paciente->user->id}}'">Editar</button></td>
-                                <td><button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/nutricionista/paciente/senha/{{$paciente->user->id}}'">Alterar Senha</button></td>
-                                <td>
-                                    <form action="{{ route('nutricionista.paciente.inativar', $paciente->id) }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
-                                    </form>
-                                </td> --}}
+                                
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                           D
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                          <li><a class="dropdown-item" href="#">Action</a></li>
-                                          <li><a class="dropdown-item" href="#">Another action</a></li>
-                                          <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                          <li><a class="dropdown-item" href="/nutricionista/exibir/paciente/{{$paciente->user->id}}">Visualiza</a></li>
+                                          <li><a class="dropdown-item" href="/nutricionista/editar/paciente/{{$paciente->user->id}}">Editar</a></li>
+                                          <li><a class="dropdown-item" href="/nutricionista/paciente/senha/{{$paciente->user->id}}">Alterar Senha</a></li>
                                         </ul>
                                       </div>
                                 </td>

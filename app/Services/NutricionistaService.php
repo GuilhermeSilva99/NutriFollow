@@ -140,4 +140,29 @@ class NutricionistaService
     {
         return $this->exameRepository->save($dadosExame);
     }
+
+    public function listarExames($pacienteId)
+    {
+        return $this->exameRepository->findByColumn('paciente_id', $pacienteId);
+    }
+    public function recuperarExame($exame_id)
+    {
+        return $this->exameRepository->find($exame_id);
+    }
+
+    public function deletarExamePaciente($exame_id)
+    {
+        return $this->exameRepository->delete($exame_id);
+    }
+
+    public function atualizarExamePaciente($dadosExame, $exame_id)
+    {
+        // dd($dadosExame);
+        return $this->exameRepository->update($exame_id, $dadosExame);
+    }
+
+    
+
+
+
 }

@@ -124,24 +124,13 @@
                     <div>Atribuir Dieta</div>
                   </a>
                 </li>
+                
                 <li class="menu-item">
-                  <a href="{{ route("nutricionista.criar.comorbidade.paciente") }}" class="menu-link">
-                    <div>Atribuir Comorbidade</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{ route("nutricionista.cadastrar.exame.paciente") }}" class="menu-link">
-                    <div>Cadastrar Exames</div>
-                  </a>
+                  
                 </li>
               </ul>
             </li>
-            <li class="menu-item">
-              <a href="{{ route('realizar.consulta') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div>Realizar Consulta</div>
-              </a>
-            </li>
+            
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
