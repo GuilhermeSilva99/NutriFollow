@@ -9,6 +9,7 @@ use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RefeicaoController;
 use App\Http\Controllers\DietaController;
+use App\Http\Controllers\MedidaController;
 use App\Models\Paciente;
 use App\Http\Controllers\SonoController;
 
@@ -85,5 +86,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/nutricionista/paciente/relatorio-dieta/{id}', [RefeicaoController::class, 'listarRefeicoes']);
         Route::get('/nutricionista/paciente/exercicio/{id}', [ExercicioController::class, 'index'])->name('exercicio');
         Route::post('/nutricionista/paciente/exercicio/{id}', [ExercicioController::class, 'index'])->name('exercicio.filtrar');
+        Route::get('/nutricionista/paciente/medida/{id}', [MedidaController::class, 'index'])->name('medida');
+        // Route::post('/nutricionista/paciente/relatorio-medida/{id}', [MedidaController::class, 'show'])->name('medida.relatorio');
+        // Route::post('/nutricionista/paciente/relatorio-medida/{id}', [MedidaController::class, 'show']);
     });
 });

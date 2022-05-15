@@ -65,6 +65,7 @@
                                         <button class="btn btn-outline-secondary" type="submit"  dusk="desativar-button-{{$paciente->id}}">Desativar</button>
                                     </form>
                                 </td>
+                                <td><button class="btn btn-outline-secondary" type="button" id="button-addon3" onclick="document.location='/nutricionista/paciente/medida/{{$paciente->user->id}}'">medidas</button></td>
                             </tr>
                         @endforeach
                         </tbody>
