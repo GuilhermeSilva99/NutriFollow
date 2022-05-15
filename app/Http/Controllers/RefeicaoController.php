@@ -42,7 +42,9 @@ class RefeicaoController extends Controller
     public function listarRefeicoes($usuario_id, Request $request)
     {
         $paciente = $this->pacienteService->findByUserID($usuario_id);
-        $refeicoes = $this->refeicaoPacienteService->listarRefeicaoDoPacienteByUserId($usuario_id);
+        //$refeicoes = $this->refeicaoPacienteService->listarRefeicaoDoPacienteByUserId($usuario_id);
+        $refeicoes = $this->refeicaoPacienteService->listarRefeicaoPorPeriodo($request->inicio, $request->fim, $usuario_id);
+
         $refeicoes_por_dia = [];
         $caloria_por_dia = [];
             

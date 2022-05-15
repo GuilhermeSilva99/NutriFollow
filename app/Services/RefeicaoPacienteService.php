@@ -46,7 +46,22 @@ class RefeicaoPacienteService
         $dataAtual = Carbon::now()->toDateString();
         $paciente = $this->pacienteRepository->findByUserID($userID);
         $dieta = $this->dietaRepository->findByPeriodPaciente($paciente->id, $dataAtual);
+
         return $this->refeicaoPacienteRepostiory->findRefeicoesByDietaId($dieta->id, $paciente->id);
+    }
+
+    public function listarRefeicaoPorPeriodo($inicio, $fim, $usuarioID)
+    {
+        Carbon::setlocale('pt-BR');
+        if ($inicio == null || $fim == null) {
+            $fim = Carbon::now();
+            $inicio = Carbon::now()->sub(30, 'days');
+        }
+
+        $paciente = $this->pacienteRepository->findByUserID($usuarioID);
+        //$dieta = $this->dietaRepository->findByPeriodPaciente($paciente->id, $dataAtual);
+
+        return $this->refeicaoPacienteRepostiory->findByPeriod($inicio, $fim, $paciente->id);
     }
 
     public function criarRefeicaoPaciente($dadosRefeicao, $pacienteID)
