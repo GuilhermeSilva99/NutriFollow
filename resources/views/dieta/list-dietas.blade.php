@@ -1,53 +1,36 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Dietas</title>
-        <style>
-            .bd-example-row {
-                padding-top: 0.75rem;
-                padding-bottom: 0.75rem;
-                border-bottom: 1px solid;
-            }
-        </style>
-    </head>
-    @extends('home')
-    @section('content')
-    <body class="antialiased">
-        <br><br>
-        <h1>Dietas</h1>
-        <ul>
+@extends('home')
+@section('content')
+    <h1>Dietas</h1>
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th scope="col">Descrição</th>
+                <th scope="col">Data de inicio</th>
+                <th scope="col">Data de fim</th>
+                <th scope="col">Açoes</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach ($dietas as $dieta)
-            <div class = "bd-example bd-example-row">
-                <div class="container">
-                    <div class = "row" >
-                        <div class = "col-3">                            
-                            {{$dieta->descricao}}
-                        </div>
-                        <div class = "col-3">                            
-                            {{ date('d-m-y', strtotime($dieta->data_inicio)) }}
-                        </div>
-                        <div class = "col-3">                            
-                            {{ date('d-m-y', strtotime($dieta->data_fim)) }}
-                        </div>
-                        <form action="{{ route('dieta.view-dieta',[$dieta->id]) }}" method="get">
+                <tr>
+                    <th>{{$dieta->descricao}}</th>
+                    <td>{{ date('d/m/y', strtotime($dieta->data_inicio)) }}</td>
+                    <td>{{ date('d/m/y', strtotime($dieta->data_fim)) }}</td>
+                    <td>
+                        <div style="display: flex;">
+                            <form action="{{ route('dieta.view-dieta',[$dieta->id]) }}" method="get" style="margin-right: 10px">
                             @csrf
-                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Detalhes</button>
-                        </form>
-
-                        <form method="get" action="{{ route('dieta.editarDieta', $dieta->id) }}" >
-                            @csrf
-                            <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Editar</button>
-                        </form>
-                    </div>
-                    
-                </div>
-            </div>
-            @endforeach
-        </ul>
-        <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/register-paciente'">Cadastar Novo</button>
-        {{-- <button  onclick="document.location='/nutricionista/register-paciente'"> Cadastrar </button> --}}
-    </body>
-    @endsection
-</html>
+                                <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Detalhes</button>
+                            </form>
+                            <form method="get" action="{{ route('dieta.editarDieta', $dieta->id) }}" >
+                                @csrf
+                                <button class="btn btn-outline-secondary" type="submit" id="button-relatorios">Editar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach   
+        </tbody>
+    </table>
+    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='/nutricionista/register-paciente'">Cadastar Novo</button>    
+@endsection

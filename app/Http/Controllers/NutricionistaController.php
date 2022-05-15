@@ -7,10 +7,8 @@ use App\Http\Requests\StoreComorbidadeRequest;
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Requests\UpdateComorbidadeRequest;
 use App\Http\Requests\UpdatePacienteRequest;
-use App\Models\Paciente;
 use App\Services\NutricionistaService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class NutricionistaController extends Controller
 {

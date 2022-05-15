@@ -17,9 +17,8 @@
                     <input type="date" placeholder="dd/mm/yyyy" class="form-control" id="data_diagnostico" name="data_diagnostico">
                 </div>
                 <div class="mb-3">
-                    <label for="pacientes" class="form-label">Data de diagnóstico</label>
+                    <label for="pacientes" class="form-label">Paciente</label>
                     <select class="form-select" id="pacientes" name="paciente_id">
-                        <option selected>Selecione Paciente</option>
                         @foreach ($pacientes as $paciente)
                             <option  value="{{$paciente->id}}" >{{$paciente->user->nome}}</option>
                         @endforeach
