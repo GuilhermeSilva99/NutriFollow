@@ -127,7 +127,7 @@ class RefeicaoPacienteService
         return response()->json(["erro" => "Refeição não encontrada"], 400);
     }
 
-    public function salvarFotoPaciente($foto, $pacienteID)
+    private function salvarFotoPaciente($foto, $pacienteID)
     {
         $extensaoImagem = explode('/', mime_content_type($foto))[1];
         $imagem = base64_decode(explode(";base64,", $foto)[1]);
