@@ -73,4 +73,15 @@ class RefeicaoPacienteRepository implements BaseRepositoryInterface
             ->groupBy("refeicaos.id", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes", "refeicao_pacientes.refeicao_referencia_id")
             ->get();
     }
+
+    public function findByPeriod($inicio, $fim, $id)
+    {
+        return  DB::table("refeicao_pacientes")
+        ->where("refeicao_pacientes.paciente_id", $id)
+        ->whereBetween('refeicaos.data', [$inicio, $fim])
+        ->join("refeicaos", "refeicao_pacientes.refeicao_id", "=", "refeicaos.id")
+        ->select("refeicaos.*", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+        ->groupBy("refeicaos.id", "refeicao_pacientes.foto", "refeicao_pacientes.observacoes")
+        ->get();
+    }
 }

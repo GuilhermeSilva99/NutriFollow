@@ -44,4 +44,9 @@ class PacienteService
 
         return response()->json(["erro" => "Paciente não encontrado"], 400);
     }
+
+    public function findByUserID($userID)
+    {
+        return $this->pacienteRepository->findByUserID($userID);
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repository\{DietaRepository, RefeicaoNutricionistaRepository, RefeicaoPacienteRepository, RefeicaoRepository};
+use App\Repository\{DietaRepository, RefeicaoNutricionistaRepository, RefeicaoPacienteRepository, RefeicaoRepository, PacienteRepository};
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -13,17 +13,20 @@ class RefeicaoPacienteService
     private $refeicaoPacienteRepostiory;
     private $refeicaoNutricionistaRepostiory;
     private $dietaRepository;
+    private $pacienteRepository;
 
     public function __construct(
         RefeicaoRepository $refeicaoRepostiory,
         RefeicaoPacienteRepository $refeicaoPacienteRepostiory,
         RefeicaoNutricionistaRepository $refeicaoNutricionistaRepostiory,
-        DietaRepository $dietaRepository
+        DietaRepository $dietaRepository,
+        PacienteRepository $pacienteRepository
     ) {
         $this->refeicaoRepostiory = $refeicaoRepostiory;
         $this->refeicaoPacienteRepostiory = $refeicaoPacienteRepostiory;
         $this->refeicaoNutricionistaRepostiory = $refeicaoNutricionistaRepostiory;
         $this->dietaRepository = $dietaRepository;
+        $this->pacienteRepository = $pacienteRepository;
     }
 
     public function listarRefeicaoDoNutricionista($pacienteID)
@@ -38,6 +41,29 @@ class RefeicaoPacienteService
         $dataAtual = Carbon::now()->toDateString();
         $dieta = $this->dietaRepository->findByPeriodPaciente($pacienteID, $dataAtual);
         return $this->refeicaoPacienteRepostiory->findRefeicoesByDietaId($dieta->id, $pacienteID);
+    }
+
+    public function listarRefeicaoDoPacienteByUserId($userID)
+    {
+        $dataAtual = Carbon::now()->toDateString();
+        $paciente = $this->pacienteRepository->findByUserID($userID);
+        $dieta = $this->dietaRepository->findByPeriodPaciente($paciente->id, $dataAtual);
+
+        return $this->refeicaoPacienteRepostiory->findRefeicoesByDietaId($dieta->id, $paciente->id);
+    }
+
+    public function listarRefeicaoPorPeriodo($inicio, $fim, $usuarioID)
+    {
+        Carbon::setlocale('pt-BR');
+        if ($inicio == null || $fim == null) {
+            $fim = Carbon::now();
+            $inicio = Carbon::now()->sub(30, 'days');
+        }
+
+        $paciente = $this->pacienteRepository->findByUserID($usuarioID);
+        //$dieta = $this->dietaRepository->findByPeriodPaciente($paciente->id, $dataAtual);
+
+        return $this->refeicaoPacienteRepostiory->findByPeriod($inicio, $fim, $paciente->id);
     }
 
     public function criarRefeicaoPaciente($dadosRefeicao, $pacienteID)
