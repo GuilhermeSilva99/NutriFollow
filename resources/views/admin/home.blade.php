@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-3">
                             <td>
-                                <form action="{{ route('cadastro.ativar', $nutricionista->user->id) }}" method="POST">
+                                <form action="{{ route('admin.ativar.cadastro.nutricionista', $nutricionista->user->id) }}" method="POST">
                                     @method('PUT')
                                     @csrf
                                     <button class="btn btn-success" type="submit" dusk="aprovar-button-{{$nutricionista->user->id}}">Aprovar</button>
