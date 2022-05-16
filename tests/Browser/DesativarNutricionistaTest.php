@@ -5,7 +5,7 @@ namespace Tests\Browser;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use App\Models\User;
-use App\Models\Nutricionista;
+use Tests\MockNutricionista;
 
 class DesativarNutricionistaTest extends DuskTestCase
 {
@@ -16,17 +16,12 @@ class DesativarNutricionistaTest extends DuskTestCase
      */
     public function testDesativarNutricionistaAtivo()
     {
-        $user = User::where('tipo_usuario', 1)->first();
+        $admin = User::where('tipo_usuario', 1)->first();
 
-        if (!$user)
-            $user = User::factory(1)->create()[0];
+        $nutri = MockNutricionista::criarNutricionista();
 
-        $nutri = Nutricionista::factory()->create();
-        $nutri->user->cadastro_aprovado = 1;
-        $nutri->user->save();
-
-        $this->browse(function (Browser $browser) use ($user, $nutri) {
-            $browser->loginAs($user)
+        $this->browse(function (Browser $browser) use ($admin, $nutri) {
+            $browser->loginAs($admin)
                 ->visit('/admin/listar/nutricionistas')
                 ->assertSee($nutri->user->nome)
                 ->press('@desativar-button-' . $nutri->user->id)

@@ -6,6 +6,7 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use App\Models\User;
 use App\Models\Nutricionista;
+use Tests\MockNutricionista;
 
 class AtivarNutricionistaTest extends DuskTestCase
 {
@@ -18,17 +19,17 @@ class AtivarNutricionistaTest extends DuskTestCase
     {
         $user = User::where('tipo_usuario', 1)->first();
 
-        $nutri = Nutricionista::factory()->create();
-        $nutri->user->cadastro_aprovado = 0;
-        $nutri->user->save();
+        $nutricionista = MockNutricionista::criarNutricionista();
+        $nutricionista->user->cadastro_aprovado = 0;
+        $nutricionista->user->save();
 
-        $this->browse(function (Browser $browser) use ($user, $nutri) {
+        $this->browse(function (Browser $browser) use ($user, $nutricionista) {
             $browser->loginAs($user)
                 ->visit('/admin/home')
-                ->assertSee($nutri->user->nome)
-                ->press('@aprovar-button-' . $nutri->user->id)
+                ->assertSee($nutricionista->user->nome)
+                ->press('@aprovar-button-' . $nutricionista->user->id)
                 ->visit('/admin/listar/nutricionistas')
-                ->assertSee($nutri->user->nome);
+                ->assertSee($nutricionista->user->nome);
         });
     }
 }
