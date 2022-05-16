@@ -39,10 +39,7 @@
                                     <td>{{$medida->panturrilha}}</td>
                                     <td>
                                         <div style="display: flex;">
-                                            <form action="#" method="get" style="margin-right: 10px">
-                                                @csrf
-                                                <button class="btn btn-sm btn-outline-secondary" type="submit" id="button-editar">Editar</button>
-                                            </form>
+                                            <button class="btn btn-sm btn-outline-secondary" type="button" id="button-addon1" data-bs-toggle="modal" data-bs-target="#modal-medida-edit-{{$medida->id}}">Editar</button>
                                             <form action="/nutricionista/paciente/deletar/medida/{{$id}}/{{$medida->id}}" method="post">
                                                 @csrf
                                                 @method("DELETE")
@@ -51,6 +48,97 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- Modal Edit-->
+                                <div class="modal fade" id="modal-medida-edit-{{$medida->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel"><h4>Editar Medida</h4></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="/nutricionista/paciente/editar/medida/{{$id}}/{{$medida->id}}" method="POST">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="container ">
+                                                        <div class="row justify-content-center">
+                                                            <div class="mb-3 col">
+                                                                <label for="altura" class="form-label">Altura</label>
+                                                                <input type="text" class="form-control" id="altura" name="altura" required value="{{$medida->altura}}">
+                                                            </div>
+                                        
+                                                            <div class="mb-3 col">
+                                                                <label for="peso" class="form-label">peso</label>
+                                                                <input type="text" class="form-control" id="peso" name="peso" required value="{{$medida->peso}}">
+                                                            </div>
+                                                        </div>    
+                                                    </div>
+
+                                                    <div class="container">
+                                                        <div class="row justify-content-center">
+                                                            <div class="mb-3 col">
+                                                                <label for="peito" class="form-label">peito</label>
+                                                                <input type="text" class="form-control" id="peito" name="peito" required value="{{$medida->peito}}">
+                                                            </div>
+
+                                                            <div class="mb-3 col">
+                                                                <label for="cintura" class="form-label">cintura</label>
+                                                                <input type="text" class="form-control" id="cintura" name="cintura" required value="{{$medida->cintura}}">
+                                                            </div>
+
+                                                            <div class="mb-3 col">
+                                                                <label for="quadril" class="form-label">quadril</label>
+                                                                <input type="text" class="form-control" id="quadril" name="quadril" required value="{{$medida->quadril}}">
+                                                            </div>
+                                                        </div>    
+                                                    </div>
+
+                                                    <div class="container">
+                                                        <div class="row justify-content-center">
+                                                            <div class="mb-3 col">
+                                                                <label for="ombro" class="form-label">ombro</label>
+                                                                <input type="text" class="form-control" id="ombro" name="ombro" required value="{{$medida->ombro}}">
+                                                            </div>
+
+                                                            <div class="mb-3 col">
+                                                                <label for="biceps" class="form-label">biceps</label>
+                                                                <input type="text" class="form-control" id="biceps" name="biceps" required value="{{$medida->biceps}}">
+                                                            </div>
+                                        
+                                                            <div class="mb-3 col">
+                                                                <label for="triceps" class="form-label">triceps</label>
+                                                                <input type="text" class="form-control" id="triceps" name="triceps" required value="{{$medida->triceps}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="container">
+                                                        <div class="row justify-content-center">        
+                                                            <div class="mb-3 col">
+                                                                <label for="coxa" class="form-label">coxa</label>
+                                                                <input type="text" class="form-control" id="coxa" name="coxa" required value="{{$medida->coxa}}">
+                                                            </div>
+                                        
+                                                            <div class="mb-3 col">
+                                                                <label for="panturrilha" class="form-label">panturrilha</label>
+                                                                <input type="text" class="form-control" id="panturrilha" name="panturrilha" required value="{{$medida->panturrilha}}">
+                                                            </div>
+
+                                                            <div class="mb-3 col">
+                                                                <label for="data" class="form-label">data</label>
+                                                                <input type="date" class="form-control" id="data" name="data" value="{{$medida->data}}" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>       
+                                                    <div class="container text-end">
+                                                        <button class="btn btn-sm btn-outline-secondary" type="submit">Editar</button>
+                                                    </div>      
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach   
                         </tbody>
                     </table>
@@ -152,3 +240,4 @@
         </div>
     </div>
 @endsection
+

@@ -90,6 +90,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::delete('/nutricionista/paciente/deletar/medida/{id}/{medida_id}', [MedidaController::class, 'delete'])->name('medida.delete');
         Route::get('/nutricionista/paciente/cadastrar/medida/{id}', [MedidaController::class, 'adicionarMedida'])->name('medida.cadastrar');
         Route::post('/nutricionista/paciente/cadastrar/medida/{id}', [MedidaController::class, 'adicionarMedida']);
-        //Route::post('/nutricionista/paciente/relatorio-medida/{id}', [MedidaController::class, 'show']);
+        Route::put('/nutricionista/paciente/editar/medida/{id}/{medida_id}', [MedidaController::class, 'editarMedida'])->name('medida.editar');
     });
 });

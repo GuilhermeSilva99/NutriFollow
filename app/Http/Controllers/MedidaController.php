@@ -31,4 +31,11 @@ class MedidaController extends Controller
         $this->medidaService->create($dados, $paciente_id);
         return redirect()->route('medida', $paciente_id);
     }
+
+    public function editarMedida($paciente_id, $id, Request $request)
+    {
+        $dados = $request->all();
+        $this->medidaService->save($dados, $id);
+        return redirect()->route('medida', $paciente_id);
+    }
 }

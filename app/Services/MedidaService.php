@@ -30,4 +30,9 @@ class MedidaService
         return $this->medidaRepository->saveByUserId($dados);
     }
 
+    public function save($dados, $id)
+    {
+        return $this->medidaRepository->update($id, $dados);
+    }
+
 }
