@@ -88,7 +88,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::post('/nutricionista/paciente/exercicio/{id}', [ExercicioController::class, 'index'])->name('exercicio.filtrar');
         Route::get('/nutricionista/paciente/medida/{id}', [MedidaController::class, 'index'])->name('medida');
         Route::delete('/nutricionista/paciente/deletar/medida/{id}/{medida_id}', [MedidaController::class, 'delete'])->name('medida.delete');
-        // Route::post('/nutricionista/paciente/relatorio-medida/{id}', [MedidaController::class, 'show'])->name('medida.relatorio');
-        // Route::post('/nutricionista/paciente/relatorio-medida/{id}', [MedidaController::class, 'show']);
+        Route::get('/nutricionista/paciente/cadastrar/medida/{id}', [MedidaController::class, 'adicionarMedida'])->name('medida.cadastrar');
+        Route::post('/nutricionista/paciente/cadastrar/medida/{id}', [MedidaController::class, 'adicionarMedida']);
+        //Route::post('/nutricionista/paciente/relatorio-medida/{id}', [MedidaController::class, 'show']);
     });
 });

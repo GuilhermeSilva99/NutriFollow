@@ -24,4 +24,10 @@ class MedidaService
         return $this->medidaRepository->deleteById($id);
     }
 
+    public function create($dados, $id)
+    {
+        $dados['paciente_id'] = $id;
+        return $this->medidaRepository->saveByUserId($dados);
+    }
+
 }

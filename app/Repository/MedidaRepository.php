@@ -27,6 +27,13 @@ class MedidaRepository implements BaseRepositoryInterface
         return Medida::create($atributos);
     }
 
+    public function saveByUserId($atributos)
+    {
+        $paciente_id = Paciente::where('user_id', $atributos['paciente_id'])->whereRelation('user', 'deleted_at', null)->first()->id;
+        $atributos['paciente_id'] = $paciente_id;
+        return Medida::create($atributos);
+    }
+
     public function update($id, $atributos)
     {
         return Medida::find($id)->update($atributos);
@@ -54,7 +61,7 @@ class MedidaRepository implements BaseRepositoryInterface
 
     public function findByPaciente($paciente_id)
     {
-        return Medida::where('paciente_id', $paciente_id)->paginate(10);
+        return Medida::where('paciente_id', $paciente_id)->orderBy('data', 'desc')->paginate(10);
     }
 
     public function findByUserId($user_id)

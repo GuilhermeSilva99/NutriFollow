@@ -4,8 +4,8 @@
         <div class="row card justify-content-center pt-4">
             <div class="col">
                 <div class="card-header"><h1>Medidas</h1></div>
-                <div class="card-body">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon1" onclick="document.location='#'">Adicionar Medida</button>
+                <div class="card-body">                    
+                    <button class="btn btn-sm btn-outline-secondary" type="button" id="button-addon1" data-bs-toggle="modal" data-bs-target="#modal-medida">Adicionar Medida</button>
                     <table class="table table-responsive">
                         <thead>
                             <tr>
@@ -26,7 +26,7 @@
                         <tbody>
                             @foreach ($medidas as $medida)
                                 <tr>
-                                    <th>{{$medida->data}}</th>
+                                    <th>{{date('d-m-y', strtotime($medida->data))}}</th>
                                     <td>{{$medida->peso}}</td>
                                     <td>{{$medida->altura}}</td>
                                     <th>{{$medida->ombro}}</th>
@@ -61,4 +61,94 @@
             {!! $medidas->links() !!}
         </div>
     </body>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-medida" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"><h4>Cadastrar Medida</h4></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/nutricionista/paciente/cadastrar/medida/{{$id}}">
+                        @csrf
+                        <div class="container ">
+                            <div class="row justify-content-center">
+                                <div class="mb-3 col">
+                                    <label for="altura" class="form-label">Altura</label>
+                                    <input type="text" class="form-control" id="altura" name="altura" required>
+                                </div>
+            
+                                <div class="mb-3 col">
+                                    <label for="peso" class="form-label">peso</label>
+                                    <input type="text" class="form-control" id="peso" name="peso" required>
+                                </div>
+                            </div>    
+                        </div>
+
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="mb-3 col">
+                                    <label for="peito" class="form-label">peito</label>
+                                    <input type="text" class="form-control" id="peito" name="peito" required>
+                                </div>
+
+                                <div class="mb-3 col">
+                                    <label for="cintura" class="form-label">cintura</label>
+                                    <input type="text" class="form-control" id="cintura" name="cintura" required>
+                                </div>
+
+                                <div class="mb-3 col">
+                                    <label for="quadril" class="form-label">quadril</label>
+                                    <input type="text" class="form-control" id="quadril" name="quadril" required>
+                                </div>
+                            </div>    
+                        </div>
+
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="mb-3 col">
+                                    <label for="ombro" class="form-label">ombro</label>
+                                    <input type="text" class="form-control" id="ombro" name="ombro" required>
+                                </div>
+
+                                <div class="mb-3 col">
+                                    <label for="biceps" class="form-label">biceps</label>
+                                    <input type="text" class="form-control" id="biceps" name="biceps" required>
+                                </div>
+            
+                                <div class="mb-3 col">
+                                    <label for="triceps" class="form-label">triceps</label>
+                                    <input type="text" class="form-control" id="triceps" name="triceps" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="row justify-content-center">        
+                                <div class="mb-3 col">
+                                    <label for="coxa" class="form-label">coxa</label>
+                                    <input type="text" class="form-control" id="coxa" name="coxa" required>
+                                </div>
+            
+                                <div class="mb-3 col">
+                                    <label for="panturrilha" class="form-label">panturrilha</label>
+                                    <input type="text" class="form-control" id="panturrilha" name="panturrilha" required>
+                                </div>
+
+                                <div class="mb-3 col">
+                                    <label for="data" class="form-label">data</label>
+                                    <input type="date" class="form-control" id="data" name="data" required>
+                                </div>
+                            </div>
+                        </div>       
+                        <div class="container text-end">
+                            <button class="btn btn-sm btn-outline-secondary" type="submit">Adicionar</button>
+                        </div>      
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
