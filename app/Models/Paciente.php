@@ -40,4 +40,8 @@ class Paciente extends Model
     {
         return $this->hasMany(Exame::class);
     }
+
+    public function suplementos(){
+        return $this->hasMany(Suplemento::class);
+    }
 }
