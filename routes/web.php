@@ -8,7 +8,9 @@ use App\Http\Controllers\NutricionistaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RefeicaoController;
 use App\Http\Controllers\DietaController;
+use App\Http\Controllers\MedidaController;
 use App\Http\Controllers\SonoController;
+use App\Http\Controllers\SuplementoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,6 +76,15 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::delete('/nutricionista/deletar/exame/paciente/{id}', [NutricionistaController::class, 'deletarExamePaciente'])->name('nutricionista.deletar.exame.paciente');
     Route::get('/nutricionista/realizar-consulta', [NutricionistaController::class, 'consulta'])->name('realizar.consulta'); //rota teste
 
+    Route::get('/nutricionista/cadastrar/suplemento/paciente/{id}', [SuplementoController::class, 'cadastrarsuplemento'])->name('nutricionista.cadastrar.suplemento.paciente');
+    Route::get('/nutricionista/listar/suplemento/paciente/{id}', [SuplementoController::class, 'listarSuplementos'])->name('nutricionista.listar.suplemento.paciente');
+    Route::post('/nutricionista/salvar/suplemento/paciente/', [SuplementoController::class, 'store'])->name('nutricionista.salvar.suplemento.paciente');
+    Route::get('/nutricionista/editar/suplemento/paciente/{id}', [SuplementoController::class, 'editarSuplemento'])->name('nutricionista.editar.suplemento.paciente');
+    Route::put('/nutricionista/editar/suplemento/paciente/{id}', [SuplementoController::class, 'atualizarSuplemento'])->name('nutricionista.atualizar.suplemento.paciente');
+    Route::delete('/nutricionista/deletar/suplemento/paciente/{id}', [SuplementoController::class, 'deletarSuplemento'])->name('nutricionista.deletar.suplemento.paciente');
+
+
+
     Route::get('/paciente/cadastro-dieta', [DietaController::class, 'index']);
     Route::post('/paciente/cadastro-dieta', [DietaController::class, 'store'])->name('dieta.cadastroDieta');
     Route::get('/paciente/cadastro-dieta/{id}', [DietaController::class, 'view'])->name('dieta.view-dieta');
@@ -81,6 +92,12 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('/paciente/dietas/{id}', [DietaController::class, 'listarDietas'])->name('dieta.dietas');
     Route::get('/paciente/dieta/editar/{id}', [DietaController::class, 'editarDieta'])->name('dieta.editarDieta');
     Route::post('/paciente/dieta/editar/{id}', [DietaController::class, 'atualizarDieta'])->name('dieta.atualizarDieta');
+
+    Route::get('/nutricionista/paciente/medida/{id}', [MedidaController::class, 'index'])->name('medida');
+    Route::delete('/nutricionista/paciente/deletar/medida/{id}/{medida_id}', [MedidaController::class, 'delete'])->name('medida.delete');
+    Route::get('/nutricionista/paciente/cadastrar/medida/{id}', [MedidaController::class, 'adicionarMedida'])->name('medida.cadastrar');
+    Route::post('/nutricionista/paciente/cadastrar/medida/{id}', [MedidaController::class, 'adicionarMedida']);
+    Route::put('/nutricionista/paciente/editar/medida/{id}/{medida_id}', [MedidaController::class, 'editarMedida'])->name('medida.editar');
 
     Route::middleware('NutricionistaDoPaciente')->group(function () {
         Route::get('/nutricionista/paciente/sono/{id}', [SonoController::class, 'index'])->name('sono');

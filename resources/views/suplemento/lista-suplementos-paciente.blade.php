@@ -3,7 +3,7 @@
     <div class="mx-auto" style="width: 680px;">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active"
+                <a class="nav-link"
                     href="{{ route('nutricionista.listar.exame.paciente', $id) }}">Exame</a>
             </li>
             <li class="nav-item">
@@ -11,7 +11,7 @@
                     href="{{ route('nutricionista.listar.comorbidade.paciente', $id) }}">Cormobidade</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="{{route('nutricionista.listar.suplemento.paciente', $id)}}">Suplemento</a>
+                <a class="nav-link active" href="{{route('nutricionista.listar.suplemento.paciente', $id)}}">Suplemento</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="/nutricionista/paciente/medida/{{$id}}">Medidas</a>
@@ -25,28 +25,30 @@
                 <thead>
                     <tr>
                         <th scope="col">Nome</th>
-                        <th scope="col">Descrição</th>
-                        <th scope="col">Data de Realização</th>
+                        <th scope="col">Quantidade</th>
+                        <th scope="col">Data início</th>
+                        <th scope="col">Data fim</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($exames as $exame)
+                    @foreach ($suplementos as $suplemento)
                         <tr>
-                            <th>{{ $exame->nome }}</th>
-                            <td>{{ $exame->descricao }}</td>
-                            <td>{{ date('d/m/Y', strtotime($exame->data_realizacao)) }}</td>
+                            <th>{{ $suplemento->nome }}</th>
+                            <td>{{ $suplemento->quantidade }}</td>
+                            <td>{{ date('d/m/Y', strtotime($suplemento->data_inicio)) }}</td>
+                            <td>{{ date('d/m/Y', strtotime($suplemento->data_fim)) }}</td>
                             <td>
                                 <div style="display: flex;">
                                     <form
-                                        action="{{ route('nutricionista.editar.exame.paciente', $exame->id) }}"
+                                        action="{{ route('nutricionista.editar.suplemento.paciente', $suplemento->id) }}"
                                         method="get" style="margin-right: 10px">
                                         @csrf
                                         <button class="btn btn-outline-secondary" type="submit"
                                             id="button-relatorios">Editar</button>
                                     </form>
                                     <form
-                                        action="{{ route('nutricionista.deletar.exame.paciente', $exame->id) }}"
+                                        action="{{ route('nutricionista.deletar.suplemento.paciente', $suplemento->id) }}"
                                         method="post">
                                         @csrf
                                         @method('DELETE')
@@ -64,6 +66,6 @@
         <button class="btn btn-outline-secondary" type="button" id="button-addon1"
             onclick="document.location='{{ route('nutricionista.listar.pacientes') }}'">Listar Pacientes</button>
         <button class="btn btn-outline-secondary" type="button" id="button-addon1"
-            onclick="document.location='{{ route('nutricionista.cadastrar.exame.paciente', $id) }}'">Cadastar Novo Exame</button>
+            onclick="document.location='{{ route('nutricionista.cadastrar.suplemento.paciente', $id) }}'">Cadastar Novo Suplemento</button>
     </body>
 @endsection
