@@ -14,6 +14,7 @@ class MedidaController extends Controller
     {
         $this->medidaService = $medidaService;
     }
+    
     public function index($id, Request $request)
     {
         $medidas = $this->medidaService->listarMedidas($id, $request->inicio, $request->fim);
