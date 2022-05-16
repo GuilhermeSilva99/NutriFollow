@@ -14,7 +14,7 @@
                 <a class="nav-link " href="{{route('nutricionista.listar.suplemento.paciente', $id)}}">Suplemento</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#">Medidas</a>
+                <a class="nav-link " href="/nutricionista/paciente/medida/{{$id}}">Medidas</a>
             </li>
         </ul>
     </div>
