@@ -1,6 +1,29 @@
 @extends('home')
 @section('content')
     <body class="antialiased">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                <div class="alert alert-danger" role="alert">{{ $error }}</div>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>         
+            @endif
+            @if(session('mensagem'))
+                <div class="alert alert-success">
+                    <p>{{session('mensagem')}}</p>
+                </div>
+            @endif
+            @if(session('mensagem-delete'))
+                <div class="alert alert-danger">
+                    <p>{{session('mensagem-delete')}}</p>
+                </div>
+            @endif
+
+            
         <div class="row card justify-content-center pt-4">
             <div class="col">
                 <div class="card-header"><h1>Medidas</h1></div>
@@ -48,7 +71,6 @@
                                         </div>
                                     </td>
                                 </tr>
-
                                 <!-- Modal Edit-->
                                 <div class="modal fade" id="modal-medida-edit-{{$medida->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -67,7 +89,7 @@
                                                                 <label for="altura" class="form-label">Altura</label>
                                                                 <input type="text" class="form-control" id="altura" name="altura" required value="{{$medida->altura}}">
                                                             </div>
-                                        
+
                                                             <div class="mb-3 col">
                                                                 <label for="peso" class="form-label">peso</label>
                                                                 <input type="text" class="form-control" id="peso" name="peso" required value="{{$medida->peso}}">
@@ -133,7 +155,7 @@
                                                     </div>       
                                                     <div class="container text-end">
                                                         <button class="btn btn-sm btn-outline-secondary" type="submit">Editar</button>
-                                                    </div>      
+                                                    </div>  
                                                 </form>
                                             </div>
                                         </div>

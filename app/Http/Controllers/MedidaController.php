@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreMedidaRequest;
 use App\Services\MedidaService;
 
 class MedidaController extends Controller
@@ -22,20 +22,20 @@ class MedidaController extends Controller
     public function delete($paciente_id, $id)
     {
         $this->medidaService->delete($id);
-        return redirect()->route('medida', $paciente_id);
+        return redirect()->route('medida', $paciente_id)->with('mensagem-delete', 'Medida excluida com sucesso!');
     }
 
-    public function adicionarMedida($paciente_id, Request $request)
+    public function adicionarMedida($paciente_id, StoreMedidaRequest $request)
     {
-        $dados = $request->all();
+        $dados = $request->validated();
         $this->medidaService->create($dados, $paciente_id);
-        return redirect()->route('medida', $paciente_id);
+        return redirect()->route('medida', $paciente_id)->with('mensagem', 'Medida cadastrada com sucesso!');
     }
 
-    public function editarMedida($paciente_id, $id, Request $request)
+    public function editarMedida($paciente_id, $id, StoreMedidaRequest $request)
     {
-        $dados = $request->all();
+        $dados = $request->validated();
         $this->medidaService->save($dados, $id);
-        return redirect()->route('medida', $paciente_id);
+        return redirect()->route('medida', $paciente_id)->with('mensagem', 'As medidas do paciente foram atualizadas com sucesso!');
     }
 }
