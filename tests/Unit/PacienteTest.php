@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\User;
 use App\Repository\ComorbidadeRepository;
+use App\Repository\ExameRepository;
 use App\Repository\NutricionistaRepository;
 use App\Repository\PacienteRepository;
 use App\Repository\UserRepository;
@@ -54,7 +55,8 @@ class PacienteTest extends TestCase
         $userRepository = new UserRepository();
         $pacienteRepository = new PacienteRepository();
         $comorbidadeRepository = new ComorbidadeRepository();
-        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository);
+        $exameRepository = new ExameRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository, $exameRepository);
 
         $dados = [
             'nome' => "Joaquina da Silva",
@@ -83,7 +85,8 @@ class PacienteTest extends TestCase
         $userRepository = new UserRepository();
         $pacienteRepository = new PacienteRepository();
         $comorbidadeRepository = new ComorbidadeRepository();
-        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository);
+        $exameRepository = new ExameRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository, $exameRepository);
 
         $dados = [
             'password' => 'Teste123456',  'password_confirmation' => 'Teste123456',

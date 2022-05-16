@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Repository\NutricionistaRepository;
 use App\Repository\UserRepository;
 use App\Services\AdminService;
+use Tests\MockNutricionista;
 
 class AdminTest extends TestCase
 {
@@ -18,7 +19,7 @@ class AdminTest extends TestCase
         $userRepository = new UserRepository();
         $adminService = new AdminService($userRepository, $nutricionistaRepository);
 
-        $nutricionista = Nutricionista::factory(1)->create()->first();
+        $nutricionista = MockNutricionista::criarNutricionista();
         $nutricionista->user->cadastro_aprovado = true;
         $nutricionista->user->save();
 
