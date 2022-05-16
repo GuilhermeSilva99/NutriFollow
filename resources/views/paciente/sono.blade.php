@@ -20,16 +20,16 @@
                 <div class="mx-auto" style="width: 680px;">
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                        <a class="nav-link" href="/nutricionista/paciente/relatorio-dieta/{{$id}}">Relatório de Dieta</a>
+                        <a class="nav-link" href="/nutricionista/paciente/relatorio-dieta/{{$id}}">Dieta</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="/nutricionista/paciente/agua/{{$id}}">Relatório de Consumo de Água</a>
+                        <a class="nav-link" href="/nutricionista/paciente/agua/{{$id}}">Consumo de Água</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link active" href="/nutricionista/paciente/sono/{{$id}}" >Relatório de qualidade do Sono</a>
+                        <a class="nav-link active" href="/nutricionista/paciente/sono/{{$id}}" >Qualidade do Sono</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/nutricionista/paciente/exercicio/{{$id}}" >Relatório de Exercício</a>
+                            <a class="nav-link" href="/nutricionista/paciente/exercicio/{{$id}}">Exercício</a>
                         </li>
                     </ul>
                 </div>
@@ -58,9 +58,13 @@
                     </div>
                 </form>
             </div>
+
         </div>
-    </x-guest-layout>
+        
+    </div>
     
+</x-guest-layout>
+
 </html>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -103,6 +107,6 @@
             }
         },
         series: [<?= $duracao ?>, <?= $qualidade ?>]
-    
+
     });
 </script>

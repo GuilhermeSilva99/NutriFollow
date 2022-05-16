@@ -6,6 +6,7 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use App\Models\User;
 use App\Models\Nutricionista;
+use Tests\MockNutricionista;
 
 class ReativarNutricionistaTest extends DuskTestCase
 {
@@ -18,10 +19,10 @@ class ReativarNutricionistaTest extends DuskTestCase
     {
         $user = User::where('tipo_usuario', 1)->first();
 
-        $nutri = Nutricionista::factory()->create();
+        $nutri = MockNutricionista::criarNutricionista();
         $nutri->user->cadastro_aprovado = 0;
-        $nutri->user->email_verified_at = "2022-05-05 01:24:40";
         $nutri->user->save();
+
         Nutricionista::destroy($nutri->id);
         User::destroy($nutri->user->id);
 

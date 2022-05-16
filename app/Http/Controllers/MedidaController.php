@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMedidaRequest;
 use App\Services\MedidaService;
+use Illuminate\Http\Request;
 
 class MedidaController extends Controller
 {
@@ -13,9 +14,9 @@ class MedidaController extends Controller
     {
         $this->medidaService = $medidaService;
     }
-    public function index($id)
+    public function index($id, Request $request)
     {
-        $medidas = $this->medidaService->listarMedidas($id);
+        $medidas = $this->medidaService->listarMedidas($id, $request->inicio, $request->fim);
         return view("medida.list-medidas", ['id'=>$id, 'medidas' => $medidas]);
     }
 

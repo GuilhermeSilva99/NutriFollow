@@ -56,7 +56,7 @@ class MedidaRepository implements BaseRepositoryInterface
 
     public function findByPeriod($inicio, $fim, $paciente_id)
     {
-        return Medida::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->get();
+        return Medida::where('paciente_id', $paciente_id)->whereBetween('data', [$inicio, $fim])->orderBy('data', 'asc')->paginate(10);
     }
 
     public function findByPaciente($paciente_id)

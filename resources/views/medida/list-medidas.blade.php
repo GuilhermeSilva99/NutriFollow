@@ -1,28 +1,46 @@
 @extends('home')
 @section('content')
     <body class="antialiased">
-            @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>
-                                <div class="alert alert-danger" role="alert">{{ $error }}</div>
-                            </li>
-                        @endforeach
-                    </ul>
-                </div>         
-            @endif
-            @if(session('mensagem'))
-                <div class="alert alert-success">
-                    <p>{{session('mensagem')}}</p>
-                </div>
-            @endif
-            @if(session('mensagem-delete'))
-                <div class="alert alert-danger">
-                    <p>{{session('mensagem-delete')}}</p>
-                </div>
-            @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>
+                            <div class="alert alert-danger" role="alert">{{ $error }}</div>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>         
+        @endif
+        @if(session('mensagem'))
+            <div class="alert alert-success">
+                <p>{{session('mensagem')}}</p>
+            </div>
+        @endif
+        @if(session('mensagem-delete'))
+            <div class="alert alert-danger">
+                <p>{{session('mensagem-delete')}}</p>
+            </div>
+        @endif
 
+        <div class="mx-auto" style="width: 680px;">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="{{ route('nutricionista.listar.exame.paciente', $id) }}">Exame</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                        href="{{ route('nutricionista.listar.comorbidade.paciente', $id) }}">Cormobidade</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{{route('nutricionista.listar.suplemento.paciente', $id)}}">Suplemento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/nutricionista/paciente/medida/{{$id}}">Medidas</a>
+                </li>
+            </ul>
+        </div>
             
         <div class="row card justify-content-center pt-4">
             <div class="col">

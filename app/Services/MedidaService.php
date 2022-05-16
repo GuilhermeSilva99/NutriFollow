@@ -14,9 +14,15 @@ class MedidaService
         $this->medidaRepository = $medidaRepository;
     }
 
-    public function listarMedidas($user_id)
+    public function listarMedidas($paciente_id, $inicio, $fim)
     {
-        return $this->medidaRepository->findByUserId($user_id);
+        Carbon::setlocale('pt-BR');
+        if ($inicio == null || $fim == null) {
+            $fim = Carbon::now();
+            $inicio = Carbon::now()->sub(30, 'days');
+        }
+
+        return $this->medidaRepository->findByPeriod($inicio, $fim, $paciente_id);
     }
 
     public function delete($id)
@@ -27,7 +33,7 @@ class MedidaService
     public function create($dados, $id)
     {
         $dados['paciente_id'] = $id;
-        return $this->medidaRepository->saveByUserId($dados);
+        return $this->medidaRepository->save($dados);
     }
 
     public function save($dados, $id)

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResetPasswordRequest;
 use App\Http\Requests\StoreComorbidadeRequest;
+use App\Http\Requests\StoreExameRequest;
 use App\Http\Requests\StorePacienteRequest;
 use App\Http\Requests\UpdateComorbidadeRequest;
+use App\Http\Requests\UpdateExameRequest;
 use App\Http\Requests\UpdatePacienteRequest;
-use App\Models\Paciente;
 use App\Services\NutricionistaService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class NutricionistaController extends Controller
 {
@@ -117,10 +117,9 @@ class NutricionistaController extends Controller
 
     //Comorbidade
 
-    public function criarComorbidadePaciente()
+    public function criarComorbidadePaciente($id)
     {
-        $pacientes = $this->nutricionistaService->listarPacientes();
-        return view('comorbidade.cadastro-comorbidade-paciente', ["pacientes" => $pacientes]);
+        return view('comorbidade.cadastro-comorbidade-paciente', ['id' => $id]);
     }
 
     public function salvarComorbidadePaciente(StoreComorbidadeRequest $request)
@@ -133,7 +132,7 @@ class NutricionistaController extends Controller
     public function listarComorbidadesPaciente(Request $request)
     {
         $comorbidades = $this->nutricionistaService->listarComorbidades($request->id);
-        return view('comorbidade.lista-comorbidades-paciente', ['comorbidades' => $comorbidades]);
+        return view('comorbidade.lista-comorbidades-paciente', ['comorbidades' => $comorbidades, 'id' => $request->id]);
     }
 
     public function editarComorbidadePaciente($comorbidadeID)
@@ -155,5 +154,51 @@ class NutricionistaController extends Controller
         $comorbidade = $this->nutricionistaService->recuperarComorbidadePaciente($comorbidadeID);
         $this->nutricionistaService->deletarComorbidadePaciente($comorbidadeID);
         return redirect()->route('nutricionista.listar.comorbidade.paciente', $comorbidade->paciente_id);
+    }
+
+    public function consulta()
+    {
+        $pacientes = $this->nutricionistaService->listarPacientes();
+        return view('consulta.selecionar-paciente', ["pacientes" => $pacientes]);
+    }
+
+    public function cadastrarExamePaciente($id)
+    {
+        return view('consulta.cadastro-exame-paciente', ["id" => $id]);
+    }
+
+    public function salvarExamePaciente(StoreExameRequest $request)
+    {
+        $dados = $request->validated();
+        $this->nutricionistaService->salvarExamePaciente($dados);
+
+        return view('consulta.cadastro-exame-paciente', ["id" => $request->paciente_id]);
+    }
+
+    public function listarExamePaciente(Request $request)
+    {
+        $exames = $this->nutricionistaService->listarExames($request->id);
+        return view('consulta.lista-exames-paciente', ['exames' => $exames, 'id' => $request->id]);
+    }
+
+    public function editarExamePaciente($exame_id)
+    {
+        $exame = $this->nutricionistaService->recuperarExame($exame_id);
+        return view('consulta.edita-exame-paciente', ["exame" => $exame]);
+    }
+
+    public function atualizarExamePaciente(UpdateExameRequest $request)
+    {
+        $dados = $request->validated();
+        $this->nutricionistaService->atualizarExamePaciente($dados, $request->id);
+        $exame = $this->nutricionistaService->recuperarExame($request->id);
+        return redirect()->route('nutricionista.listar.exame.paciente', $exame->paciente_id);
+    }
+
+    public function deletarExamePaciente($exame_id)
+    {
+        $exame = $this->nutricionistaService->recuperarExame($exame_id);
+        $this->nutricionistaService->deletarExamePaciente($exame_id);
+        return redirect()->route('nutricionista.listar.exame.paciente', $exame->paciente_id);
     }
 }

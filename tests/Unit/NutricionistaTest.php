@@ -8,6 +8,7 @@ use App\Models\Nutricionista;
 use App\Models\User;
 use App\Models\Paciente;
 use App\Repository\ComorbidadeRepository;
+use App\Repository\ExameRepository;
 use App\Repository\NutricionistaRepository;
 use App\Repository\UserRepository;
 use App\Repository\PacienteRepository;
@@ -129,7 +130,8 @@ class AprovacaoNutriTest extends TestCase
         $pacienteRepository = new PacienteRepository();
         $nutricionistaRepository = new NutricionistaRepository();
         $comorbidadeRepository = new ComorbidadeRepository();
-        $nutricionistaService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository);
+        $exameRepository = new ExameRepository();
+        $nutricionistaService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository, $exameRepository);
 
         $nutricionistaService->inativarPaciente($paciente->id);
 
