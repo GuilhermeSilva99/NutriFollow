@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use App\Models\Exame;
+use App\Models\Paciente;
 use App\Models\User;
 use App\Repository\ComorbidadeRepository;
 use App\Repository\ExameRepository;
@@ -96,5 +98,80 @@ class PacienteTest extends TestCase
 
         $usuarioPaciente = $userRepository->find(3);
         assertTrue(Hash::check('Teste123456', $usuarioPaciente->password));
+    }
+
+    public function testCadastrarExamePaciente(){
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+        $comorbidadeRepository = new ComorbidadeRepository();
+        $exameRepository = new ExameRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository, $exameRepository);
+        $paciente = Paciente::first();
+        $dados = [
+            'nome' => 'hemoglobina',  'descricao' => '5%',
+            'data_realizacao' =>'2022-05-05', 'paciente_id'=>$paciente->id
+        ];
+
+        $exame = $nutriService->salvarExamePaciente($dados);
+        assertEquals($dados['nome'], $exame->nome);
+        assertEquals($dados['descricao'], $exame->descricao);
+        assertEquals($dados['data_realizacao'], $exame->data_realizacao);
+        assertEquals($dados['paciente_id'], $exame->paciente_id);
+
+        $exameRepository->delete($exame->id);
+    }
+
+    public function testEditarExamePaciente(){
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+        $comorbidadeRepository = new ComorbidadeRepository();
+        $exameRepository = new ExameRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository, $exameRepository);
+        $paciente = Paciente::first();
+        $dados = [
+            'nome' => 'hemoglobina',  'descricao' => '5%',
+            'data_realizacao' =>'2022-05-05', 'paciente_id'=>$paciente->id
+        ];
+
+        $exame = $nutriService->salvarExamePaciente($dados);
+
+        $dados_edit = [
+            'nome' => 'hemoglobina glicada',  'descricao' => '6%',
+            'data_realizacao' =>'2022-06-05', 'paciente_id'=>$paciente->id
+        ];
+        
+        $edition = $nutriService->atualizarExamePaciente($dados_edit, $exame->id);
+
+        $exame = $exameRepository->find($exame->id);
+
+        assertTrue($edition);
+        assertEquals($dados_edit['nome'], $exame->nome);
+        assertEquals($dados_edit['descricao'], $exame->descricao);
+        assertEquals($dados_edit['data_realizacao'], $exame->data_realizacao);
+        assertEquals($dados_edit['paciente_id'], $exame->paciente_id);
+
+        $exameRepository->delete($exame->id);
+    }
+
+    public function testDeletarExamePaciente(){
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+        $comorbidadeRepository = new ComorbidadeRepository();
+        $exameRepository = new ExameRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository, $exameRepository);
+        $paciente = Paciente::first();
+        $dados = [
+            'nome' => 'hemoglobina',  'descricao' => '5%',
+            'data_realizacao' =>'2022-05-05', 'paciente_id'=>$paciente->id
+        ];
+
+        $exame = $nutriService->salvarExamePaciente($dados);
+
+        $delete = $nutriService->deletarExamePaciente($exame->id);
+
+        assertEquals(1, $delete);
     }
 }

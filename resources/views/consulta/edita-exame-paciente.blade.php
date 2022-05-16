@@ -14,7 +14,7 @@
                     <input type="text" class="form-control" id="descricao" name="descricao" value="{{ $exame->descricao }}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="data_diagnostico" class="form-label">Data de Realização</label>
+                    <label for="data_realizacao" class="form-label">Data de Realização</label>
                     <input type="date" placeholder="dd/mm/yyyy" class="form-control" id="data_realizacao" name="data_realizacao" value="{{ $exame->data_realizacao }}" required>
                 </div>
                 <button type="submit" class="btn btn-outline-secondary" 
