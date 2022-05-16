@@ -157,7 +157,6 @@ class NutricionistaService
 
     public function atualizarExamePaciente($dadosExame, $exame_id)
     {
-        // dd($dadosExame);
         return $this->exameRepository->update($exame_id, $dadosExame);
     }
 
