@@ -174,4 +174,31 @@ class PacienteTest extends TestCase
 
         assertEquals(1, $delete);
     }
+
+    public function testRecuperarExamePaciente(){
+        $nutricionistaRepository = new NutricionistaRepository();
+        $userRepository = new UserRepository();
+        $pacienteRepository = new PacienteRepository();
+        $comorbidadeRepository = new ComorbidadeRepository();
+        $exameRepository = new ExameRepository();
+        $nutriService = new NutricionistaService($pacienteRepository, $nutricionistaRepository, $userRepository, $comorbidadeRepository, $exameRepository);
+        $paciente = Paciente::first();
+        $dados = [
+            'nome' => 'hemoglobina',  'descricao' => '5%',
+            'data_realizacao' =>'2022-05-05', 'paciente_id'=>$paciente->id
+        ];
+
+        $exame = $nutriService->salvarExamePaciente($dados);
+
+        $exame_recuperado = $nutriService->recuperarExame($exame->id);
+
+        assertEquals($exame_recuperado->id, $exame->id);
+        assertEquals($exame_recuperado->nome, $exame->nome);
+        assertEquals($exame_recuperado->descricao, $exame->descricao);
+        assertEquals($exame_recuperado->data_realizacao, $exame->data_realizacao);
+        assertEquals($exame_recuperado->paciente_id, $exame->paciente_id);
+        
+
+        $exameRepository->delete($exame->id);
+    }
 }
