@@ -45,16 +45,17 @@
                 </div>
                 <form method="POST" action="{{ route('sono', $id) }}">
                     @csrf
-                    <div>Intervalo</div>
-                    <div class="form-group" style="margin: 3px; width:20%;">
-                        
-                        <input type="date" class="form-control" name="inicio" autocomplete="off" />
+                    <div class="container mt-5" style="max-width: 450px">
+                        <div class="row form-group">       
+                            <label class="col-sm-5 col-form-label">Início</label> 
+                            <label class="col-sm-1 col-form-label">Fim</label>                        
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="date" class="input-sm form-control" name="inicio" autocomplete="off"/>
+                                <input type="date" class="input-sm form-control" name="fim" autocomplete="off"/>
+                                <button class="btn btn-success" type="submit">Filtrar</button>
+                            </div>
+                        </div>
                     </div>
-                    <span> A </span>
-                    <div class="form-group" style="margin: 3px; width:20%;">
-                        <input type="date" class="form-control" name="fim" autocomplete="off" />
-                    </div>
-                    <button class="btn btn-success" type="submit">Filtrar</button>
                 </form>
             </div>
 
