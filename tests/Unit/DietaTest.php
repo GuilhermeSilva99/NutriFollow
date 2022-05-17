@@ -33,7 +33,6 @@ class DietaTest extends TestCase
         $request = new Request($dados);
         $dietaController->store($request);
         $ultimaDieta = $dieta->latest()->first();
-        assertEquals($dados['descricao'], $ultimaDieta->descricao);
         assertEquals($dados['data_inicio'], $ultimaDieta->data_inicio);
         assertEquals($dados['data_fim'], $ultimaDieta->data_fim);
         assertEquals($dados['paciente_id'], $ultimaDieta->paciente_id);

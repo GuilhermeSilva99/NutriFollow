@@ -28,7 +28,7 @@ class RefeicaoTest extends TestCase
 
 
 
-    public function testCadastrarDietaPaciente(){
+    public function testCadastrarRefeicaoPaciente(){
         $dieta = new Dieta();
         $ultimaDieta = $dieta->latest()->first();
 
@@ -47,7 +47,7 @@ class RefeicaoTest extends TestCase
         
         $dados = [
             'nome_refeicao' => 'nome da refeicao',  'descricao_refeicao' => 'descricao da refeicao',
-            'caloria' =>'1000', 'horario'=>'04:45:00', 'dieta_id' => $ultimaDieta->id,
+            'caloria' =>'1000.0', 'horario'=>'04:45:00', 'dieta_id' => $ultimaDieta->id,
         ];
         
         $request = new Request($dados);
@@ -68,7 +68,7 @@ class RefeicaoTest extends TestCase
     }
 
     
-    public function testEditarDietaPaciente(){
+    public function testEditarRefeicaoPaciente(){
         $dieta = new Dieta();
         $ultimaDieta = $dieta->latest()->first();
 
@@ -105,7 +105,7 @@ class RefeicaoTest extends TestCase
 
         $dados_edit = [
             'nome_refeicao' => 'nome da refeica editada',  'descricao_refeicao' => 'descricao da refeicao editada',
-            'caloria' =>'2000', 'horario'=>'08:45:00'
+            'caloria' =>'2000.0', 'horario'=>'08:45:00'
         ];
         
         $request = new Request($dados_edit);
